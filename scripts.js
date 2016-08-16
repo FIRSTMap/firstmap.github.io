@@ -7,6 +7,12 @@ function initMap() {
 			lng: 0
 		},
 		zoom: 2,
+		disableDefaultUI: true,
+		zoomControl: true,
+		mapTypeControl: false,
+		streetViewControl: false,
+		rotateControl: false,
+        fullscreenControl: true,
 		styles: [{
 			featureType: "water",
 			elementType: "geometry",
@@ -77,10 +83,19 @@ function initMap() {
 		}]
 	});
 	for (i = 0; i < teams.length; i++) {
-		var marker = new google.maps.Marker({
-			position: coordinates[i],
-			title: '' + teams[i]
-		});
-		marker.setMap(map);
+        createMarker(coordinates[i], teams[i]);
 	}
+}
+
+function createMarker(pos, t) {
+    var marker = new google.maps.Marker({
+        position: pos,
+        map: map,  // google.maps.Map
+        title: t + '',
+        icon: 'marker.png'
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+       alert('I am marker ' + marker.title);
+    });
+    return marker;
 }
