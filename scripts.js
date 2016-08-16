@@ -1,6 +1,3 @@
-var teams = [1418];
-var locs = ['Falls Church, VA'];
-
 var map;
 
 function initMap() {
@@ -13,8 +10,8 @@ function initMap() {
 		styles: [{
 			featureType: 'all',
 			stylers: [{
-
-            }]
+				brightness: 20
+			}]
 		}, {
 			featureType: 'road.arterial',
 			elementType: 'geometry',
@@ -24,17 +21,24 @@ function initMap() {
 				saturation: 50
 			}]
 		}, {
-			featureType: 'poi',
-			elementType: 'labels',
-			stylers: [{
-				visibility: 'off'
-			}]
-		}],
-		zoomControl: true,
-		mapTypeControl: true,
-		scaleControl: false,
-		streetViewControl: false,
-		rotateControl: false,
-		fullscreenControl: true
+            featureType: 'poi.school',
+            // TODO: Add special styling for schools
+        }, {
+            featureType: 'water',
+            stylers: [{
+                hue: '#333333'
+            }, {
+                saturation: -100
+            }, {
+                lightness: -50
+            }]
+        }]
 	});
+	for (i = 0; i < teams.length; i++) {
+		var marker = new google.maps.Marker({
+			position: coordinates[i],
+			title: '' + teams[i]
+		});
+		marker.setMap(map);
+	}
 }
