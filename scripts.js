@@ -116,7 +116,7 @@ function openInfo(num, marker) {
 			content += '<ul>';
 			content += '<li><strong>Location:</strong> ' + team.location + '</li>';
 			content += team.rookie_year ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>' : '';
-            content += '<li><a href="http://thebluealliance.com/team/' + num + '">View team on The Blue Alliance</a></li>';
+            content += '<li><a href="http://thebluealliance.com/team/' + num + '">View on The Blue Alliance</a></li>';
 			content += '</ul>';
             try {
                 var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];

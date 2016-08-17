@@ -35,5 +35,14 @@ p {
 }
 ul {
     margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
     list-style-type: none;
+}
+a {
+    color: inherit;
+}
+a:hover {
+    text-decoration: none;
 }
