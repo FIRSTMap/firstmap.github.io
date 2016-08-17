@@ -12,7 +12,7 @@ function initMap() {
 		mapTypeControl: false,
 		streetViewControl: false,
 		rotateControl: false,
-        fullscreenControl: true,
+		fullscreenControl: true,
 		styles: [{
 			featureType: "water",
 			elementType: "geometry",
@@ -83,19 +83,49 @@ function initMap() {
 		}]
 	});
 	for (i = 0; i < teams.length; i++) {
-        createMarker(coordinates[i], teams[i]);
+		createMarker(coordinates[i], teams[i]);
 	}
 }
 
 function createMarker(pos, t) {
-    var marker = new google.maps.Marker({
-        position: pos,
-        map: map,  // google.maps.Map
-        title: t + '',
-        icon: 'marker.png'
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-       alert('I am marker ' + marker.title);
-    });
-    return marker;
+	var marker = new google.maps.Marker({
+		position: pos,
+		map: map, // google.maps.Map
+		title: t + '',
+		icon: 'marker.png'
+	});
+	google.maps.event.addListener(marker, 'click', function() {
+		openInfo(t, marker);
+	});
+	return marker;
+}
+
+function openInfo(num, marker) {
+	var req = new XMLHttpRequest();
+	req.open('GET', 'https://www.thebluealliance.com/api/v2/team/frc' + num + '?X-TBA-App-Id=erikboesen:frcmap:v1.0');
+	req.send();
+	req.onreadystatechange = function() {
+		if (req.readyState === 4 && req.status === 200) {
+			var team = JSON.parse(req.responseText);
+            var content = '<h1>';
+            content += team.website ? '<a href="' + team.website + '">' : '';
+			content += 'Team ' + team.team_number;
+			content += team.nickname ? ' - ' + team.nickname : '';
+            content += team.website ? '</a></h1>' : '</h1>';
+			content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : '';
+			content += '<ul>';
+			content += '<li><strong>Location:</strong> ' + team.location + '</li>';
+			content += team.rookie_year ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>' : '';
+            content += '<li><a href="http://thebluealliance.com/team/' + num + '">View team on The Blue Alliance</a></li>';
+			content += '</ul>';
+            try {
+                var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
+                oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode);
+            } catch (e) {}
+			var infoWindow = new google.maps.InfoWindow({
+				content: content
+			});
+			infoWindow.open(map, marker);
+		}
+	};
 }

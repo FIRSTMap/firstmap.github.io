@@ -1,10 +1,39 @@
-html,
-body {
-    height: 100%;
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(https://fonts.gstatic.com/s/roboto/v15/2tsd397wLxj96qwHyNIkxHYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+  unicode-range: U+0000-00FF;
+}
+* {
     margin: 0;
     padding: 0;
 }
-
+html,
+body {
+    height: 100%;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
 #map {
     height: 100%;
+}
+.gm-style-iw {
+    border-radius: 2px 2px 0 0;
+}
+h1 {
+    font-size: 22px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+}
+p {
+    text-align: center;
+}
+ul {
+    margin-top: 10px;
+    list-style-type: none;
 }
