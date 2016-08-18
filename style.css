@@ -35,9 +35,6 @@ p {
 }
 ul {
     margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
     list-style-type: none;
 }
 a {
