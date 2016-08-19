@@ -2,7 +2,7 @@ var map;
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: {
+		center:{
 			lat: 30,
 			lng: 0
 		},
@@ -14,71 +14,71 @@ function initMap() {
 		rotateControl: false,
 		fullscreenControl: true,
 		styles: [{
-			featureType: "water",
-			elementType: "geometry",
+			featureType: 'water',
+			elementType: 'geometry',
 			stylers: [{
-				color: "#193341"
+				color: '#193341'
 			}]
 		}, {
-			featureType: "landscape",
-			elementType: "geometry",
+			featureType: 'landscape',
+			elementType: 'geometry',
 			stylers: [{
-				color: "#2c5a71"
+				color: '#2c5a71'
 			}]
 		}, {
-			featureType: "road",
-			elementType: "geometry",
+			featureType: 'road',
+			elementType: 'geometry',
 			stylers: [{
-				color: "#29768a"
+				color: '#29768a'
 			}, {
 				lightness: -37
 			}]
 		}, {
-			featureType: "poi",
-			elementType: "geometry",
+			featureType: 'poi',
+			elementType: 'geometry',
 			stylers: [{
-				color: "#406d80"
+				color: '#406d80'
 			}]
 		}, {
-			featureType: "transit",
-			elementType: "geometry",
+			featureType: 'transit',
+			elementType: 'geometry',
 			stylers: [{
-				color: "#406d80"
+				color: '#406d80'
 			}]
 		}, {
-			elementType: "labels.text.stroke",
+			elementType: 'labels.text.stroke',
 			stylers: [{
-				visibility: "on"
+				visibility: 'on'
 			}, {
-				color: "#3e606f"
+				color: '#3e606f'
 			}, {
 				weight: 2
 			}, {
 				gamma: 0.84
 			}]
 		}, {
-			elementType: "labels.text.fill",
+			elementType: 'labels.text.fill',
 			stylers: [{
-				color: "#ffffff"
+				color: '#ffffff'
 			}]
 		}, {
-			featureType: "administrative",
-			elementType: "geometry",
+			featureType: 'administrative',
+			elementType: 'geometry',
 			stylers: [{
 				weight: 0.6
 			}, {
-				color: "#1a3541"
+				color: '#1a3541'
 			}]
 		}, {
-			elementType: "labels.icon",
+			elementType: 'labels.icon',
 			stylers: [{
-				visibility: "off"
+				visibility: 'off'
 			}]
 		}, {
-			featureType: "poi.park",
-			elementType: "geometry",
+			featureType: 'poi.park',
+			elementType: 'geometry',
 			stylers: [{
-				color: "#2c5a71"
+				color: '#2c5a71'
 			}]
 		}]
 	});
@@ -88,16 +88,22 @@ function initMap() {
 }
 
 function createMarker(pos, t) {
-	var marker = new google.maps.Marker({
-		position: pos,
-		map: map, // google.maps.Map
-		title: t + '',
-		icon: 'marker.png'
-	});
-	google.maps.event.addListener(marker, 'click', function() {
-		openInfo(t, marker);
-	});
-	return marker;
+	if (pos) {
+		pos = {
+			lat: pos.lat + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1)),
+			lng: pos.lng + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1))
+		};
+		var marker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			title: t + '',
+			icon: 'marker.png'
+		});
+		google.maps.event.addListener(marker, 'click', function() {
+			openInfo(t, marker);
+		});
+		return marker;
+	}
 }
 
 function openInfo(num, marker) {
@@ -107,21 +113,21 @@ function openInfo(num, marker) {
 	req.onreadystatechange = function() {
 		if (req.readyState === 4 && req.status === 200) {
 			var team = JSON.parse(req.responseText);
-            var content = '<h1>';
-            content += team.website ? '<a href="' + team.website + '">' : '';
+			var content = '<h1>';
+			content += team.website ? '<a href="' + team.website + '">' : '';
 			content += 'Team ' + team.team_number;
 			content += team.nickname ? ' - ' + team.nickname : '';
-            content += team.website ? '</a></h1>' : '</h1>';
+			content += team.website ? '</a></h1>' : '</h1>';
 			content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : '';
 			content += '<ul>';
 			content += '<li><strong>Location:</strong> ' + team.location + '</li>';
 			content += team.rookie_year ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>' : '';
-            content += '<li><a href="http://thebluealliance.com/team/' + num + '">View on The Blue Alliance</a></li>';
+			content += '<li><a href="http://thebluealliance.com/team/' + num + '">View on The Blue Alliance</a></li>';
 			content += '</ul>';
-            try {
-                var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
-                oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode);
-            } catch (e) {}
+			try {
+				var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
+				oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode);
+			} catch (e) {}
 			var infoWindow = new google.maps.InfoWindow({
 				content: content
 			});
