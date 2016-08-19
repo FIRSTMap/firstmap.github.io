@@ -97,7 +97,7 @@ function createMarker(pos, t) {
 			position: pos,
 			map: map,
 			title: t + '',
-			icon: 'marker.png'
+			icon: (icons.indexOf(t) != -1) ? 'logos/' + t + '.png' : 'marker.png'
 		});
 		google.maps.event.addListener(marker, 'click', function() {
 			openInfo(t, marker);
