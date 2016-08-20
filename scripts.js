@@ -1,10 +1,16 @@
-// TODO: Comments needed here.
+// TODO: Comments needed in this file.
+
+// Add your team to this list when you've put an icon in /logos!
+var icons = [
+	1418,
+    5115
+];
 
 var map;
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
-		center:{
+		center: {
 			lat: 30,
 			lng: 0
 		},
