@@ -1,5 +1,7 @@
-# FIRSTMap
+# FIRST Map
 An interactive online map of FRC teams.
+
+![Screenshot of FIRST Map](screenshot.png)
 
 # Adding your team's logo
 1. Fork the repository.

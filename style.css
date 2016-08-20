@@ -2,7 +2,7 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(https://fonts.gstatic.com/s/roboto/v15/2tsd397wLxj96qwHyNIkxHYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(Roboto.woff2) format('woff2');
   unicode-range: U+0000-00FF;
 }
 * {

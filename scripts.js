@@ -1,3 +1,5 @@
+// TODO: Comments needed here.
+
 var map;
 
 function initMap() {
