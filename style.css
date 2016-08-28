@@ -8,6 +8,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 html,
 body {
@@ -42,4 +43,17 @@ a {
 }
 a:hover {
     text-decoration: none;
+}
+.github-banner {
+    position: absolute;
+    top: 40px;
+    left: -80px;
+    padding: 10px;
+    color: white;
+    background: #175f7e;
+    width: 300px;
+    text-align: center;
+    text-decoration: none;
+    transform: rotate(-40deg);
+    cursor: url(fork.ico), pointer;
 }
