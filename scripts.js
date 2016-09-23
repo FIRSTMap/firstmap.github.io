@@ -3,6 +3,7 @@
 // Add your team to this list when you've put an icon in /logos!
 var icons = [
 	1418,
+	1706,
 	171,
 	1982,
 	2370,
