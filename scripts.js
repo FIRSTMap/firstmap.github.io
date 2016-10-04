@@ -40,6 +40,10 @@ var teamMarkers = []
 var regionalMarkers = []
 var districtMarkers = []
 
+var teamState = true;
+var regState = true;
+var distState = true;
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {
@@ -248,4 +252,60 @@ function openInfo(num, marker) {
 			infoWindow.open(map, marker);
 		}
 	};
+}
+
+function toggleMarkers(type) {
+	switch (type) {
+		case 'teams':
+
+				for (i=0; i < teamMarkers.length; i++) {
+					if (teamState == true) {
+						teamMarkers[i].setMap(null);
+					} else {
+						teamMarkers[i].setMap(map);
+					}
+				}
+
+				if (teamState == true) {
+					teamState = false;
+				} else {
+					teamState = true;
+				}
+
+			break;
+		case 'regionals':
+
+				for (i=0; i < regionalMarkers.length; i++) {
+					if (regState == true) {
+						regionalMarkers[i].setMap(null);
+					} else {
+						regionalMarkers[i].setMap(map);
+					}
+				}
+
+				if (regState == true) {
+					regState = false;
+				} else {
+					regState = true;
+				}
+
+			break;
+		case 'districts':
+
+				for (i=0; i < districtMarkers.length; i++) {
+					if (distState == true) {
+						districtMarkers[i].setMap(null);
+					} else {
+						districtMarkers[i].setMap(map);
+					}
+				}
+
+				if (distState == true) {
+					distState = false;
+				} else {
+					distState = true;
+				}
+
+			break;
+	}
 }
