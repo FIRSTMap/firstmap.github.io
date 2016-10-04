@@ -29,6 +29,12 @@ var icons = [
 	5431
 ];
 
+
+// Is your team's location wrong?  Add your team and coordinates to this object to update their correct coordinates manually
+var updatedLocations = {
+	2403: {lat:33.434551, lng:-111.672356}
+}
+
 var map;
 
 function initMap() {
@@ -116,20 +122,54 @@ function initMap() {
 	for (i = 0; i < teams.length; i++) {
 		createMarker(coordinates[i], teams[i]);
 	}
+	for (i=0; i < regionals.length; i++) {
+		createCompetitionMarker(regionals[i]);
+	}
+}
+
+function createCompetitionMarker(competitionEntry) {
+	if(competitionEntry){
+		pos = {
+			lat: competitionEntry[1].lat,
+			lng: competitionEntry[1].lng
+		};
+
+		var marker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			title: competitionEntry[0],
+			icon: 'regional.png'
+		});
+
+		google.maps.event.addListener(marker, 'click', function() {
+			openCompInfo('regional', competitionEntry, marker);
+		});
+
+		return marker
+	}
 }
 
 function createMarker(pos, t) {
 	if (pos) {
-		pos = {
-			lat: pos.lat + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1)),
-			lng: pos.lng + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1))
-		};
+		if (t in updatedLocations) {
+			pos = {
+				lat: updatedLocations[t].lat,
+				lng: updatedLocations[t].lng
+			};
+		} else {
+			pos = {
+				lat: pos.lat + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1)),
+				lng: pos.lng + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1))
+			};
+		}
+
 		var marker = new google.maps.Marker({
 			position: pos,
 			map: map,
 			title: t + '',
 			icon: (icons.indexOf(t) != -1) ? 'logos/' + t + '.png' : 'marker.png'
 		});
+
 		google.maps.event.addListener(marker, 'click', function() {
 			openInfo(t, marker);
 		});
@@ -137,9 +177,27 @@ function createMarker(pos, t) {
 	}
 }
 
+function openCompInfo(type, entry, marker) {
+	var content = '<h1>';
+	content += entry[0]
+	content += '</h1>'
+	content += '<h3 style="text-align: center;">Week '
+	content += entry[2]
+	content += '</h3>'
+
+	try {
+		var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
+		oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode);
+	} catch (e) {}
+	var infoWindow = new google.maps.InfoWindow({
+		content: content
+	});
+	infoWindow.open(map, marker);
+}
+
 function openInfo(num, marker) {
 	var req = new XMLHttpRequest();
-	req.open('GET', 'https://www.thebluealliance.com/api/v2/team/frc' + num + '?X-TBA-App-Id=erikboesen:frcmap:v1.0');
+	req.open('GET', 'https://www.thebluealliance.com/api/v2/team/frc' + num + '?X-TBA-App-Id=erikboesen:frcmap:v1.0'); 
 	req.send();
 	req.onreadystatechange = function() {
 		if (req.readyState === 4 && req.status === 200) {
