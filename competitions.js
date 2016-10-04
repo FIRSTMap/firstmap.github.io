@@ -50,3 +50,21 @@ var regionals = [
   ["Seven Rivers Regional", {lat:43.80135, lng:-91.23958}, 7],
   ["Mexico City Regional", {lat:19.4326, lng:-99.1332}, 9]
 ]
+
+var districts = [
+  ["FIM District", "Kettering University Event #1", {lat:43.010205, lng:-83.679938}, 1],
+  ["FIM District", "Lakeview Event", {lat:42.316441, lng:-85.180314}, 1],
+  ["FIM District", "Southfield Event", {lat:42.476578, lng:-83.219354}, 1],
+  ["PNW District", "West Valley Event", {lat:47.651482, lng:-117.412158}, 1],
+  ["NE District", "Waterbury Event", {lat:41.554192, lng:-73.045659}, 1],
+  ["PCH District", "Gainesville Event", {lat:34.299318, lng:-83.827039}, 1],
+  ["IN District", "Tippecanoe Event", {lat:40.445368, lng:-86.928474}, 1],
+  ["NC District", "Pitt County Event", {lat:35.527953, lng:-77.402238}, 1],
+  ["NE District", "Granite State Event", {lat:42.801509, lng:-71.305364}, 1],
+  ["ONT District", "Durham College Event", {lat:43.896361, lng:-78.866687}, 1],
+  ["MAR District", "Hatboro-Horsham Event", {lat:40.178517, lng:-75.127865}, 1],
+  ["CHS District", "Southwest Virginia Event", {lat:37.228396, lng:-80.423104}, 1],
+  ["CHS District", "Northern Virginia Event", {lat:38.811852, lng:-77.636422}, 1],
+  ["PNW District", "Auburn Mountainview Event", {lat:47.306101, lng:-122.230300}, 1],
+  ["ISR District", "Event #1", {lat:32.082635, lng:34.781107}, 1]
+]

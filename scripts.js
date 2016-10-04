@@ -36,6 +36,9 @@ var updatedLocations = {
 }
 
 var map;
+var teamMarkers = []
+var regionalMarkers = []
+var districtMarkers = []
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -119,31 +122,43 @@ function initMap() {
 			}]
 		}]
 	});
+
 	for (i = 0; i < teams.length; i++) {
 		createMarker(coordinates[i], teams[i]);
 	}
+
 	for (i=0; i < regionals.length; i++) {
-		createCompetitionMarker(regionals[i]);
+		createCompetitionMarker("regional", regionals[i]);
+	}
+
+	for (i=0; i < districts.length; i++) {
+		createCompetitionMarker("district", districts[i]);
 	}
 }
 
-function createCompetitionMarker(competitionEntry) {
+function createCompetitionMarker(type, competitionEntry) {
 	if(competitionEntry){
 		pos = {
-			lat: competitionEntry[1].lat,
-			lng: competitionEntry[1].lng
+			lat: (type == 'regional') ? competitionEntry[1].lat : competitionEntry[2].lat,
+			lng: (type == 'regional') ? competitionEntry[1].lng : competitionEntry[2].lng
 		};
 
 		var marker = new google.maps.Marker({
 			position: pos,
 			map: map,
 			title: competitionEntry[0],
-			icon: 'regional.png'
+			icon: (type == 'district') ? 'district.png' : 'regional.png'
 		});
 
 		google.maps.event.addListener(marker, 'click', function() {
-			openCompInfo('regional', competitionEntry, marker);
+			openCompInfo(type, competitionEntry, marker);
 		});
+
+		if(type=='regional'){
+			regionalMarkers.push(marker);
+		} else {
+			districtMarkers.push(marker);
+		}
 
 		return marker
 	}
@@ -173,17 +188,27 @@ function createMarker(pos, t) {
 		google.maps.event.addListener(marker, 'click', function() {
 			openInfo(t, marker);
 		});
+
+		teamMarkers.push(marker);
+
 		return marker;
 	}
 }
 
 function openCompInfo(type, entry, marker) {
 	var content = '<h1>';
-	content += entry[0]
-	content += '</h1>'
-	content += '<h3 style="text-align: center;">Week '
-	content += entry[2]
-	content += '</h3>'
+	content += (type == 'regional') ? entry[0] : entry[1];
+	content += '</h1>';
+
+	if(type=='district') {
+		content += '<h2 style="text-align: center; font-weight: normal; padding-bottom: 10px;">'
+		content += entry[0]
+		content += '</h2>'
+	}
+
+	content += '<h3 style="text-align: center; font-weight: normal;"">Week ';
+	content += (type == 'regional') ? entry[2] : entry[3];
+	content += '</h3>';
 
 	try {
 		var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
@@ -197,7 +222,7 @@ function openCompInfo(type, entry, marker) {
 
 function openInfo(num, marker) {
 	var req = new XMLHttpRequest();
-	req.open('GET', 'https://www.thebluealliance.com/api/v2/team/frc' + num + '?X-TBA-App-Id=erikboesen:frcmap:v1.0'); 
+	req.open('GET', 'https://www.thebluealliance.com/api/v2/team/frc' + num + '?X-TBA-App-Id=erikboesen:frcmap:v1.0');
 	req.send();
 	req.onreadystatechange = function() {
 		if (req.readyState === 4 && req.status === 200) {
