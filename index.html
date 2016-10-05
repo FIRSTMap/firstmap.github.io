@@ -10,7 +10,16 @@
 
 <body>
     <div id="map"></div>
+
+    <div id='toggles'>
+      <div id='team_toggle' onclick="toggleMarkers('teams')">T</div>
+      <div id='regional_toggle' onclick="toggleMarkers('regionals')">R</div>
+      <div id='district_toggle' onclick="toggleMarkers('districts')">D</div>
+    </div>
+
     <a href="https://github.com/FIRSTMap/firstmap.github.io" class="github-banner" target="_blank">Fork on GitHub</a>
+
+    <!-- Javascript Scripts -->
     <script src="data.js"></script>
     <script src="competitions.js"></script>
     <script src="scripts.js"></script>
