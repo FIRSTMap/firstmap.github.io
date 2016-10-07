@@ -29,7 +29,20 @@ var icons = [
 	5431
 ];
 
+
+// Is your team's location wrong?  Add your team and coordinates to this object to update their correct coordinates manually
+var updatedLocations = {
+	2403: {lat:33.434551, lng:-111.672356}
+}
+
 var map;
+var teamMarkers = []
+var regionalMarkers = []
+var districtMarkers = []
+
+var teamState = true;
+var regState = true;
+var distState = true;
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -113,33 +126,121 @@ function initMap() {
 			}]
 		}]
 	});
+
 	for (i = 0; i < teams.length; i++) {
 		createMarker(coordinates[i], teams[i]);
+	}
+
+	for (i=0; i < regionals.length; i++) {
+		createCompetitionMarker("regional", regionals[i]);
+	}
+
+	for (i=0; i < districts.length; i++) {
+		createCompetitionMarker("district", districts[i]);
+	}
+}
+
+function createCompetitionMarker(type, competitionEntry) {
+	if(competitionEntry){
+		pos = {
+			lat: (type == 'regional') ? competitionEntry[1].lat : competitionEntry[2].lat,
+			lng: (type == 'regional') ? competitionEntry[1].lng : competitionEntry[2].lng
+		};
+
+		var image = {
+			url: (type == 'district') ? 'district.png' : 'regional.png',
+			scaledSize: new google.maps.Size(30, 30)
+		};
+
+		var marker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			title: competitionEntry[0],
+			icon: (type == 'district') ? 'district.png' : 'regional.png'
+		});
+
+		google.maps.event.addListener(marker, 'click', function() {
+			openCompInfo(type, competitionEntry, marker);
+		});
+
+		if(type=='regional'){
+			regionalMarkers.push(marker);
+		} else {
+			districtMarkers.push(marker);
+		}
+
+		return marker
 	}
 }
 
 function createMarker(pos, t) {
 	if (pos) {
-		pos = {
-			lat: pos.lat + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1)),
-			lng: pos.lng + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1))
-		};
+		if (t in updatedLocations) {
+			pos = {
+				lat: updatedLocations[t].lat,
+				lng: updatedLocations[t].lng
+			};
+		} else {
+			pos = {
+				lat: pos.lat + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1)),
+				lng: pos.lng + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1))
+			};
+		}
+
 		var custom = icons.indexOf(t) !== -1;
 		var image = {
 			url: custom ? 'logos/' + t + '.png' : 'marker.png',
 			scaledSize: custom ? new google.maps.Size(30, 30) : undefined
 		};
+
 		var marker = new google.maps.Marker({
 			position: pos,
 			map: map,
 			title: t + '',
 			icon: image
 		});
+
 		google.maps.event.addListener(marker, 'click', function() {
 			openInfo(t, marker);
 		});
+
+		teamMarkers.push(marker);
+
 		return marker;
 	}
+}
+
+function openCompInfo(type, entry, marker) {
+	var content = '<h1>';
+	content += (type == 'regional') ? entry[0] : entry[1];
+	content += '</h1>';
+
+	if(type=='district') {
+		content += '<h2 style="text-align: center; font-weight: normal; padding-bottom: 10px;">'
+		content += entry[0]
+		content += '</h2>'
+	}
+
+	content += '<h3 style="text-align: center; font-weight: normal;"">Week ';
+	content += (type == 'regional') ? entry[2] : entry[3];
+	content += '<br/>';
+	content += (type == 'regional') ? entry[4] : entry[5];
+
+	content += '<br/>';
+	content += '<a href="http://www.thebluealliance.com/event/'
+	content += (type == 'regional') ? entry[3] : entry[4]
+	content += '"> View on The Blue Alliance </a>'
+
+	content += '</h3>';
+
+	try {
+		var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
+		oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode);
+	} catch (e) {}
+	var infoWindow = new google.maps.InfoWindow({
+		content: content
+	});
+	infoWindow.open(map, marker);
 }
 
 function openInfo(num, marker) {
@@ -170,4 +271,60 @@ function openInfo(num, marker) {
 			infoWindow.open(map, marker);
 		}
 	};
+}
+
+function toggleMarkers(type) {
+	switch (type) {
+		case 'teams':
+
+				for (i=0; i < teamMarkers.length; i++) {
+					if (teamState == true) {
+						teamMarkers[i].setMap(null);
+					} else {
+						teamMarkers[i].setMap(map);
+					}
+				}
+
+				if (teamState == true) {
+					teamState = false;
+				} else {
+					teamState = true;
+				}
+
+			break;
+		case 'regionals':
+
+				for (i=0; i < regionalMarkers.length; i++) {
+					if (regState == true) {
+						regionalMarkers[i].setMap(null);
+					} else {
+						regionalMarkers[i].setMap(map);
+					}
+				}
+
+				if (regState == true) {
+					regState = false;
+				} else {
+					regState = true;
+				}
+
+			break;
+		case 'districts':
+
+				for (i=0; i < districtMarkers.length; i++) {
+					if (distState == true) {
+						districtMarkers[i].setMap(null);
+					} else {
+						districtMarkers[i].setMap(map);
+					}
+				}
+
+				if (distState == true) {
+					distState = false;
+				} else {
+					distState = true;
+				}
+
+			break;
+	}
 }
