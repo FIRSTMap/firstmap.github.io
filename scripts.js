@@ -146,11 +146,12 @@ function createCompetitionMarker(type, competitionEntry) {
 			lat: (type == 'regional') ? competitionEntry[1].lat : competitionEntry[2].lat,
 			lng: (type == 'regional') ? competitionEntry[1].lng : competitionEntry[2].lng
 		};
-		var custom = icons.indexOf(t) !== -1;
+
 		var image = {
-			url: custom ? 'logos/' + t + '.png' : 'marker.png',
-			scaledSize: custom ? new google.maps.Size(30, 30) : undefined
+			url: (type == 'district') ? 'district.png' : 'regional.png',
+			scaledSize: new google.maps.Size(30, 30)
 		};
+
 		var marker = new google.maps.Marker({
 			position: pos,
 			map: map,
@@ -185,6 +186,12 @@ function createMarker(pos, t) {
 				lng: pos.lng + ((Math.random() / 100) * ((Math.random() >= 0.5) ? -1 : 1))
 			};
 		}
+
+		var custom = icons.indexOf(t) !== -1;
+		var image = {
+			url: custom ? 'logos/' + t + '.png' : 'marker.png',
+			scaledSize: custom ? new google.maps.Size(30, 30) : undefined
+		};
 
 		var marker = new google.maps.Marker({
 			position: pos,
