@@ -223,6 +223,14 @@ function openCompInfo(type, entry, marker) {
 
 	content += '<h3 style="text-align: center; font-weight: normal;"">Week ';
 	content += (type == 'regional') ? entry[2] : entry[3];
+	content += '<br/>';
+	content += (type == 'regional') ? entry[4] : entry[5];
+
+	content += '<br/>';
+	content += '<a href="http://www.thebluealliance.com/event/'
+	content += (type == 'regional') ? entry[3] : entry[4]
+	content += '"> View on The Blue Alliance </a>'
+
 	content += '</h3>';
 
 	try {
