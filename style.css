@@ -17,9 +17,13 @@ body {
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
+    background-color: #173340;
 }
 #map {
     height: 100%;
+}
+.gm-style {
+    background-color: #173340 !important;
 }
 .gm-style-iw {
     border-radius: 2px 2px 0 0;
