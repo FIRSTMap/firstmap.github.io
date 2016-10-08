@@ -33,6 +33,7 @@ h1 {
     font-weight: 400;
     text-align: center;
     margin-bottom: 10px;
+    text-decoration: underline;
     color: #333;
 }
 p {

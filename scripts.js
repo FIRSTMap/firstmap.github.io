@@ -211,7 +211,7 @@ function createTeamMarker(pos, title) {
 		});
 
 		google.maps.event.addListener(marker, 'click', function() {
-			openInfo(title, marker);
+			openTeamInfo(title, marker);
 		});
 
 		teamMarkers.push(marker);
@@ -219,28 +219,23 @@ function createTeamMarker(pos, title) {
 }
 
 function openCompInfo(type, entry, marker) {
-	var content = '<h1>';
+	var dates = ((type === 'regional') ? entry[4] : entry[5]).split(' - ');
+	var start = (new Date(dates[0])).toLocaleDateString();
+	var end = (new Date(dates[1])).toLocaleDateString();
 
-	content += (type == 'regional') ? entry[0] : entry[1];
-	content += '</h1>';
+	var content = '';
+
+	content += '<h1>' + ((type == 'regional') ? entry[0] : entry[1]) + '</h1>';
+	content += '<ul>';
 
 	if (type === 'district') {
-		content += '<h2 style="text-align: center; font-weight: normal; padding-bottom: 10px;">'
-		content += entry[0]
-		content += '</h2>'
+		content += '<li><strong>District:</strong> ' + entry[0] + '</li>';
 	}
 
-	content += '<h3 style="text-align: center; font-weight: normal;"">Week ';
-	content += (type === 'regional') ? entry[2] : entry[3];
-	content += '<br/>';
-	content += (type === 'regional') ? entry[4] : entry[5];
-
-	content += '<br/>';
-	content += '<a href="http://www.thebluealliance.com/event/'
-	content += (type === 'regional') ? entry[3] : entry[4]
-	content += '"> View on The Blue Alliance </a>'
-
-	content += '</h3>';
+	content += '<li><strong>Week:</strong> ' + ((type === 'regional') ? entry[2] : entry[3]) + '</li>';
+	content += '<li><strong>Date:</strong> ' + start + ' thru ' + end + '</li>';
+	content += '<li><a href="http://www.thebluealliance.com/event/' + ((type === 'regional') ? entry[3] : entry[4]) + '">View on The Blue Alliance</a></li>';
+	content += '</ul>';
 
 	try {
 		var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0];
@@ -254,7 +249,7 @@ function openCompInfo(type, entry, marker) {
 	infoWindow.open(map, marker);
 }
 
-function openInfo(num, marker) {
+function openTeamInfo(num, marker) {
 	var req = new XMLHttpRequest();
 
 	req.open('GET', 'https://www.thebluealliance.com/api/v2/team/frc' + num + '?X-TBA-App-Id=erikboesen:frcmap:v1.0');
