@@ -135,15 +135,15 @@ function initMap() {
 		}]
 	});
 
-	for (var i = 0; i < teams.length; i++) {
+	for (i = 0; i < teams.length; i++) {
 		createTeamMarker(coordinates[i], teams[i]);
 	}
 
-	for (var i = 0; i < regionals.length; i++) {
+	for (i = 0; i < regionals.length; i++) {
 		createCompetitionMarker('regional', regionals[i]);
 	}
 
-	for (var i = 0; i < districts.length; i++) {
+	for (i = 0; i < districts.length; i++) {
 		createCompetitionMarker('district', districts[i]);
 	}
 }
@@ -292,7 +292,7 @@ function openInfo(num, marker) {
 function toggleMarkers(type) {
 	switch (type) {
 		case 'teams':
-			for (var i = 0; i < teamMarkers.length; i++) {
+			for (i = 0; i < teamMarkers.length; i++) {
 				if (teamState) {
 					teamMarkers[i].setMap(null);
 				} else {
@@ -304,7 +304,7 @@ function toggleMarkers(type) {
 
 			break;
 		case 'regionals':
-			for (var i = 0; i < regionalMarkers.length; i++) {
+			for (i = 0; i < regionalMarkers.length; i++) {
 				if (regState) {
 					regionalMarkers[i].setMap(null);
 				} else {
@@ -316,7 +316,7 @@ function toggleMarkers(type) {
 
 			break;
 		case 'districts':
-			for (var i = 0; i < districtMarkers.length; i++) {
+			for (i = 0; i < districtMarkers.length; i++) {
 				if (distState == true) {
 					districtMarkers[i].setMap(null);
 				} else {
