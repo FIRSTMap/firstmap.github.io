@@ -147,29 +147,31 @@ function createCompetitionMarker(type, competitionEntry) {
 			lng: (type == 'regional') ? competitionEntry[1].lng : competitionEntry[2].lng
 		};
 
-		var image = {
-			url: (type == 'district') ? 'district.png' : 'regional.png',
-			scaledSize: new google.maps.Size(30, 30)
-		};
+		if (pos.lat && pos.lng) {
+			var image = {
+				url: (type == 'district') ? 'district.png' : 'regional.png',
+				scaledSize: new google.maps.Size(30, 30)
+			};
 
-		var marker = new google.maps.Marker({
-			position: pos,
-			map: map,
-			title: competitionEntry[0],
-			icon: (type == 'district') ? 'district.png' : 'regional.png'
-		});
+			var marker = new google.maps.Marker({
+				position: pos,
+				map: map,
+				title: competitionEntry[0],
+				icon: (type == 'district') ? 'district.png' : 'regional.png'
+			});
 
-		google.maps.event.addListener(marker, 'click', function() {
-			openCompInfo(type, competitionEntry, marker);
-		});
+			google.maps.event.addListener(marker, 'click', function() {
+				openCompInfo(type, competitionEntry, marker);
+			});
 
-		if(type=='regional'){
-			regionalMarkers.push(marker);
-		} else {
-			districtMarkers.push(marker);
+			if(type=='regional'){
+				regionalMarkers.push(marker);
+			} else {
+				districtMarkers.push(marker);
+			}
+
+			return marker
 		}
-
-		return marker
 	}
 }
 
