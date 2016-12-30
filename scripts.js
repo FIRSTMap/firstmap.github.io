@@ -4,6 +4,7 @@
 var icons = [
 	171,
 	236,
+	330,
 	548,
 
 	1058,
@@ -39,6 +40,10 @@ var icons = [
 
 // Is your team's location wrong?  Add your team and coordinates to this object to update their correct coordinates manually
 var updatedLocations = {
+	330: {
+		lat: 33.87253,
+		lng: -118.395732
+	}
 	2403: {
 		lat: 33.434551,
 		lng: -111.672356
