@@ -124,7 +124,7 @@ var districts = [
   ["MAR District", "MAR District - Seneca Event", {lat:39.8573487, lng:-74.717578}, 4, "2017njtab", "2017-03-24 - 2017-03-26"],
   ["ONT District", "ONT District - Georgian College Event", {lat:44.4116516, lng:-79.66675029999999}, 4, "2017onbar", "2017-03-24 - 2017-03-26"],
   ["ONT District", "FIRST Ontario Provincial Championship", {lat:43.6314493, lng:-79.6537384}, 7, "2017oncmp", "2017-04-12 - 2017-04-15"],
-  ["ONT District", "ONT District - McMaster University Event", {lat:43.2627435, lng:-79.9177828}, 6, "2017onham", "2017-04-07 - 2017-04-09"],
+  ["ONT District", "ONT District - McMaster University Event", {lat:43.2620037, lng:-79.9203734}, 6, "2017onham", "2017-04-07 - 2017-04-09"],
   ["ONT District", "ONT District - Western University, Engineering Event", {lat:43.008221, lng:-81.26247699999999}, 5, "2017onlon", "2017-03-31 - 2017-04-02"],
   ["ONT District", "ONT District - North Bay Event", {lat:46.306620059000466, lng:-79.45993017399968}, 6, "2017onnob", "2017-04-06 - 2017-04-08"],
   ["ONT District", "ONT District - Durham College Event", {lat:42.38726183516667, lng:-78.15326690804056}, 1, "2017onosh", "2017-03-03 - 2017-03-05"],
