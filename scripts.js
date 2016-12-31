@@ -49,6 +49,14 @@ var updatedLocations = {
 		lat: 30.3897667,
 		lng: -89.0436744
 	},
+	456: { // GeeII
+		lat: 32.3257,
+		lng: -90.9553
+	},
+	590: { // GeeII
+		lat: 32.7809,
+		lng: -89.2280
+	},
 	1421: { // GeeII
 		lat: 30.6252185,
 		lng: -89.6565752
@@ -228,6 +236,10 @@ var updatedLocations = {
 	5997: { // GeeII
 		lat: 30.2605,
 		lng: -91.104573
+	},
+	6068: { // GeeII
+		lat: 33.4427,
+		lng: -90.6441
 	},
 	6103: { // GeeII
 		lat: 30.2619,
