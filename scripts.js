@@ -53,6 +53,10 @@ var updatedLocations = {
 		lat: 30.6252185,
 		lng: -89.6565752
 	},
+	1818: { // GeeII
+		lat: 32.4089,
+		lng: -93.8193
+	},
 	1912: { // GeeII
 		lat: 30.2715933,
 		lng: -89.7455335
@@ -109,9 +113,21 @@ var updatedLocations = {
 		lat: 30.3742,
 		lng: -91.0136
 	},
+	3468: { // GeeII
+		lat: 32.5109,
+		lng: -92.1421
+	},
 	3606: { // GeeII
 		lat: 30.4407,
 		lng: -91.1589
+	},
+	3616: { // GeeII
+		lat: 30.1567,
+		lng: -92.0350
+	},
+	3666: { // GeeII
+		lat: 31.2944,
+		lng: -92.4582
 	},
 	3753: { // GeeII
 		lat: 30.3994,
@@ -144,6 +160,14 @@ var updatedLocations = {
 	4316: { // GeeII
 		lat: 29.6931,
 		lng: -90.5588
+	},
+	4336: { // GeeII
+		lat: 30.2045,
+		lng: -92.0933
+	},
+	4353: { // GeeII
+		lat: 30.2482,
+		lng: -91.9921
 	},
     4512: {
         lat: 47.924402,
