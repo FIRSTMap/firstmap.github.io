@@ -521,6 +521,8 @@ function initMap() {
 	for (i = 0; i < districts.length; i++) {
 		createCompetitionMarker('district', districts[i]);
 	}
+
+	addKeyboardListener();
 }
 
 function createCompetitionMarker(type, competitionEntry) {
@@ -698,4 +700,27 @@ function toggleMarkers(type) {
 
 			break;
 	}
+}
+
+function addKeyboardListener() {
+	document.addEventListener('keyup', function(event) {
+		switch (event.keyCode) {
+			// D
+			case 68:
+				toggleMarkers('districts');
+				break;
+			// R
+			case 82:
+				toggleMarkers('regionals')
+				break;
+			// T
+			case 84:
+				toggleMarkers('teams')
+				break;
+			// F
+			case 70:
+				document.getElementsByClassName('gm-fullscreen-control')[0].click()
+				break;
+		}
+	});
 }
