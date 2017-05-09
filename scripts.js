@@ -305,7 +305,7 @@ var updatedLocations = {
 		lng: -92.1421
 	},
 	3572: { // GeeII
-		lat: 43.185072
+		lat: 43.185072,
 		lng: -86.272554
 	},
 	3606: { // GeeII
