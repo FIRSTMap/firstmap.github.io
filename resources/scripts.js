@@ -1,100 +1,5 @@
 // TODO: Comments needed in this file.
 
-// Add your team to this list when you've put an icon in /logos!
-var icons = [
-	171,
-	236,
-	330,
-	548,
-
-	1058,
-	1108,
-	1418,
-	1452,
-	1982,
-
-	2370,
-	2403,
-	2412,
-	2626,
-	2827,
-	2855,
-	2848,
-
-	3015,
-	3928,
-	3946,
-
-	4150,
-	4909,
-	4924,
-
-	5113,
-	5115,
-	5431,
-	5482,
-	5859,
-	5881,
-	5938,
-];
-
-
-// Is your team's location wrong?  Add your team and coordinates to this object to update their correct coordinates manually
-var updatedLocations = {
-	330: {
-		lat: 33.87253,
-		lng: -118.395732
-	}
-	1912: {
-		lat: 30.2715933,
-		lng: -89.7455335
-	},
-	2403: {
-		lat: 33.434551,
-		lng: -111.672356
-	},
-	2626: {
-		lat: 45.403450,
-		lng: -71.894242
-	},
-    2930: {
-        lat: 47.868753,
-        lng: -122.133521
-    },
-    3223: {
-        lat: 47.651672,
-        lng: -122.698748
-    },
-    3946: {
-	lat: 30.2888866,
-	lng: -89.774571
-    },	    
-    4309: {
-        lat: 47.884388,
-        lng: -121.863099
-    },
-    4512: {
-        lat: 47.924402,
-        lng: -122.222745
-    },
-    4681: {
-        lat: 47.880796,
-        lng: -122.178467
-    },
-    4915: {
-        lat: 47.636593,
-        lng: -122.524264
-    },
-	5881: {
-		lat: 42.6918615,
-		lng: -73.8357275
-	},
-	5938: {
-		lat: 39.15819444,
-		lng: -75.524405556
-	}
-}
-
 var map;
 var teamMarkers = []
 var regionalMarkers = []
@@ -198,6 +103,8 @@ function initMap() {
 	for (i = 0; i < districts.length; i++) {
 		createCompetitionMarker('district', districts[i]);
 	}
+
+	addKeyboardListener();
 }
 
 function createCompetitionMarker(type, competitionEntry) {
@@ -209,7 +116,7 @@ function createCompetitionMarker(type, competitionEntry) {
 
 		if (position.lat && position.lng) {
 			var image = {
-				url: type + '.png',
+				url: 'resources/' + type + '.png',
 				scaledSize: new google.maps.Size(30, 30)
 			};
 
@@ -217,7 +124,7 @@ function createCompetitionMarker(type, competitionEntry) {
 				position: position,
 				map: map,
 				title: competitionEntry[0],
-				icon: type + '.png'
+				icon: image
 			});
 
 			google.maps.event.addListener(marker, 'click', function() {
@@ -251,7 +158,7 @@ function createTeamMarker(pos, title) {
 
 		var custom = icons.indexOf(title) !== -1;
 		var image = {
-			url: custom ? 'logos/' + title + '.png' : 'marker.png',
+			url: custom ? 'logos/' + title + '.png' : 'resources/marker.png',
 			scaledSize: custom ? new google.maps.Size(30, 30) : undefined
 		};
 
@@ -375,4 +282,27 @@ function toggleMarkers(type) {
 
 			break;
 	}
+}
+
+function addKeyboardListener() {
+	document.addEventListener('keyup', function(event) {
+		switch (event.keyCode) {
+			// D
+			case 68:
+				toggleMarkers('districts');
+				break;
+			// R
+			case 82:
+				toggleMarkers('regionals')
+				break;
+			// T
+			case 84:
+				toggleMarkers('teams')
+				break;
+			// F
+			case 70:
+				document.getElementsByClassName('gm-fullscreen-control')[0].click()
+				break;
+		}
+	});
 }
