@@ -1,5 +1,5 @@
-#teams.js - this file is generated from a scraper from thebluealliance.com
-#           and geocoding programs.  Please do not edit directly!
+//teams.js - this file is generated from a scraper from thebluealliance.com
+//           and geocoding programs.  Please do not edit directly!
 var teams=[
 	   1,    4,    8,   11,   16,   20,   21,   25,   27,   28, 
 	  31,   33,   34,   41,   45,   48,   51,   56,   58,   60, 
