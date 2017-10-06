@@ -69,7 +69,7 @@ var regionals = [
 
 var districts = [
 
-  ["CHS District", "FIRST Chesapeake District Championship", {lat:38.2170, lng:-7.3420}, 4, "2018chcmp", "2018-03-28 - 2018-03-31"],
+  ["CHS District", "FIRST Chesapeake District Championship", {lat:38.2170, lng:-78.3420}, 4, "2018chcmp", "2018-03-28 - 2018-03-31"],
   ["NE District", "NE District Hartford Event", {lat:41.7652, lng:-72.7010}, 5, "2018cthar", "2018-04-06 - 2018-04-08"],
   ["NE District", "NE District Southern CT Event", {lat:41.1588, lng:-73.2574}, 2, "2018ctsct", "2018-03-16 - 2018-03-18"],
   ["NE District", "NE District Waterbury Event", {lat:41.6042, lng:-73.0266}, 1, "2018ctwat", "2018-03-09 - 2018-03-11"],
@@ -139,7 +139,7 @@ var districts = [
   ["ONT District", "ONT District Georgian College Event", {lat:44.4109, lng:-79.6687}, 0, "2018onbar", "2018-03-02 - 2018-03-04"],
   ["ONT District", "FIRST Ontario Provincial Championship", {lat:43.6383, lng:-79.4211}, 6, "2018oncmp", "2018-04-11 - 2018-04-14"],
   ["ONT District", "ONT District McMaster University Event", {lat:43.2609, lng:-79.9192}, 5, "2018onham", "2018-04-06 - 2018-04-08"],
-  ["ONT District", "ONT District Western UniversityEngineering Event", {lat:43.0096, lng:-81.2737}, 5, "2018onlon", "2018-04-06 - 2018-04-08"],
+  ["ONT District", "ONT District Western University, Engineering Event", {lat:43.0096, lng:-81.2737}, 5, "2018onlon", "2018-04-06 - 2018-04-08"],
   ["ONT District", "ONT District North Bay Event", {lat:46.3430, lng:-79.4928}, 4, "2018onnob", "2018-03-29 - 2018-03-31"],
   ["ONT District", "ONT District York University Event", {lat:43.7735, lng:-79.5019}, 3, "2018onnyo", "2018-03-23 - 2018-03-25"],
   ["ONT District", "ONT District Durham College Event", {lat:43.9424, lng:-78.8962}, 0, "2018onosh", "2018-03-02 - 2018-03-04"],
