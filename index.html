@@ -12,12 +12,19 @@
     <div id="map"></div>
 
     <div id='toggles'>
-        <div id='team_toggle' onclick="toggleMarkers('teams')">T</div>
-        <div id='regional_toggle' onclick="toggleMarkers('regionals')">R</div>
-        <div id='district_toggle' onclick="toggleMarkers('districts')">D</div>
+        <div id='team_toggle' onclick="toggleMarkers('teams')" title="toggle teams">T</div>
+        <div id='regional_toggle' onclick="toggleMarkers('regionals')" title="toggle regionals">R</div>
+        <div id='district_toggle' onclick="toggleMarkers('districts')" title="toggle districts">D</div>
     </div>
 
-    <a href="https://github.com/FIRSTmap/firstmap.github.io" class="github-banner" target="_blank">Fork on GitHub</a>
+    <a href="https://github.com/FIRSTmap/firstmap.github.io" class="github-banner" target="_blank"
+       title="Add your team logo or&#010;lock down your location">Fork on GitHub</a>
+    <a href="http://www.thebluealliance.com/" class="tba-banner" target="_blank" 
+       title="team and competition&#010;info extracted from&#010;The Blue Alliance API v3"
+    >The Blue Alliance</a>
+    <a href="http://www.geonames.org/" class="geonames-banner" target="_blank" 
+       title="many team locations&#010;estimated using GeoNames&#010;postal and city data bases"
+    >GeoNames</a>
 
     <!-- Javascript Scripts -->
     <script src="data/teamInfo.js"></script>
