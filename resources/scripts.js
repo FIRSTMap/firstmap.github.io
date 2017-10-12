@@ -128,8 +128,8 @@ function initMap() {
         ]
     })
 
-    for (i = 0; i < teams.length; i++) {
-        createTeamMarker(coordinates[i], teams[i])
+    for (i = 0; i < teamInfo.length; i++) {
+        createTeamMarker(i)
     }
 
     for (i = 0; i < regionals.length; i++) {
@@ -176,8 +176,9 @@ function createCompetitionMarker(type, competitionEntry) {
     }
 }
 
-function createTeamMarker(pos, title) {
-    if (pos) {
+function createTeamMarker(index) {
+    if (teamInfo[index]) {
+        var title = teamInfo[index].team_number
         var position = {}
 
         if (title in updatedLocations) {
@@ -187,8 +188,8 @@ function createTeamMarker(pos, title) {
             }
         } else {
             position = {
-                lat: pos.lat + Math.random() / 100 * (Math.random() >= 0.5 ? -1 : 1),
-                lng: pos.lng + Math.random() / 100 * (Math.random() >= 0.5 ? -1 : 1)
+                lat: teamInfo[index].lat + Math.random() / 100 * (Math.random() >= 0.5 ? -1 : 1),
+                lng: teamInfo[index].lng + Math.random() / 100 * (Math.random() >= 0.5 ? -1 : 1)
             }
         }
 
@@ -202,7 +203,8 @@ function createTeamMarker(pos, title) {
             position: position,
             map: map,
             title: title.toString(),
-            icon: image
+            icon: image,
+            index: index
         })
 
         google.maps.event.addListener(marker, 'click', function() {
@@ -248,48 +250,35 @@ function openCompInfo(type, entry, marker) {
 }
 
 function openTeamInfo(num, marker) {
-    var req = new XMLHttpRequest()
+    var team = teamInfo[marker.index];
+    var content = '<h1>'
 
-    req.open(
-        'GET',
-        'https://www.thebluealliance.com/api/v2/team/frc' +
-            num +
-            '?X-TBA-App-Id=erikboesen:frcmap:v1.0'
-    )
-    req.send()
-    req.onreadystatechange = function() {
-        if (req.readyState === 4 && req.status === 200) {
-            var team = JSON.parse(req.responseText)
-            var content = '<h1>'
+    content += team.website ? '<a href="' + team.website + '">' : ''
+    content += 'Team ' + team.team_number
+    content += team.nickname ? ' - ' + team.nickname : ''
+    content += team.website ? '</a></h1>' : '</h1>'
+    content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : ''
+    content += '<ul>'
+    content += '<li><strong>Location:</strong> ' + team.location + '</li>'
+    content += team.rookie_year
+        ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>'
+        : ''
+    content +=
+        '<li><a href="http://thebluealliance.com/team/' +
+        num +
+        '">View on The Blue Alliance</a></li>'
+    content += '</ul>'
 
-            content += team.website ? '<a href="' + team.website + '">' : ''
-            content += 'Team ' + team.team_number
-            content += team.nickname ? ' - ' + team.nickname : ''
-            content += team.website ? '</a></h1>' : '</h1>'
-            content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : ''
-            content += '<ul>'
-            content += '<li><strong>Location:</strong> ' + team.location + '</li>'
-            content += team.rookie_year
-                ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>'
-                : ''
-            content +=
-                '<li><a href="http://thebluealliance.com/team/' +
-                num +
-                '">View on The Blue Alliance</a></li>'
-            content += '</ul>'
+    try {
+        var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
+        oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
+    } catch (e) {}
 
-            try {
-                var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
-                oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
-            } catch (e) {}
+    var infoWindow = new google.maps.InfoWindow({
+        content: content
+    })
 
-            var infoWindow = new google.maps.InfoWindow({
-                content: content
-            })
-
-            infoWindow.open(map, marker)
-        }
-    }
+    infoWindow.open(map, marker)
 }
 
 function toggleMarkers(type) {
