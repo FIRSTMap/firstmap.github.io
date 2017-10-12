@@ -304,7 +304,7 @@ var teamInfo=[
      rookie_year: 1996,
              lat: 41.499,
              lng: -71.299,
-         website: "http://www.air4h.org",
+         website: "http://www.facebook.com/frc78/",
         nickname: "AIR STRIKE",
            motto: "Teaching Through Competitive Robotics",
         location: "Newport, Rhode Island 02841, USA"
@@ -388,6 +388,16 @@ var teamInfo=[
         nickname: "Grasshoppers",
            motto: "Be Awesome",
         location: "White River Junction, Vermont 05001, USA"
+    },
+    {
+     team_number: 97,
+     rookie_year: 1996,
+             lat: 42.377,
+             lng: -71.126,
+         website: "http://www.crlsteam97.com",
+        nickname: "Bionic Beef",
+           motto: "",
+        location: "Cambridge, Massachusetts 02138, USA"
     },
     {
      team_number: 100,
@@ -5494,7 +5504,7 @@ var teamInfo=[
      rookie_year: 2005,
              lat: 34.153,
              lng: -118.432,
-         website: "http://www.team1661.org/",
+         website: "http://www.frc1661.com/",
         nickname: "Griffitrons",
            motto: "We Not ME!!",
         location: "Sherman Oaks, California 91423, USA"
@@ -5534,7 +5544,7 @@ var teamInfo=[
      rookie_year: 2005,
              lat: 41.082,
              lng: -74.186,
-         website: "http://www.team1672.com/",
+         website: "http://www.team1672.org/",
         nickname: "Robo-T-Birds",
            motto: "Soaring \"first\",
         location: "Mahwah, New Jersey 07430, USA"
@@ -6080,16 +6090,6 @@ var teamInfo=[
         location: "Overland Park, Kansas 66212, USA"
     },
     {
-     team_number: 1778,
-     rookie_year: 2006,
-             lat: 47.793,
-             lng: -122.308,
-         website: "http://www.first1778.org/",
-        nickname: "Chill Out",
-           motto: "One Team, One Mission",
-        location: "Mountlake Terrace, Washington 98043, USA"
-    },
-    {
      team_number: 1781,
      rookie_year: 2006,
              lat: 41.776,
@@ -6360,6 +6360,16 @@ var teamInfo=[
         location: "Mountain View, California 94035, USA"
     },
     {
+     team_number: 1872,
+     rookie_year: 2006,
+             lat: 18.466,
+             lng: -66.106,
+         website: "http://www.team1872steellions.wordpress.com",
+        nickname: "Steel Lions",
+           motto: "Fortes in Fide",
+        location: "San Juan, Puerto Rico 00927, USA"
+    },
+    {
      team_number: 1876,
      rookie_year: 2006,
              lat: 32.208,
@@ -6508,6 +6518,16 @@ var teamInfo=[
         nickname: "The MidKnight Inventors",
            motto: "You never forget your FIRST robotics.",
         location: "Plainsboro, New Jersey 08536, USA"
+    },
+    {
+     team_number: 1927,
+     rookie_year: 2006,
+             lat: 30.511,
+             lng: -88.968,
+         website: "http://www.teamtempest1927.org/",
+        nickname: "Tempest",
+           motto: "Building Lives:  One Heartache at a Time",
+        location: "Biloxi, Mississippi 39532, USA"
     },
     {
      team_number: 1937,
@@ -10717,7 +10737,7 @@ var teamInfo=[
          website: "https://sites.google.com/a/isd197.org/henry-sibley-robotics/home",
         nickname: "Lightning Turtles",
            motto: "",
-        location: "Mendota Heights, Minnesota 55118, USA"
+        location: "Saint Paul, Minnesota 55118, USA"
     },
     {
      team_number: 3102,
@@ -12760,6 +12780,16 @@ var teamInfo=[
         location: "Arnprior, Ontario K7S 1X2, Canada"
     },
     {
+     team_number: 3544,
+     rookie_year: 2011,
+             lat: 45.590,
+             lng: -73.639,
+         website: "http://spartiates3544.wordpress.com/",
+        nickname: "Spartiates",
+           motto: "",
+        location: "Montreal-Nord, Qu\u00e9bec H1H 3S3, Canada"
+    },
+    {
      team_number: 3546,
      rookie_year: 2011,
              lat: 43.038,
@@ -12900,6 +12930,16 @@ var teamInfo=[
         location: "Muskegon, Michigan 49441, USA"
     },
     {
+     team_number: 3573,
+     rookie_year: 2011,
+             lat: 33.719,
+             lng: -84.002,
+         website: "http://rmset.com/",
+        nickname: "The Ohms",
+           motto: "",
+        location: "Conyers, Georgia 30012, USA"
+    },
+    {
      team_number: 3574,
      rookie_year: 2011,
              lat: 47.444,
@@ -12928,6 +12968,16 @@ var teamInfo=[
         nickname: "THINC. ROBOTICS",
            motto: "The sum is greater than the parts.",
         location: "Lagrange, Georgia 30240, USA"
+    },
+    {
+     team_number: 3586,
+     rookie_year: 2011,
+             lat: 47.705,
+             lng: -117.866,
+         website: "http:///www.reardan.net",
+        nickname: "Pride in the Tribe-Caveman Robotics",
+           motto: "Pride in the Tribe-Caveman Robotics",
+        location: "Reardan, Washington 99029, USA"
     },
     {
      team_number: 3588,
@@ -15910,6 +15960,16 @@ var teamInfo=[
         location: "Chesterfield, Missouri 63017, USA"
     },
     {
+     team_number: 4260,
+     rookie_year: 2012,
+             lat: 43.639,
+             lng: -94.092,
+         website: "http://www.firstinspires.org/",
+        nickname: "BEAR Bucs",
+           motto: "",
+        location: "Blue Earth Area, Minnesota 56013, USA"
+    },
+    {
      team_number: 4262,
      rookie_year: 2012,
              lat: 20.526,
@@ -16420,6 +16480,16 @@ var teamInfo=[
         location: "Ishpeming, Michigan 49849, USA"
     },
     {
+     team_number: 4376,
+     rookie_year: 2012,
+             lat: 45.265,
+             lng: -85.230,
+         website: "http:///www.facebook.com/groups/team4376",
+        nickname: "Raydernators",
+           motto: "Graciously kickin' chassis since 2012",
+        location: "Charlevoix, Michigan 49720, USA"
+    },
+    {
      team_number: 4377,
      rookie_year: 2012,
              lat: 45.205,
@@ -16488,6 +16558,16 @@ var teamInfo=[
         nickname: "Ridgebotics",
            motto: "",
         location: "Fort Collins, Colorado 80525, USA"
+    },
+    {
+     team_number: 4390,
+     rookie_year: 2012,
+             lat: 42.335,
+             lng: -83.180,
+         website: "http://www.firstinspires.org/",
+        nickname: "ATA  Coregears",
+           motto: "Robotics to the Core",
+        location: "Dearborn, Michigan 48126, USA"
     },
     {
      team_number: 4391,
@@ -17805,7 +17885,7 @@ var teamInfo=[
              lat: 37.792,
              lng: -122.419,
          website: "http://www.firstinspires.org/",
-        nickname: "Galileo ESM Robotics",
+        nickname: "Galileo Robotics",
            motto: "",
         location: "San Francisco, California 94109, USA"
     },
@@ -19734,7 +19814,7 @@ var teamInfo=[
      rookie_year: 2014,
              lat: 51.042,
              lng: -114.200,
-         website: "http:///robo-kaos.com",
+         website: "http://robo-kaos.com",
         nickname: "ROBO-KAOS",
            motto: "",
         location: "Calgary, Alberta T3H1X8, Canada"
@@ -20278,6 +20358,16 @@ var teamInfo=[
         nickname: "The Nerdy Birds",
            motto: "The Nerdiest Bird Gets the Worm",
         location: "Farmington, Arkansas 72730, USA"
+    },
+    {
+     team_number: 5179,
+     rookie_year: 2014,
+             lat: 45.906,
+             lng: -72.593,
+         website: "http://www.senateurs5179.com",
+        nickname: "Les S\u00e9nateurs",
+           motto: "",
+        location: "Drummondville, Qu\u00e9bec J2B6A2, Canada"
     },
     {
      team_number: 5181,
@@ -22370,6 +22460,16 @@ var teamInfo=[
         location: "Buffalo, New York 14223, USA"
     },
     {
+     team_number: 5593,
+     rookie_year: 2015,
+             lat: -42.879,
+             lng: 147.329,
+         website: "http://www.firstinspires.org/",
+        nickname: "Tassie Tigers",
+           motto: "",
+        location: "Hobart, Tasmania 7001, Australia"
+    },
+    {
      team_number: 5595,
      rookie_year: 2015,
              lat: 45.123,
@@ -23158,6 +23258,16 @@ var teamInfo=[
         nickname: "CCybernetics",
            motto: "",
         location: "Santa Rosa, California 95409, USA"
+    },
+    {
+     team_number: 5729,
+     rookie_year: 2015,
+             lat: 34.285,
+             lng: -91.334,
+         website: "http://www.firstinspires.org/",
+        nickname: "Lennox Monsanto MAAD Dragons",
+           motto: "",
+        location: "De Witt, Arkansas 72042, USA"
     },
     {
      team_number: 5730,
@@ -24038,6 +24148,16 @@ var teamInfo=[
         nickname: "Career Blazer Robotics Team - The Fighting Mongooses",
            motto: "",
         location: "Dalton, Georgia 30721, USA"
+    },
+    {
+     team_number: 5901,
+     rookie_year: 2016,
+             lat: 42.338,
+             lng: -83.130,
+         website: "http://www.firstinspires.org/",
+        nickname: "Cougars",
+           motto: "Cougars to and through college...On a robot!",
+        location: "Detroit, Michigan 48210, USA"
     },
     {
      team_number: 5902,
@@ -25330,6 +25450,16 @@ var teamInfo=[
         location: "Wayland, Michigan 49348, USA"
     },
     {
+     team_number: 6091,
+     rookie_year: 2016,
+             lat: 43.515,
+             lng: -82.719,
+         website: "http://www.firstinspires.org/",
+        nickname: "Eagle 1",
+           motto: "",
+        location: "Deckerville, Michigan 48427, USA"
+    },
+    {
      team_number: 6092,
      rookie_year: 2016,
              lat: 41.944,
@@ -25614,7 +25744,7 @@ var teamInfo=[
      rookie_year: 2016,
              lat: 43.811,
              lng: -79.193,
-         website: "http://6140robotics@gmail.com",
+         website: "http://www.twitter.com/smtrobotics",
         nickname: "SMT Titans",
            motto: "",
         location: "Scarborough, Ontario M1B 3G5, Canada"
@@ -25838,6 +25968,16 @@ var teamInfo=[
         nickname: "Atomic-Robotic-Dogs",
            motto: "",
         location: "Atlanta, Georgia 30314, USA"
+    },
+    {
+     team_number: 6178,
+     rookie_year: 2016,
+             lat: 50.389,
+             lng: -105.558,
+         website: "http://vanier.htcsd.ca/robotics/",
+        nickname: "Techno Titans",
+           motto: "",
+        location: "Moose Jaw, Saskatchewan S6H2V4, Canada"
     },
     {
      team_number: 6179,
@@ -27860,6 +28000,16 @@ var teamInfo=[
         location: "Cedar Springs, Michigan 49319, USA"
     },
     {
+     team_number: 6532,
+     rookie_year: 2017,
+             lat: 42.347,
+             lng: -83.060,
+         website: "",
+        nickname: "Ben Carson Blue Jays",
+           motto: "",
+        location: "Detroit, Michigan 48201, USA"
+    },
+    {
      team_number: 6533,
      rookie_year: 2017,
              lat: 43.887,
@@ -28208,6 +28358,16 @@ var teamInfo=[
         nickname: "Arkansas High School",
            motto: "",
         location: "Texarkana, Arkansas 71854, USA"
+    },
+    {
+     team_number: 6588,
+     rookie_year: 2017,
+             lat: 42.154,
+             lng: -85.829,
+         website: "http://www.lawtoncs.org",
+        nickname: "Counter-Torque Robotics",
+           motto: "",
+        location: "Lawton, Michigan 49065, USA"
     },
     {
      team_number: 6589,
@@ -29202,8 +29362,8 @@ var teamInfo=[
     {
      team_number: 6736,
      rookie_year: 2017,
-             lat: 32.247,
-             lng: 33.234,
+             lat: 32.917,
+             lng: 35.053,
          website: "",
         nickname: "Knights of the Sea",
            motto: "",
@@ -30365,7 +30525,7 @@ var teamInfo=[
              lat: 35.796,
              lng: -78.794,
          website: "http://www.inspirenc1.wixsite.com/website",
-        nickname: "InspireNC",
+        nickname: "Infuzed",
            motto: "",
         location: "Cary, North Carolina 27513, USA"
     },
@@ -31055,7 +31215,7 @@ var teamInfo=[
              lat: 43.737,
              lng: -79.540,
          website: "",
-        nickname: "Cyber Bots",
+        nickname: "Cyber Squad",
            motto: "",
         location: "North York, Ontario M9M 2V9, Canada"
     },
@@ -31555,7 +31715,7 @@ var teamInfo=[
              lat: 45.206,
              lng: -93.659,
          website: "",
-        nickname: "STMA",
+        nickname: "Binary Batalion",
            motto: "",
         location: "Saint Michael, Minnesota 55376, USA"
     },
@@ -31708,5 +31868,155 @@ var teamInfo=[
         nickname: "Marine Machines",
            motto: "",
         location: "Shreveport, Louisiana 71104, USA"
+    },
+    {
+     team_number: 7050,
+     rookie_year: 2018,
+             lat: 41.004,
+             lng: 28.979,
+         website: "",
+        nickname: "SARNIC",
+           motto: "",
+        location: "ISTANBUL, Istanbul 34122, Turkey"
+    },
+    {
+     team_number: 7051,
+     rookie_year: 2018,
+             lat: 34.096,
+             lng: -117.968,
+         website: "",
+        nickname: "RoboDons",
+           motto: "",
+        location: "Baldwin Park, California 91706, USA"
+    },
+    {
+     team_number: 7052,
+     rookie_year: 2018,
+             lat: 48.460,
+             lng: -89.204,
+         website: "",
+        nickname: "SIH Robotics",
+           motto: "",
+        location: "Thunder Bay, Ontario P7A2J6, Canada"
+    },
+    {
+     team_number: 7053,
+     rookie_year: 2018,
+             lat: 45.491,
+             lng: -73.399,
+         website: "",
+        nickname: "Robo Huskies",
+           motto: "",
+        location: "St-Hubert, Qu\u00e9bec J3Y3S3, Canada"
+    },
+    {
+     team_number: 7054,
+     rookie_year: 2018,
+             lat: 42.870,
+             lng: -85.663,
+         website: "",
+        nickname: "SC Sailors",
+           motto: "",
+        location: "Grand Rapids, Michigan 49548, USA"
+    },
+    {
+     team_number: 7055,
+     rookie_year: 2018,
+             lat: 41.484,
+             lng: -81.929,
+         website: "",
+        nickname: "Quantum Steam",
+           motto: "",
+        location: "Bay Village, Ohio 44140, USA"
+    },
+    {
+     team_number: 7056,
+     rookie_year: 2018,
+             lat: 42.661,
+             lng: -84.072,
+         website: "http://www.frcfastteam.com",
+        nickname: "The F.A.S.T. Team - Fowlerville Area Scientific Technicians",
+           motto: "",
+        location: "Fowlerville, Michigan 48836, USA"
+    },
+    {
+     team_number: 7057,
+     rookie_year: 2018,
+             lat: 36.626,
+             lng: -119.320,
+         website: "",
+        nickname: "Titanators",
+           motto: "",
+        location: "Orange Cove, California 93646, USA"
+    },
+    {
+     team_number: 7058,
+     rookie_year: 2018,
+             lat: 42.955,
+             lng: -81.622,
+         website: "",
+        nickname: "Strathroy District",
+           motto: "",
+        location: ",  N7G 3H8, "
+    },
+    {
+     team_number: 7059,
+     rookie_year: 2018,
+             lat: 34.592,
+             lng: -112.427,
+         website: "",
+        nickname: "Prescott Robotics",
+           motto: "",
+        location: ",  86301, "
+    },
+    {
+     team_number: 7060,
+     rookie_year: 2018,
+             lat: 34.307,
+             lng: -83.826,
+         website: "",
+        nickname: "Riverside Military Academy Eagle Bots",
+           motto: "",
+        location: ",  30501, "
+    },
+    {
+     team_number: 7064,
+     rookie_year: 2018,
+             lat: 39.301,
+             lng: -94.934,
+         website: "",
+        nickname: "Voltron Robotics",
+           motto: "",
+        location: ",  66048, "
+    },
+    {
+     team_number: 7065,
+     rookie_year: 2018,
+             lat: 32.422,
+             lng: -86.275,
+         website: "",
+        nickname: "Wolverine 1",
+           motto: "",
+        location: ",  36110, "
+    },
+    {
+     team_number: 7066,
+     rookie_year: 2018,
+             lat: 35.084,
+             lng: -92.424,
+         website: "",
+        nickname: "Gadget Droids",
+           motto: "",
+        location: ",  72032, "
+    },
+    {
+     team_number: 7067,
+     rookie_year: 2018,
+             lat: 31.751,
+             lng: 35.232,
+         website: "",
+        nickname: "seligsberg",
+           motto: "",
+        location: ",  93810, "
     }
 ]
