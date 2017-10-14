@@ -1,5 +1,7 @@
-var regionals = [
+// Data extracted from thebluealliance.com at 2017-10-14T11:38:26+00:00
+// Built by scraper at https://github/GeeII/Firstmap-scraper/
 
+var regionals = [
   ["Canadian Rockies Regional", {lat:51.1203, lng:-113.9486}, 5, "2018abca", "2018-04-04 - 2018-04-07"],
   ["Rocket City Regional", {lat:34.7267, lng:-86.5902}, 2, "2018alhu", "2018-03-14 - 2018-03-17"],
   ["Arkansas Rock City Regional", {lat:34.7217, lng:-92.2991}, 1, "2018arli", "2018-03-07 - 2018-03-10"],
