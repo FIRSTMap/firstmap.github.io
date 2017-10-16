@@ -18066,8 +18066,8 @@ var teamInfo=[
     {
      team_number: 4661,
      rookie_year: 2013,
-             lat: 0.000,
-             lng: 0.000,
+             lat: 31.888,
+             lng: 34.905,
          website: "http://www.firstinspires.org/",
         nickname: "The Red Pirates",
            motto: "",
