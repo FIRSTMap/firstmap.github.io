@@ -1,11 +1,11 @@
 /*****************************************
  * Team Level Overrides - LOGO / POS
- * 
+ *
  * LOGOS: Add your image to /logos with
  * the file name "{team_number}.png" and
  * then add your team number to the icons
  * array below.
- * 
+ *
  * POSITION: Add your team's lattitude
  * and longitude to the updatedLocations
  * array below, following the documented
@@ -18,6 +18,7 @@ var icons = [
     171,
     236,
     330,
+    457,
     525,
     548,
     967,
@@ -243,6 +244,10 @@ var updatedLocations = {
     456: {
         lat: 32.3257,
         lng: -90.9553
+    },
+    457: {
+        lat: 29.34927,
+        lng: -98.54999
     },
     590: {
         lat: 32.7809,
