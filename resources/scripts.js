@@ -344,3 +344,11 @@ function addKeyboardListener() {
         }
     })
 }
+
+function openAbout() {
+   document.getElementById('about').style.display='inline-block'
+}
+
+function closeAbout() {
+   document.getElementById('about').style.display='none'
+}

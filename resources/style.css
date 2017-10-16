@@ -32,8 +32,6 @@ h1 {
     font-size: 22px;
     font-weight: 400;
     text-align: center;
-    margin-bottom: 10px;
-    text-decoration: underline;
     color: #333;
 }
 p {
@@ -66,8 +64,8 @@ a:hover {
     position: fixed;
     top: 10px;
     right: 50px;
-    height: 25px;
-    width: 105px;
+    height: 40px;
+    width: 250px;
 }
 #toggles > div {
     height: 25px;
@@ -76,7 +74,81 @@ a:hover {
     background-color: white;
     float: right;
     margin-left: 10px;
+    margin-bottom: 10px;
     text-align: center;
     padding-top: 3px;
     cursor: default
+}
+#about {
+    position: absolute;
+    top: 44px;
+    right: 15px;
+    width: 500px;
+    height: 300px;
+    background: #CCC;
+    text-color: black;
+    margin-left: 10px;
+    text-align: center;
+    cursor: default
+    font-size: small;
+}
+.close {
+     float: right;
+     text-align: right;
+     padding-left: 6px;
+     padding-right: 6px;
+     padding-bottom: 1px;
+     padding-top: 1px
+}
+.stripe {
+    background: #175f7e;
+    color: white;
+    font-weight: bold;
+    margin: 0px;
+    top: 0px;
+    padding: 6px
+}
+#about div {
+   width: 100%;
+   margin: 0px;
+   padding: 0px;
+}
+
+#about div dl {
+   width: 100%;
+   background: #404040;
+   font-size: 14px;
+}
+dl#controls dt {
+   width: 15%; 
+   float: left;
+   clear: both;
+   text-align: right;
+   font-weight: bold;
+}
+dl#controls dd {
+   width: 83%;
+   float: right;
+   text-align: left;
+}
+dl#tools dt {
+   width: 30%; 
+   float: left;
+   clear: both;
+   text-align: right;
+   font-weight: bold;
+}
+dl#tools dd {
+   width: 68%;
+   float: right;
+   text-align: left;
+}
+#about div#tool_box h1: {
+   padding-top: 15px;
+}
+#about div h1: {
+   padding-top: 15px;
+   width: 100%;
+   clear: both;
+   text-decoration: none;
 }
