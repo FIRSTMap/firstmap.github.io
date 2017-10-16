@@ -1,4 +1,4 @@
-// Data extracted from thebluealliance.com at 2017-10-14T11:38:26+00:00
+// Data extracted from thebluealliance.com at 2017-10-16T03:27:06+00:00
 // Built by scraper at https://github/GeeII/Firstmap-scraper/
 // using postal and gazeteer databases from GeoNames.org.
 
@@ -10184,6 +10184,16 @@ var teamInfo=[
         location: "Birmingham, Michigan 48009, USA"
     },
     {
+     team_number: 2961,
+     rookie_year: 2009,
+             lat: 38.912,
+             lng: -77.018,
+         website: "http://www.firstinspires.org/",
+        nickname: "Crimson Tide Engineers",
+           motto: "free your mind and success will follow",
+        location: "Washington, District of Columbia 20001, USA"
+    },
+    {
      team_number: 2964,
      rookie_year: 2009,
              lat: 38.860,
@@ -16832,6 +16842,16 @@ var teamInfo=[
         nickname: "Skynet",
            motto: "",
         location: "Ramat Hasharon, Tel-Aviv 00000, Israel"
+    },
+    {
+     team_number: 4418,
+     rookie_year: 2012,
+             lat: 39.540,
+             lng: -105.011,
+         website: "http://frc4418.org/",
+        nickname: "Team IMPULSE",
+           motto: "Propelled to Success",
+        location: "Highlands Ranch, Colorado 80129, USA"
     },
     {
      team_number: 4450,
@@ -32472,6 +32492,16 @@ var teamInfo=[
         nickname: "WestTech Sentinels",
            motto: "",
         location: ",  30909, "
+    },
+    {
+     team_number: 7077,
+     rookie_year: 2018,
+             lat: 36.173,
+             lng: -115.067,
+         website: "http:///eldoradohs.org",
+        nickname: "0352 Sun Devils Fire",
+           motto: "",
+        location: ",  89110, "
     }
 ]
-var geonames = 3197
+var geonames = 3200
