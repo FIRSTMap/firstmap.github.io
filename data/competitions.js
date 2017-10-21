@@ -1,4 +1,4 @@
-// Data extracted from thebluealliance.com at 2017-10-14T11:38:26+00:00
+// Data extracted from thebluealliance.com at 2017-10-21T12:15:09+00:00
 // Built by scraper at https://github/GeeII/Firstmap-scraper/
 
 var regionals = [
@@ -141,7 +141,7 @@ var districts = [
   ["ONT District", "ONT District Georgian College Event", {lat:44.4109, lng:-79.6687}, 0, "2018onbar", "2018-03-02 - 2018-03-04"],
   ["ONT District", "FIRST Ontario Provincial Championship", {lat:43.6383, lng:-79.4211}, 6, "2018oncmp", "2018-04-11 - 2018-04-14"],
   ["ONT District", "ONT District McMaster University Event", {lat:43.2609, lng:-79.9192}, 5, "2018onham", "2018-04-06 - 2018-04-08"],
-  ["ONT District", "ONT District Western University, Engineering Event", {lat:43.0096, lng:-81.2737}, 5, "2018onlon", "2018-04-06 - 2018-04-08"],
+  ["ONT District", "ONT District Western University, Western Engineering Event", {lat:43.0096, lng:-81.2737}, 5, "2018onlon", "2018-04-06 - 2018-04-08"],
   ["ONT District", "ONT District North Bay Event", {lat:46.3430, lng:-79.4928}, 4, "2018onnob", "2018-03-29 - 2018-03-31"],
   ["ONT District", "ONT District York University Event", {lat:43.7735, lng:-79.5019}, 3, "2018onnyo", "2018-03-23 - 2018-03-25"],
   ["ONT District", "ONT District Durham College Event", {lat:43.9424, lng:-78.8962}, 0, "2018onosh", "2018-03-02 - 2018-03-04"],

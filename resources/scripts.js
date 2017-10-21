@@ -188,8 +188,8 @@ function createTeamMarker(index) {
             }
         } else {
             position = {
-                lat: teamInfo[index].lat + Math.random() / 100 * (Math.random() >= 0.5 ? -1 : 1),
-                lng: teamInfo[index].lng + Math.random() / 100 * (Math.random() >= 0.5 ? -1 : 1)
+                lat: teamInfo[index].lat + (Math.random()-.5) / 50,
+                lng: teamInfo[index].lng + (Math.random()-.5) / 50 
             }
         }
 
@@ -250,35 +250,50 @@ function openCompInfo(type, entry, marker) {
 }
 
 function openTeamInfo(num, marker) {
-    var team = teamInfo[marker.index];
-    var content = '<h1>'
+    var req = new XMLHttpRequest()
 
-    content += team.website ? '<a href="' + team.website + '">' : ''
-    content += 'Team ' + team.team_number
-    content += team.nickname ? ' - ' + team.nickname : ''
-    content += team.website ? '</a></h1>' : '</h1>'
-    content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : ''
-    content += '<ul>'
-    content += '<li><strong>Location:</strong> ' + team.location + '</li>'
-    content += team.rookie_year
-        ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>'
-        : ''
-    content +=
-        '<li><a href="http://thebluealliance.com/team/' +
-        num +
-        '">View on The Blue Alliance</a></li>'
-    content += '</ul>'
+    req.open(
+        'GET',
+        'https://www.thebluealliance.com/api/v3/team/frc' +
+            num + '?X-TBA-Auth-Key=' +
+            'VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq'
+    )
+    req.send()
+    req.onreadystatechange = function() {
+        if (req.readyState === 4 && req.status === 200) {
+            var team = JSON.parse(req.responseText)
+            var content = '<h1>'
 
-    try {
-        var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
-        oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
-    } catch (e) {}
+            content += team.website ? '<a href="' + team.website + '">' : ''
+            content += 'Team ' + team.team_number
+            content += team.nickname ? ' - ' + team.nickname : ''
+            content += team.website ? '</a></h1>' : '</h1>'
+            content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : ''
+            content += '<ul>'
+            content += '<li><strong>Location:</strong> ' + team.city + ', '
+            content += team.state_prov + ' ' + team.postal_code + ', '
+            content += team.country + '</li>'
+            content += team.rookie_year
+                ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>'
+                : ''
+            content +=
+                '<li><a href="http://thebluealliance.com/team/' +
+                num +
+                '">View on The Blue Alliance</a></li>'
+            content += '</ul>'
 
-    var infoWindow = new google.maps.InfoWindow({
-        content: content
-    })
+            try {
+                var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
+                oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
+            } catch (e) {}
 
-    infoWindow.open(map, marker)
+            var infoWindow = new google.maps.InfoWindow({
+                content: content
+            })
+
+            infoWindow.open(map, marker)
+        }
+    }
 }
 
 function toggleMarkers(type) {
