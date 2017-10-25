@@ -1,15 +1,23 @@
 // TODO: Comments needed in this file.
+// Main body of scripts for FIRSTmap, a GoogleMaps application to show the
+// locations of First Robotics Competition teams and competitions on an
+// interactive map.
 
+// The GoogleMap and markers
 var map
 var teamMarkers = []
 var regionalMarkers = []
 var districtMarkers = []
 
+// Start all markers in displayable state (not hidden)
 var teamState = true
 var regState = true
 var distState = true
 
 function initMap() {
+// Set up the google map parameters and options
+// last few lines of function create team and event markers
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 30,
@@ -128,6 +136,8 @@ function initMap() {
         ]
     })
 
+// Create team and competition markers
+
     for (i = 0; i < teamInfo.length; i++) {
         createTeamMarker(i)
     }
@@ -139,6 +149,8 @@ function initMap() {
     for (i = 0; i < districts.length; i++) {
         createCompetitionMarker('district', districts[i])
     }
+
+// And start application
 
     addKeyboardListener()
 }
