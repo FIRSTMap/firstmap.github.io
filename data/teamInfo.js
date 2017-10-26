@@ -1,4 +1,4 @@
-// Data extracted from thebluealliance.com at 2017-10-25T00:04:06+00:00
+// Data extracted from thebluealliance.com at 2017-10-25T22:37:33+00:00
 // Built by scraper at https://github/GeeII/Firstmap-scraper/
 // using postal and gazeteer databases from GeoNames.org.
 
@@ -765,7 +765,7 @@ var teamInfo=[
    {team_number:2202,lat: 43.062,lng: -88.098},
    {team_number:2204,lat: 37.633,lng:-122.097},
    {team_number:2207,lat: 45.080,lng: -93.022},
-   {team_number:2212,lat: 45.310,lng:   9.501},
+   {team_number:2212,lat: 31.947,lng:  34.890},
    {team_number:2220,lat: 44.804,lng: -93.167},
    {team_number:2221,lat: 30.421,lng: -90.059},
    {team_number:2224,lat: 42.426,lng: -83.195},
@@ -945,7 +945,7 @@ var teamInfo=[
    {team_number:2662,lat: 33.435,lng:-112.277},
    {team_number:2667,lat: 44.750,lng: -93.203},
    {team_number:2673,lat: 42.347,lng: -83.060},
-   {team_number:2679,lat: 34.236,lng:-119.164},
+   {team_number:2679,lat: 31.769,lng:  35.216},
    {team_number:2682,lat: 35.534,lng: -77.391},
    {team_number:2702,lat: 43.458,lng: -80.482},
    {team_number:2704,lat: 41.848,lng: -88.310},
@@ -2376,7 +2376,7 @@ var teamInfo=[
    {team_number:5648,lat:-37.834,lng: 145.040},
    {team_number:5651,lat: 33.722,lng: -84.334},
    {team_number:5653,lat: 47.709,lng: -91.957},
-   {team_number:5654,lat: 34.318,lng: -86.496},
+   {team_number:5654,lat: 31.259,lng:  35.213},
    {team_number:5655,lat: 41.065,lng:  29.005},
    {team_number:5658,lat: 48.453,lng: -96.867},
    {team_number:5659,lat: 40.934,lng: -72.308},
@@ -2749,7 +2749,7 @@ var teamInfo=[
    {team_number:6224,lat: 44.095,lng: -70.239},
    {team_number:6225,lat: 27.405,lng: -80.362},
    {team_number:6226,lat: 40.068,lng: -74.845},
-   {team_number:6230,lat: 34.236,lng:-119.164},
+   {team_number:6230,lat: 31.769,lng:  35.216},
    {team_number:6232,lat: 40.979,lng:  28.792},
    {team_number:6237,lat: 41.291,lng: -89.794},
    {team_number:6239,lat: 38.868,lng: -76.816},
@@ -3078,7 +3078,7 @@ var teamInfo=[
    {team_number:6730,lat: 35.617,lng: -97.558},
    {team_number:6731,lat: 42.396,lng: -71.179},
    {team_number:6732,lat: 45.448,lng: -91.291},
-   {team_number:6736,lat: 10.289,lng:  10.973},
+   {team_number:6736,lat: 32.928,lng:  35.076},
    {team_number:6738,lat: 31.894,lng:  35.015},
    {team_number:6740,lat: 32.475,lng:  34.964},
    {team_number:6741,lat: 31.969,lng:  34.781},
@@ -3354,7 +3354,7 @@ var teamInfo=[
    {team_number:7064,lat: 39.301,lng: -94.934},
    {team_number:7065,lat: 32.422,lng: -86.275},
    {team_number:7066,lat: 35.084,lng: -92.424},
-   {team_number:7067,lat: 34.236,lng:-119.164},
+   {team_number:7067,lat: 31.769,lng:  35.216},
    {team_number:7069,lat: 25.048,lng: 121.532},
    {team_number:7070,lat: 40.946,lng:  29.206},
    {team_number:7071,lat: 41.014,lng:  28.950},
@@ -3368,7 +3368,7 @@ var teamInfo=[
    {team_number:7080,lat: 22.182,lng: 111.118},
    {team_number:7081,lat: 41.792,lng: 123.433},
    {team_number:7082,lat: 31.610,lng:  34.764},
-   {team_number:7083,lat: 40.740,lng: -75.310},
+   {team_number:7083,lat: 32.699,lng:  35.305},
    {team_number:7084,lat: 45.069,lng: -83.947},
    {team_number:7085,lat: 33.451,lng: -79.134},
    {team_number:7086,lat: 41.159,lng:  28.617},
