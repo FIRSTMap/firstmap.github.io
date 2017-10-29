@@ -1,18 +1,14 @@
 // TODO: Comments needed in this file.
 // Main body of scripts for FIRSTmap, a GoogleMaps application to show the
-// locations of First Robotics Competition teams and competitions on an
+// locations of First Robotics Competition teams and events on an
 // interactive map.
 
 // The GoogleMap and markers
 var map
-var teamMarkers = []
-var regionalMarkers = []
-var districtMarkers = []
+var markers = []
 
 // Start all markers in displayable state (not hidden)
-var teamState = true
-var regState = true
-var distState = true
+var state = {T: true, R: true, D: true}
 
 function initMap() {
 // Set up the google map parameters and options
@@ -136,18 +132,14 @@ function initMap() {
         ]
     })
 
-// Create team and competition markers
+// Create team and event markers
 
     for (i = 0; i < teamInfo.length; i++) {
-        createTeamMarker(i)
+        createTeamMarker(teamInfo[i])
     }
 
-    for (i = 0; i < regionals.length; i++) {
-        createCompetitionMarker('regional', regionals[i])
-    }
-
-    for (i = 0; i < districts.length; i++) {
-        createCompetitionMarker('district', districts[i])
+    for (i = 0; i < events.length; i++) {
+        createEventMarker(events[i])
     }
 
 // And start application
@@ -155,42 +147,41 @@ function initMap() {
     addKeyboardListener()
 }
 
-function createCompetitionMarker(type, competitionEntry) {
-    if (competitionEntry) {
+function createEventMarker(eventEntry) {
+    if (eventEntry) {
         var position = {
-            lat: type == 'regional' ? competitionEntry[1].lat : competitionEntry[2].lat,
-            lng: type == 'regional' ? competitionEntry[1].lng : competitionEntry[2].lng
+            lat: eventEntry.lat,
+            lng: eventEntry.lng 
         }
+        var key = eventEntry.key
 
         if (position.lat && position.lng) {
             var image = {
-                url: 'resources/' + type + '.png',
+                url: 'resources/' + (eventEntry.type=='R' ? 'regional' : 'district') + '.png',
                 scaledSize: new google.maps.Size(30, 30)
             }
 
             var marker = new google.maps.Marker({
                 position: position,
                 map: map,
-                title: competitionEntry[0],
-                icon: image
+                title: eventEntry.name,
+                icon: image,
+                key: eventEntry.key,
+                type: eventEntry.type
             })
 
             google.maps.event.addListener(marker, 'click', function() {
-                openCompInfo(type, competitionEntry, marker)
+                openCompInfo(marker)
             })
 
-            if (type === 'regional') {
-                regionalMarkers.push(marker)
-            } else {
-                districtMarkers.push(marker)
-            }
+            markers.push(marker)
         }
     }
 }
 
-function createTeamMarker(index) {
-    if (teamInfo[index]) {
-        var title = teamInfo[index].team_number
+function createTeamMarker(teamInfo) {
+    if (teamInfo) {
+        var title = teamInfo.team_number
         var position = {}
 
         if (title in updatedLocations) {
@@ -200,8 +191,8 @@ function createTeamMarker(index) {
             }
         } else {
             position = {
-                lat: teamInfo[index].lat + (Math.random()-.5) / 50,
-                lng: teamInfo[index].lng + (Math.random()-.5) / 50 
+                lat: teamInfo.lat + (Math.random()-.5) / 50,
+                lng: teamInfo.lng + (Math.random()-.5) / 50 
             }
         }
 
@@ -216,49 +207,62 @@ function createTeamMarker(index) {
             map: map,
             title: title.toString(),
             icon: image,
-            index: index
+            key: 'frc' + title.toString(),
+            type: 'T'
         })
 
         google.maps.event.addListener(marker, 'click', function() {
             openTeamInfo(title, marker)
         })
 
-        teamMarkers.push(marker)
+        markers.push(marker)
     }
 }
 
-function openCompInfo(type, entry, marker) {
-    var dates = (type === 'regional' ? entry[4] : entry[5]).split(' - ')
-    var start = new Date(dates[0]).toLocaleDateString()
-    var end = new Date(dates[1]).toLocaleDateString()
+function openCompInfo(marker) {
+    var req = new XMLHttpRequest()
 
-    var content = ''
+    req.open(
+        'GET',
+        'https://www.thebluealliance.com/api/v3/event/' +
+            marker.key + '?X-TBA-Auth-Key=' +
+            'VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq'
+    )
+    req.send()
+    req.onreadystatechange = function() {
+      if (req.readyState === 4 && req.status === 200) {
+        var event = JSON.parse(req.responseText)
 
-    content += '<h1>' + (type == 'regional' ? entry[0] : entry[1]) + '</h1>'
-    content += '<ul>'
+        var content = ''
 
-    if (type === 'district') {
-        content += '<li><strong>District:</strong> ' + entry[0] + '</li>'
+        content += '<h1>' + event.short_name + '</h1>'
+        content += '<ul>'
+
+        if (event.event_type_string.startsWith('District')) {
+            content += '<li><strong>District:</strong> ' + 
+                        event.district.abbreviation + '</li>'
+        }
+
+        content += '<li><strong>Week:</strong> ' + event.week + '</li>'
+        var start = new Date(event.start_date).toLocaleDateString()
+        var end = new Date(event.end_date).toLocaleDateString()
+        content += '<li><strong>Date:</strong> ' + start + ' thru ' + end + '</li>'
+        content += '<li><a href="http://www.thebluealliance.com/event/' +
+                    marker.key + '">View on The Blue Alliance</a></li>'
+        content += '</ul>'
+
+        try {
+            var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
+            oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
+        } catch (e) {}
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        })
+
+        infoWindow.open(map, marker)
+      }
     }
-
-    content += '<li><strong>Week:</strong> ' + (type === 'regional' ? entry[2] : entry[3]) + '</li>'
-    content += '<li><strong>Date:</strong> ' + start + ' thru ' + end + '</li>'
-    content +=
-        '<li><a href="http://www.thebluealliance.com/event/' +
-        (type === 'regional' ? entry[3] : entry[4]) +
-        '">View on The Blue Alliance</a></li>'
-    content += '</ul>'
-
-    try {
-        var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
-        oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
-    } catch (e) {}
-
-    var infoWindow = new google.maps.InfoWindow({
-        content: content
-    })
-
-    infoWindow.open(map, marker)
 }
 
 function openTeamInfo(num, marker) {
@@ -309,43 +313,29 @@ function openTeamInfo(num, marker) {
 }
 
 function toggleMarkers(type) {
+    var change = ''
+    var newMap = null
     switch (type) {
         case 'teams':
-            for (i = 0; i < teamMarkers.length; i++) {
-                if (teamState) {
-                    teamMarkers[i].setMap(null)
-                } else {
-                    teamMarkers[i].setMap(map)
-                }
-            }
-
-            teamState = !teamState
-
+            state.T = !state.T
+            newMap = state.T ? map : null
+            change='T'
             break
         case 'regionals':
-            for (i = 0; i < regionalMarkers.length; i++) {
-                if (regState) {
-                    regionalMarkers[i].setMap(null)
-                } else {
-                    regionalMarkers[i].setMap(map)
-                }
-            }
-
-            regState = !regState
-
+            state.R = !state.R
+            newMap = state.R ? map : null
+            change='R'
             break
         case 'districts':
-            for (i = 0; i < districtMarkers.length; i++) {
-                if (distState == true) {
-                    districtMarkers[i].setMap(null)
-                } else {
-                    districtMarkers[i].setMap(map)
-                }
-            }
-
-            distState = !distState
-
+            state.D = !state.D
+            newMap = state.D ? map : null
+            change='D'
             break
+     }
+     for (i = 0; i < markers.length; i++) {
+         if (markers[i].type == change) {
+              markers[i].setMap(newMap)
+         }
     }
 }
 
@@ -354,15 +344,15 @@ function addKeyboardListener() {
         switch (event.keyCode) {
             // D
             case 68:
-                toggleMarkers('districts')
+                toggleMarkers('D')
                 break
             // R
             case 82:
-                toggleMarkers('regionals')
+                toggleMarkers('R')
                 break
             // T
             case 84:
-                toggleMarkers('teams')
+                toggleMarkers('T')
                 break
             // F
             case 70:
