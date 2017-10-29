@@ -8,7 +8,7 @@ var map
 var markers = []
 
 // Start all markers in displayable state (not hidden)
-var state = {T: true, R: true, D: true}
+var state = {T: true, R: true, D: true, C:true}
 
 function initMap() {
 // Set up the google map parameters and options
@@ -157,8 +157,9 @@ function createEventMarker(eventEntry) {
 
         if (position.lat && position.lng) {
             var image = {
-                url: 'resources/' + (eventEntry.type=='R' ? 'regional' : 'district') + '.png',
-                scaledSize: new google.maps.Size(30, 30)
+                url: 'resources/' + (eventEntry.type=='R' ? 'regional' : 
+                     (eventEntry.type=='C' ? 'championship' : 'district')) + '.png',
+                      scaledSize: new google.maps.Size(30, 30)
             }
 
             var marker = new google.maps.Marker({
@@ -171,7 +172,7 @@ function createEventMarker(eventEntry) {
             })
 
             google.maps.event.addListener(marker, 'click', function() {
-                openCompInfo(marker)
+                openInfo(marker)
             })
 
             markers.push(marker)
@@ -212,44 +213,69 @@ function createTeamMarker(teamInfo) {
         })
 
         google.maps.event.addListener(marker, 'click', function() {
-            openTeamInfo(title, marker)
+            openInfo(marker)
         })
 
         markers.push(marker)
     }
 }
 
-function openCompInfo(marker) {
+function openInfo(marker) {
     var req = new XMLHttpRequest()
 
-    req.open(
-        'GET',
-        'https://www.thebluealliance.com/api/v3/event/' +
+    req.open('GET', 'https://www.thebluealliance.com/api/v3/' +
+            (marker.type == 'T' ? 'team/' : 'event/') +
             marker.key + '?X-TBA-Auth-Key=' +
             'VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq'
     )
     req.send()
     req.onreadystatechange = function() {
       if (req.readyState === 4 && req.status === 200) {
-        var event = JSON.parse(req.responseText)
+        var parsed = JSON.parse(req.responseText)
 
         var content = ''
 
-        content += '<h1>' + event.short_name + '</h1>'
-        content += '<ul>'
+        if (marker.type == 'T') {
+            content += '<h1>'
+            content += parsed.website ? '<a href="' + parsed.website + '">' : ''
+            content += 'Team ' + parsed.team_number
+            content += parsed.nickname ? ' - ' + parsed.nickname : ''
+            content += parsed.website ? '</a></h1>' : '</h1>'
 
-        if (event.event_type_string.startsWith('District')) {
-            content += '<li><strong>District:</strong> ' + 
-                        event.district.abbreviation + '</li>'
+            content += parsed.motto ? '<p><em>"' + parsed.motto + '"</em></p>' : ''
+            content += '<ul>'
+            content += '<li><strong>Location:</strong> ' + parsed.city + ', '
+            content += parsed.state_prov + ' ' + parsed.postal_code + ', '
+            content += parsed.country + '</li>'
+            content += parsed.rookie_year
+                ? '<li><strong>Rookie year:</strong> ' + parsed.rookie_year + '</li>'
+                : ''
+            content +=
+                '<li><a href="http://thebluealliance.com/team/' + parsed.team_number +
+                '">View on The Blue Alliance</a></li>'
+            content += '</ul>'
+        } else {
+            if (parsed.event_type==4) {
+                content +=  '<h1>FIRST Championship ' + parsed.city + '</h1>'
+            } else {
+                content += '<h1>' + parsed.short_name + '</h1>'
+            }
+    
+            content += '<ul>'
+            if (parsed.event_type_string.startsWith('District')) {
+                content += '<li><strong>District:</strong> ' + 
+                            parsed.district.abbreviation + '</li>'
+            }
+            if (parsed.week) { 
+                content += '<li><strong>Week:</strong> ' + parsed.week + '</li>'
+            }
+            var start = new Date(parsed.start_date).toLocaleDateString()
+            var end = new Date(parsed.end_date).toLocaleDateString()
+            content += '<li><strong>Date:</strong> ' + start + ' thru ' + end + '</li>'
+            content += '<li><a href="http://www.thebluealliance.com/event/' +
+                        marker.key + '">View on The Blue Alliance</a></li>'
+            content += '</ul>'
         }
-
-        content += '<li><strong>Week:</strong> ' + event.week + '</li>'
-        var start = new Date(event.start_date).toLocaleDateString()
-        var end = new Date(event.end_date).toLocaleDateString()
-        content += '<li><strong>Date:</strong> ' + start + ' thru ' + end + '</li>'
-        content += '<li><a href="http://www.thebluealliance.com/event/' +
-                    marker.key + '">View on The Blue Alliance</a></li>'
-        content += '</ul>'
 
         try {
             var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
@@ -262,53 +288,6 @@ function openCompInfo(marker) {
 
         infoWindow.open(map, marker)
       }
-    }
-}
-
-function openTeamInfo(num, marker) {
-    var req = new XMLHttpRequest()
-
-    req.open(
-        'GET',
-        'https://www.thebluealliance.com/api/v3/team/frc' +
-            num + '?X-TBA-Auth-Key=' +
-            'VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq'
-    )
-    req.send()
-    req.onreadystatechange = function() {
-        if (req.readyState === 4 && req.status === 200) {
-            var team = JSON.parse(req.responseText)
-            var content = '<h1>'
-
-            content += team.website ? '<a href="' + team.website + '">' : ''
-            content += 'Team ' + team.team_number
-            content += team.nickname ? ' - ' + team.nickname : ''
-            content += team.website ? '</a></h1>' : '</h1>'
-            content += team.motto ? '<p><em>"' + team.motto + '"</em></p>' : ''
-            content += '<ul>'
-            content += '<li><strong>Location:</strong> ' + team.city + ', '
-            content += team.state_prov + ' ' + team.postal_code + ', '
-            content += team.country + '</li>'
-            content += team.rookie_year
-                ? '<li><strong>Rookie year:</strong> ' + team.rookie_year + '</li>'
-                : ''
-            content +=
-                '<li><a href="http://thebluealliance.com/team/' +
-                num +
-                '">View on The Blue Alliance</a></li>'
-            content += '</ul>'
-
-            try {
-                var oldInfoWindow = document.getElementsByClassName('gm-style-iw')[0]
-                oldInfoWindow.parentNode.parentNode.removeChild(oldInfoWindow.parentNode)
-            } catch (e) {}
-
-            var infoWindow = new google.maps.InfoWindow({
-                content: content
-            })
-
-            infoWindow.open(map, marker)
-        }
     }
 }
 
@@ -330,6 +309,11 @@ function toggleMarkers(type) {
             state.D = !state.D
             newMap = state.D ? map : null
             change='D'
+            break
+        case 'championships':
+            state.C = !state.C
+            newMap = state.C ? map : null
+            change='C'
             break
      }
      for (i = 0; i < markers.length; i++) {
