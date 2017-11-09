@@ -158,8 +158,8 @@ function createEventMarker(eventEntry) {
         if (position.lat && position.lng) {
             var image = {
                 url: 'resources/' + (eventEntry.type=='R' ? 'regional' : 
-                     (eventEntry.type=='C' ? 'championship' : 'district')) + '.png',
-                      scaledSize: new google.maps.Size(30, 30)
+                     (eventEntry.type=='C'?'championship':'district')) + '.png',
+                scaledSize: new google.maps.Size(30, 30)
             }
 
             var marker = new google.maps.Marker({
@@ -295,21 +295,25 @@ function toggleMarkers(type) {
     var change = ''
     var newMap = null
     switch (type) {
+        case 'T':
         case 'teams':
             state.T = !state.T
             newMap = state.T ? map : null
             change='T'
             break
+        case 'R':
         case 'regionals':
             state.R = !state.R
             newMap = state.R ? map : null
             change='R'
             break
+        case 'D':
         case 'districts':
             state.D = !state.D
             newMap = state.D ? map : null
             change='D'
             break
+        case 'C':
         case 'championships':
             state.C = !state.C
             newMap = state.C ? map : null
@@ -326,6 +330,14 @@ function toggleMarkers(type) {
 function addKeyboardListener() {
     document.addEventListener('keyup', function(event) {
         switch (event.keyCode) {
+            // esc
+            case 27:
+                toggleAbout()
+                break
+            // C
+            case 67:
+                toggleMarkers('C')
+                break
             // D
             case 68:
                 toggleMarkers('D')
@@ -352,4 +364,12 @@ function openAbout() {
 
 function closeAbout() {
    document.getElementById('about').style.display='none'
+}
+
+function toggleAbout() {
+   if (document.getElementById('about').style.display == 'none') {
+      openAbout()
+   } else {
+      closeAbout()
+   }
 }
