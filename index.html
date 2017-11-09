@@ -14,6 +14,8 @@
     <div id='toggles'>
         <div id='team_toggle' onclick="toggleMarkers('teams')"
              title="Toggle Team Markers">T</div>
+        <div id='championship_toggle' onclick="toggleMarkers('championships')"
+             title="Toggle Championship Markers">C</div>
         <div id='regional_toggle' onclick="toggleMarkers('regionals')"
              title="Toggle Regional Markers">R</div>
         <div id='district_toggle' onclick="toggleMarkers('districts')"
@@ -32,9 +34,10 @@
         <div id="control_box">
            <h1>Controls</h1>
 	   <dl id="controls">
-              <dt>D R T</dt>
+              <dt>D R C T</dt>
               <dd>Toggle <img src="resources/district.png"/> District
                   <img src="resources/regional.png"/> Regional
+                  <img src="resources/championship.png"/> Champoinship
                   <img src="resources/marker.png"/> Team Markers on/off"</dd>
               <dt>?</dt>
               <dd>View Help and Credits</dd>
@@ -70,7 +73,7 @@
 
     <!-- Javascript Scripts -->
     <script src="data/teamInfo.js"></script>
-    <script src="data/competitions.js"></script>
+    <script src="data/events.js"></script>
     <script src="overrides.js"></script>
     <script src="resources/scripts.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABrEZwgm0BZrNJuYrAxcyozSQET4HILUU&callback=initMap" async defer></script>
