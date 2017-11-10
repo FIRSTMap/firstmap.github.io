@@ -336,19 +336,19 @@ function addKeyboardListener() {
                 break
             // C
             case 67:
-                toggleMarkers('C')
+                toggleMarkers('championships')
                 break
             // D
             case 68:
-                toggleMarkers('D')
+                toggleMarkers('districts')
                 break
             // R
             case 82:
-                toggleMarkers('R')
+                toggleMarkers('regionals')
                 break
             // T
             case 84:
-                toggleMarkers('T')
+                toggleMarkers('teams')
                 break
             // F
             case 70:
