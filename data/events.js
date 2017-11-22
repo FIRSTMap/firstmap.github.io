@@ -1,4 +1,4 @@
-// Data extracted from thebluealliance.com at 2017-10-28T21:52:44+00:00
+// Data extracted from thebluealliance.com at 2017-11-22T13:05:46+00:00
 // Built by scraper at https://github/GeeII/Firstmap-scraper/
 
 var events = [
@@ -15,13 +15,13 @@ var events = [
    {key:"2018cafr", lat:36.7350, lng:-119.7850, type:"R", name:"Central Valley Regional"},
    {key:"2018cair", lat:33.6405, lng:-117.8443, type:"R", name:"Orange County Regional"},
    {key:"2018capo", lat:34.0810, lng:-117.7652, type:"R", name:"Los Angeles Regional"},
-   {key:"2018casd", lat:32.9752, lng:-117.2584, type:"R", name:"San Diego Regional"},
+   {key:"2018casd", lat:32.9752, lng:-117.2584, type:"R", name:"San Diego Regional presented by Qualcomm"},
    {key:"2018casf", lat:37.7481, lng:-122.4959, type:"R", name:"San Francisco Regional"},
    {key:"2018casj", lat:37.3352, lng:-121.8801, type:"R", name:"Silicon Valley Regional"},
    {key:"2018cave", lat:34.2770, lng:-119.2316, type:"R", name:"Ventura Regional"},
-   {key:"2018chcmp", lat:38.2170, lng:-78.3420, type:"D", name:"CHS District"},
-   {key:"2018cmpmi", lat:42.3314, lng:-83.0458, type:"C", name:"Detroit CMP"},
-   {key:"2018cmptx", lat:29.7604, lng:-95.3698, type:"C", name:"Houston CMP"},
+   {key:"2018chcmp", lat:38.9955, lng:-76.9415, type:"D", name:"CHS District"},
+   {key:"2018cmpmi", lat:42.3314, lng:-83.0458, type:"C", name:"FIRST Championship (Detroit)"},
+   {key:"2018cmptx", lat:29.7604, lng:-95.3698, type:"C", name:"FIRST Championship (Houston)"},
    {key:"2018code", lat:39.6820, lng:-104.9619, type:"R", name:"Colorado Regional"},
    {key:"2018cthar", lat:41.7652, lng:-72.7010, type:"D", name:"NE District"},
    {key:"2018ctsct", lat:41.1588, lng:-73.2574, type:"D", name:"NE District"},
@@ -63,6 +63,7 @@ var events = [
    {key:"2018micen", lat:42.4867, lng:-83.0205, type:"D", name:"FIM District"},
    {key:"2018micmp", lat:43.5143, lng:-83.9624, type:"D", name:"FIM District"},
    {key:"2018miesc", lat:45.7412, lng:-87.0820, type:"D", name:"FIM District"},
+   {key:"2018mifor", lat:42.9434, lng:-85.5230, type:"D", name:"FIM District"},
    {key:"2018migay", lat:45.0465, lng:-84.6710, type:"D", name:"FIM District"},
    {key:"2018migib", lat:42.0855, lng:-83.2115, type:"D", name:"FIM District"},
    {key:"2018migul", lat:42.3728, lng:-85.4393, type:"D", name:"FIM District"},
