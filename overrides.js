@@ -64,6 +64,7 @@ var icons = [
     6419,
     6467,
     6630,
+    7308,
 
     // Scraped images
     4,
@@ -545,5 +546,9 @@ var updatedLocations = {
     7094: {
         lat: 30.3079,
         lng: -89.3282
+    },
+    7308: {
+        lat: 37.363,
+        lng: -122.095
     }
 }
