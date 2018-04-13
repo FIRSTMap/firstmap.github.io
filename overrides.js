@@ -223,7 +223,8 @@ var icons = [
     6063,
     6064,
     6325,
-    6331
+    6331,
+    5243
 ]
 
 // updatedLocations Array.  Add your team's lat and lng to this array to modify the exact position of your team's marker.
@@ -559,5 +560,9 @@ var updatedLocations = {
     7308: {
         lat: 37.363,
         lng: -122.095
+    },
+    5243: {
+        lat: 38.8250425,
+        lng: -77.41107410000001,
     }
 }
