@@ -213,8 +213,7 @@ function createTeamMarker(teamInfo) {
         var imageUrl = 'resources/marker.png'
         if (custom){
           imageUrl = 'logos/' + title + '.png'
-        } else {
-          if (teamAvatars.indexOf(title) >= 0) {
+        } else if (teamAvatars.indexOf(title) >= 0) {
             custom = true;
             imageUrl = 'https://frccards.com/avatars/' + title + '.png'
           }
