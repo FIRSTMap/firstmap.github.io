@@ -216,7 +216,6 @@ function createTeamMarker(teamInfo) {
         } else if (teamAvatars.indexOf(title) >= 0) {
             custom = true;
             imageUrl = 'https://frccards.com/avatars/' + title + '.png'
-          }
         }
 
         var image = {
