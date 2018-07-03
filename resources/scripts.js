@@ -7,6 +7,9 @@
 var map
 var markers = []
 
+// Teams who have an avatar
+var teamAvatars = []
+
 // Start all markers in displayable state (not hidden)
 var state = {T: true, R: true, D: true, C:true}
 
@@ -134,8 +137,18 @@ function initMap() {
 
 // Create team and event markers
 
-    for (i = 0; i < teamInfo.length; i++) {
-        createTeamMarker(teamInfo[i])
+    var req = new XMLHttpRequest()
+
+    req.open('GET', 'https://frccards.com/avatars/teams.json')
+    req.send()
+    req.onreadystatechange = function() {
+      if (req.readyState === 4 && req.status === 200) {
+        teamAvatars = JSON.parse(req.responseText)
+
+        for (i = 0; i < teamInfo.length; i++) {
+            createTeamMarker(teamInfo[i])
+        }
+      }
     }
 
     for (i = 0; i < events.length; i++) {
@@ -201,9 +214,9 @@ function createTeamMarker(teamInfo) {
         if (custom){
           imageUrl = 'logos/' + title + '.png'
         } else {
-          if (teamAvatars[title]) {
-            custom=true;
-            imageUrl = 'data:image/png;base64,' + teamAvatars[title]["img"]
+          if (teamAvatars.indexOf(title) >= 0) {
+            custom = true;
+            imageUrl = 'https://frccards.com/avatars/' + title + '.png'
           }
         }
 
