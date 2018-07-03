@@ -1,83 +1,76 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>FIRSTmap</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="resources/style.css">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>FIRSTmap</title>
+        <meta name="viewport" content="initial-scale=1.0">
+        <link rel="stylesheet" href="resources/style.css">
+    </head>
 
-<body>
-    <div id="map"></div>
+    <body>
+        <div id="map"></div>
 
-    <div id='toggles'>
-        <div id='team_toggle' onclick="toggleMarkers('teams')"
-             title="Toggle Team Markers">T</div>
-        <div id='regional_toggle' onclick="toggleMarkers('regionals')"
-             title="Toggle Regional Markers">R</div>
-        <div id='district_toggle' onclick="toggleMarkers('districts')"
-             title="Toggle District Markers">D</div>
-        <div id='championship_toggle' onclick="toggleMarkers('championships')"
-             title="Toggle Championship Markers">C</div>
-        <div id="icon" title="[esc] View help and credits" onclick="toggleAbout()">?</div>
-    </div>
+        <div id="toggles">
+            <div id="team_toggle" onclick="toggleMarkers('teams')" title="Toggle Team Markers">T</div>
+            <div id="regional_toggle" onclick="toggleMarkers('regionals')" title="Toggle Regional Markers">R</div>
+            <div id="district_toggle" onclick="toggleMarkers('districts')" title="Toggle District Markers">D</div>
+            <div id="championship_toggle" onclick="toggleMarkers('championships')" title="Toggle Championship Markers">C</div>
+            <div id="icon" title="[Esc] View help and credits" onclick="toggleAbout()">?</div>
+        </div>
 
-    <div id='about' style="display:none">
-        <div class="stripe">
-            <div>
-                FIRSTmap Help &amp; Credits
-                <button class="close" onclick="closeAbout()">X</button>
+        <div id="about" style="display:none">
+            <div class="stripe">
+                <div>
+                    FIRSTmap Help & Credits
+                    <button class="close" onclick="closeAbout()">X</button>
+                </div>
+            </div>
+
+            <div id="control_box">
+                <h1>Controls</h1>
+                <dl id="controls">
+                    <dt>D R C T</dt>
+                    <dd>Toggle <img src="resources/district.png"> District
+                    <img src="resources/regional.png"> Regional
+                    <img src="resources/championship.png"> Champoinship
+                    <img src="resources/marker.png"> Team Markers on/off"</dd>
+                    <dt>?</dt>
+                    <dd>View Help and Credits</dd>
+                    <dt>+/-</dt>
+                    <dd>Zoom into/out of map at window center</dd>
+                    <dt>Scroll</dt>
+                    <dd>Zoom into/out of map at mouse location</dd>
+                    <dt>Fork</dt>
+                    <dd>Contribute your team&#39;s logo or location or more on GitHub</dd>
+                </dl>
+            </div>
+
+            <div style="clear: both">&nbsp;</div>
+
+            <div id="tool_box">
+                <h1>Developed by <a href="https://www.github.com/FIRSTMap/firstmap.github.io/graphs/contributors">over 30 Contributors</a> using:</h1>
+                <dl id="tools">
+                    <dt><a href="http://maps.github.com/">GitHub</a></dt>
+                    <dd>Collaboration tools and Web Hosting</dd>
+                    <dt><a href="http://maps.google.com/">Google Maps</a></dt>
+                    <dd>Map interface and some team locations</dd>
+                    <dt><a href="https://thebluealliance.com/">The Blue Alliance</a></dt>
+                    <dd>FRC Team and competition info"</dd>
+                    <dt><a href="http://www.geonames.org/">GeoNames</a></dt>
+                    <dd>Datases for many team locations</dd>
+                </dl>
             </div>
         </div>
 
-        <div id="control_box">
-           <h1>Controls</h1>
-	   <dl id="controls">
-              <dt>D R C T</dt>
-              <dd>Toggle <img src="resources/district.png"/> District
-                  <img src="resources/regional.png"/> Regional
-                  <img src="resources/championship.png"/> Champoinship
-                  <img src="resources/marker.png"/> Team Markers on/off"</dd>
-              <dt>?</dt>
-              <dd>View Help and Credits</dd>
-              <dt>+/-</dt>
-              <dd>Zoom into/out of map at window center</dd>
-              <dt>Scroll</dt>
-              <dd>Zoom into/out of map at mouse location</dd>
-              <dt>Fork</dt>
-              <dd>Contribute your team&#39;s logo or location or more on github</dd>
-           </dl>
-        </div>
+        <a href="https://github.com/FIRSTmap/firstmap.github.io" class="github-banner" target="_blank" title="Add a team logo or&#010;lock down its location">Fork on GitHub</a>
 
-<div style="clear: both">&nbsp;</div>
-
-        <div id="tool_box">
-           <h1>Developed by <a href="https://www.github.com/FIRSTMap/firstmap.github.io/graphs/contributors">over 30 Contributors</a> using:</h1>
-   	   <dl id="tools">
-              <dt><a href="http://maps.github.com/">GitHub</a></dt>
-              <dd>Collaboration tools and Web Hosting</dd>
-              <dt><a href="http://maps.google.com/">Google Maps</a></dt>
-              <dd>Map interface and some team locations</dd>
-              <dt><a href="https://thebluealliance.com/">The Blue Alliance</a></dt>
-              <dd>FRC Team and competition info"</dd>
-              <dt><a href="http://www.geonames.org/">GeoNames</a></dt>
-              <dd>Datases for many team locations</dd>
-           </dl>
-        </div>
-    </div>
-
-    <a href="https://github.com/FIRSTmap/firstmap.github.io"
-       class="github-banner" target="_blank"
-       title="Add a team logo or&#010;lock down its location">Fork on GitHub</a>
-
-    <!-- Javascript Scripts -->
-    <script src="data/teamInfo.js"></script>
-    <script src="data/teamAvatars.js"></script>
-    <script src="data/events.js"></script>
-    <script src="data/overrides.js"></script>
-    <script src="resources/scripts.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABrEZwgm0BZrNJuYrAxcyozSQET4HILUU&callback=initMap" async defer></script>
-</body>
+        <script src="data/teamInfo.js"></script>
+        <script src="data/teamAvatars.js"></script>
+        <script src="data/events.js"></script>
+        <script src="data/overrides.js"></script>
+        <script src="resources/scripts.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABrEZwgm0BZrNJuYrAxcyozSQET4HILUU&callback=initMap" async defer></script>
+    </body>
 
 </html>
