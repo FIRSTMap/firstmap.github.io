@@ -1,13 +1,9 @@
-// Main body of scripts for FIRSTmap, an application which shows the
-// locations of FIRST Robotics Competition teams and events on an
-// interactive map.
-
-// Google Map and markers
+// Google Map
 var map;
 var markers = [];
 
 // Show all markers
-var state = {T: true, R: true, D: true, C: true};
+var state = {team: true, regional: true, district: true, championship: true};
 
 function initMap() {
     // Initialize Google Map
@@ -145,7 +141,7 @@ function createEventMarker(eventEntry) {
 
         if (position.lat && position.lng) {
             var image = {
-                url: 'resources/img/' + (eventEntry.type == 'R' ? 'regional' : (eventEntry.type == 'C' ? 'championship' : 'district')) + '.png',
+                url: 'resources/img/' + eventEntry.type + '.png',
                 scaledSize: new google.maps.Size(30, 30)
             };
 
@@ -158,8 +154,8 @@ function createEventMarker(eventEntry) {
                 type: eventEntry.type
             });
 
-            google.maps.event.addListener(marker, 'click', function () {
-                openInfo(marker)
+            google.maps.event.addListener(marker, 'click', function() {
+                openInfo(marker);
             });
 
             markers.push(marker);
@@ -189,7 +185,7 @@ function createTeamMarker(teamInfo) {
             imageUrl = 'logos/' + title + '.png';
         } else if (teamAvatars[title]) {
             custom = true;
-            imageUrl = 'data:image/png;base64,' + teamAvatars[title]["img"];
+            imageUrl = 'data:image/png;base64,' + teamAvatars[title]['img'];
         }
 
         var image = {
@@ -203,10 +199,10 @@ function createTeamMarker(teamInfo) {
             title: title.toString(),
             icon: image,
             key: 'frc' + title.toString(),
-            type: 'T'
+            type: 'team'
         });
 
-        google.maps.event.addListener(marker, 'click', function () {
+        google.maps.event.addListener(marker, 'click', function() {
             openInfo(marker);
         });
 
@@ -216,14 +212,14 @@ function createTeamMarker(teamInfo) {
 
 function openInfo(marker) {
     var req = new XMLHttpRequest();
-    req.open('GET', 'https://www.thebluealliance.com/api/v3/' + (marker.type == 'T' ? 'team/' : 'event/') + marker.key + '?X-TBA-Auth-Key=VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq');
+    req.open('GET', 'https://www.thebluealliance.com/api/v3/' + (marker.type == 'team' ? 'team' : 'event') + '/' + marker.key + '?X-TBA-Auth-Key=VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq');
     req.send();
     req.onreadystatechange = function() {
         if (req.readyState === 4 && req.status === 200) {
             var parsed = JSON.parse(req.responseText);
             var content = '';
 
-            if (marker.type == 'T') {
+            if (marker.type == 'team') {
                 content += '<h1>';
                 content += parsed.website ? '<a href="' + parsed.website + '">' : '';
                 content += 'Team ' + parsed.team_number;
@@ -254,7 +250,7 @@ function openInfo(marker) {
                 }
                 var start = new Date(parsed.start_date).toLocaleDateString();
                 var end = new Date(parsed.end_date).toLocaleDateString();
-                content += '<li><strong>Date:</strong> ' + start + ' thru ' + end + '</li>';
+                content += '<li><strong>Date:</strong> ' + start + ' - ' + end + '</li>';
                 content += '<li><a href="http://www.thebluealliance.com/event/' + marker.key + '">View on The Blue Alliance</a></li>';
                 content += '</ul>';
             }
@@ -274,38 +270,10 @@ function openInfo(marker) {
 }
 
 function toggleMarkers(type) {
-    var change = '';
-    var newMap = null;
-    switch (type) {
-        case 'T':
-        case 'teams':
-            state.T = !state.T;
-            newMap = state.T ? map : null;
-            change = 'T';
-            break;
-        case 'R':
-        case 'regionals':
-            state.R = !state.R;
-            newMap = state.R ? map : null;
-            change = 'R';
-            break;
-        case 'D':
-        case 'districts':
-            state.D = !state.D;
-            newMap = state.D ? map : null;
-            change = 'D';
-            break;
-        case 'C':
-        case 'championships':
-            state.C = !state.C;
-            newMap = state.C ? map : null;
-            change = 'C';
-            break;
-    }
+    state[type] = !state[type];
     for (i = 0; i < markers.length; i++) {
-        if (markers[i].type == change) {
-            markers[i].setMap(newMap);
-        }
+        if (markers[i].type == type)
+            markers[i].setMap(state[type] ? map : null);
     }
 }
 
@@ -318,19 +286,19 @@ function addKeyboardListener() {
                 break;
             // C
             case 67:
-                toggleMarkers('championships');
+                toggleMarkers('championship');
                 break;
             // D
             case 68:
-                toggleMarkers('districts');
+                toggleMarkers('district');
                 break;
             // R
             case 82:
-                toggleMarkers('regionals');
+                toggleMarkers('regional');
                 break;
             // T
             case 84:
-                toggleMarkers('teams');
+                toggleMarkers('team');
                 break;
             // F
             case 70:
