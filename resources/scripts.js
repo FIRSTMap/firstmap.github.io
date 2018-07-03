@@ -1,14 +1,13 @@
-// TODO: Comments needed in this file.
-// Main body of scripts for FIRSTmap, a GoogleMaps application to show the
-// locations of First Robotics Competition teams and events on an
+// Main body of scripts for FIRSTmap, an application which shows the
+// locations of FIRST Robotics Competition teams and events on an
 // interactive map.
 
-// The GoogleMap and markers
+// Google Map and markers
 var map
 var markers = []
 
 // Start all markers in displayable state (not hidden)
-var state = {T: true, R: true, D: true, C:true}
+var state = {T: true, R: true, D: true, C: true}
 
 function initMap() {
 // Set up the google map parameters and options
@@ -377,8 +376,8 @@ function closeAbout() {
 
 function toggleAbout() {
    if (document.getElementById('about').style.display == 'none') {
-      openAbout()
+      openAbout();
    } else {
-      closeAbout()
+      closeAbout();
    }
 }
