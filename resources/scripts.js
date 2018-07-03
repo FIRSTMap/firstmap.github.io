@@ -151,13 +151,13 @@ function createEventMarker(eventEntry) {
     if (eventEntry) {
         var position = {
             lat: eventEntry.lat,
-            lng: eventEntry.lng 
+            lng: eventEntry.lng
         }
         var key = eventEntry.key
 
         if (position.lat && position.lng) {
             var image = {
-                url: 'resources/' + (eventEntry.type=='R' ? 'regional' : 
+                url: 'resources/' + (eventEntry.type=='R' ? 'regional' :
                      (eventEntry.type=='C'?'championship':'district')) + '.png',
                 scaledSize: new google.maps.Size(30, 30)
             }
@@ -193,13 +193,22 @@ function createTeamMarker(teamInfo) {
         } else {
             position = {
                 lat: teamInfo.lat + (Math.random()-.5) / 50,
-                lng: teamInfo.lng + (Math.random()-.5) / 50 
+                lng: teamInfo.lng + (Math.random()-.5) / 50
             }
         }
-
         var custom = icons.indexOf(title) !== -1
+        var imageUrl = 'resources/marker.png'
+        if (custom){
+          imageUrl = 'logos/' + title + '.png'
+        } else {
+          if (teamAvatars[title]) {
+            custom=true;
+            imageUrl = 'data:image/png;base64,' + teamAvatars[title]["img"]
+          }
+        }
+
         var image = {
-            url: custom ? 'logos/' + title + '.png' : 'resources/marker.png',
+            url: imageUrl,
             scaledSize: custom ? new google.maps.Size(30, 30) : undefined
         }
 
@@ -260,13 +269,13 @@ function openInfo(marker) {
             } else {
                 content += '<h1>' + parsed.short_name + '</h1>'
             }
-    
+
             content += '<ul>'
             if (parsed.event_type_string.startsWith('District')) {
-                content += '<li><strong>District:</strong> ' + 
+                content += '<li><strong>District:</strong> ' +
                             parsed.district.abbreviation + '</li>'
             }
-            if (parsed.week) { 
+            if (parsed.week) {
                 content += '<li><strong>Week:</strong> ' + parsed.week + '</li>'
             }
             var start = new Date(parsed.start_date).toLocaleDateString()
