@@ -89,8 +89,6 @@ a:hover {
     text-color: black;
     margin-left: 10px;
     text-align: center;
-    cursor: default
-    font-size: small;
 }
 .close {
      float: right;
