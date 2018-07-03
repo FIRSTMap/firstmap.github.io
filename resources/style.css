@@ -67,7 +67,7 @@ a:hover {
     height: 40px;
     width: 250px;
 }
-#toggles > div {
+#toggles div {
     height: 25px;
     width: 25px;
     display: inline-block;
@@ -86,9 +86,9 @@ a:hover {
     width: 500px;
     height: 300px;
     background: #CCC;
-    text-color: black;
     margin-left: 10px;
     text-align: center;
+    display: none;
 }
 .close {
      float: right;
@@ -102,16 +102,16 @@ a:hover {
     background: #175f7e;
     color: white;
     font-weight: bold;
-    margin: 0px;
     top: 0px;
     padding: 6px
 }
 #about div {
    width: 100%;
-   margin: 0px;
-   padding: 0px;
 }
-
+#about dl img {
+    width: 15px;
+    margin-left: 5px;
+}
 #about div dl {
    width: 100%;
    background: #404040;
