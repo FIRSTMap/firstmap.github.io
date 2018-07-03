@@ -143,12 +143,3 @@ dl#tools dd {
    float: right;
    text-align: left;
 }
-#about div#tool_box h1: {
-   padding-top: 15px;
-}
-#about div h1: {
-   padding-top: 15px;
-   width: 100%;
-   clear: both;
-   text-decoration: none;
-}
