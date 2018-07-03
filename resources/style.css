@@ -84,7 +84,6 @@ a:hover {
     top: 44px;
     right: 15px;
     width: 500px;
-    height: 300px;
     background: #CCC;
     margin-left: 10px;
     text-align: center;
@@ -98,15 +97,25 @@ a:hover {
      padding-bottom: 1px;
      padding-top: 1px
 }
+#about div {
+    margin: 20px 0;
+}
 .stripe {
     background: #175f7e;
     color: white;
     font-weight: bold;
-    top: 0px;
-    padding: 6px
+    padding: 6px;
+    margin-top: 0;
 }
-#about div {
-   width: 100%;
+#about dt {
+    float: left;
+    text-align: right;
+    clear: both;
+    font-weight: bold;
+}
+#about dd {
+    float: right;
+    text-align: left;
 }
 #about dl img {
     width: 15px;
@@ -114,30 +123,20 @@ a:hover {
 }
 #about div dl {
    width: 100%;
-   background: #404040;
    font-size: 14px;
 }
 dl#controls dt {
    width: 15%; 
-   float: left;
    clear: both;
-   text-align: right;
-   font-weight: bold;
 }
 dl#controls dd {
    width: 83%;
-   float: right;
    text-align: left;
 }
 dl#tools dt {
    width: 30%; 
-   float: left;
    clear: both;
-   text-align: right;
-   font-weight: bold;
 }
 dl#tools dd {
    width: 68%;
-   float: right;
-   text-align: left;
 }
