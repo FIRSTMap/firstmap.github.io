@@ -156,8 +156,8 @@ function createEventMarker(eventEntry) {
 
         if (position.lat && position.lng) {
             var image = {
-                url: 'resources/' + (eventEntry.type=='R' ? 'regional' :
-                     (eventEntry.type=='C'?'championship':'district')) + '.png',
+                url: 'resources/img/' + (eventEntry.type=='R' ? 'regional' :
+                     (eventEntry.type == 'C' ? 'championship' : 'district')) + '.png',
                 scaledSize: new google.maps.Size(30, 30)
             }
 
@@ -196,7 +196,7 @@ function createTeamMarker(teamInfo) {
             }
         }
         var custom = icons.indexOf(title) !== -1
-        var imageUrl = 'resources/marker.png'
+        var imageUrl = 'resources/img/marker.png'
         if (custom){
           imageUrl = 'logos/' + title + '.png'
         } else {

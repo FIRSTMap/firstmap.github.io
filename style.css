@@ -2,7 +2,7 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(resources/Roboto.woff2) format('woff2');
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(resources/font/Roboto.woff2) format('woff2');
   unicode-range: U+0000-00FF;
 }
 * {
@@ -58,7 +58,7 @@ a:hover {
     text-align: center;
     text-decoration: none;
     transform: rotate(-40deg);
-    cursor: url(resources/fork.ico), pointer;
+    cursor: url(resources/img/fork.ico), pointer;
 }
 #toggles {
     position: fixed;
