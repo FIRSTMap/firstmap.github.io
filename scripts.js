@@ -23,20 +23,16 @@ function initMap() {
             {
                 featureType: 'water',
                 elementType: 'geometry',
-                stylers: [
-                    {
-                        color: '#193341'
-                    }
-                ]
+                stylers: [{
+                    color: '#193341'
+                }]
             },
             {
                 featureType: 'landscape',
                 elementType: 'geometry',
-                stylers: [
-                    {
-                        color: '#2c5a71'
-                    }
-                ]
+                stylers: [{
+                    color: '#2c5a71'
+                }]
             },
             {
                 featureType: 'road',
@@ -53,20 +49,16 @@ function initMap() {
             {
                 featureType: 'poi',
                 elementType: 'geometry',
-                stylers: [
-                    {
-                        color: '#406d80'
-                    }
-                ]
+                stylers: [{
+                    color: '#406d80'
+                }]
             },
             {
                 featureType: 'transit',
                 elementType: 'geometry',
-                stylers: [
-                    {
-                        color: '#406d80'
-                    }
-                ]
+                stylers: [{
+                    color: '#406d80'
+                }]
             },
             {
                 elementType: 'labels.text.stroke',
@@ -87,11 +79,9 @@ function initMap() {
             },
             {
                 elementType: 'labels.text.fill',
-                stylers: [
-                    {
-                        color: '#ffffff'
-                    }
-                ]
+                stylers: [{
+                    color: '#ffffff'
+                }]
             },
             {
                 featureType: 'administrative',
@@ -107,20 +97,16 @@ function initMap() {
             },
             {
                 elementType: 'labels.icon',
-                stylers: [
-                    {
-                        visibility: 'off'
-                    }
-                ]
+                stylers: [{
+                    visibility: 'off'
+                }]
             },
             {
                 featureType: 'poi.park',
                 elementType: 'geometry',
-                stylers: [
-                    {
-                        color: '#2c5a71'
-                    }
-                ]
+                stylers: [{
+                    color: '#2c5a71'
+                }]
             }
         ]
     });
