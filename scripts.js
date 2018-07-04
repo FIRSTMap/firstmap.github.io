@@ -281,5 +281,5 @@ function addKeyboardListener() {
 
 var about = document.getElementById('about');
 function toggleAbout() {
-    about.style.display = (about.style.display === 'none') ? 'block' : 'none';
+    about.style.display = (about.style.display === 'block') ? 'none' : 'block';
 }
