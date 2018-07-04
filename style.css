@@ -1,9 +1,9 @@
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(resources/font/Roboto.woff2) format('woff2');
-  unicode-range: U+0000-00FF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Roboto Thin'), local('Roboto-Thin'), url(resources/font/Roboto.woff2) format('woff2');
+    unicode-range: U+0000-00FF;
 }
 * {
     margin: 0;
@@ -11,42 +11,32 @@
     box-sizing: border-box;
 }
 html,
-body {
-    height: 100%;
-}
+body,
+#map { height: 100%; }
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     background-color: #173340;
+    color: #333;
 }
-#map {
-    height: 100%;
-}
-.gm-style {
-    background-color: #173340 !important;
-}
+/* Force consistent background color outside of map territory
+   TODO: Investigate native configuration options */
+.gm-style { background-color: #173340 !important; }
+/* Override styles for popups */
 .gm-style-iw {
-    border-radius: 2px 2px 0 0;
+    /*border-radius: 2px 2px 0 0;*/
 }
 h3 {
     font-size: 22px;
     font-weight: 400;
-    text-align: center;
-    color: #333;
-}
-p {
     text-align: center;
 }
 ul {
     margin-top: 10px;
     list-style-type: none;
 }
-a {
-    color: inherit;
-}
-a:hover {
-    text-decoration: none;
-}
+a       { color: inherit; }
+a:hover { text-decoration: none; }
 .github-banner {
     position: absolute;
     top: 40px;
@@ -84,18 +74,16 @@ a:hover {
     top: 44px;
     right: 15px;
     width: 500px;
-    background: #CCC;
+    background: white;
     margin-left: 10px;
     text-align: center;
+    font-size: 14px;
     display: none;
 }
 .close {
-     float: right;
-     text-align: right;
-     padding-left: 6px;
-     padding-right: 6px;
-     padding-bottom: 1px;
-     padding-top: 1px
+    float: right;
+    text-align: right;
+    padding: 1px 6px;
 }
 #about div {
     margin: 20px 0;
@@ -123,7 +111,6 @@ a:hover {
 }
 #about div dl {
    width: 100%;
-   font-size: 14px;
 }
 dl#controls dt {
    width: 15%; 
