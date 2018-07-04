@@ -1,5 +1,5 @@
 // Add your team's "lat" and "lng" to modify the exact position of your team's marker.
-var updatedLocations = {
+var locations = {
     330: {
         "lat": 33.87253,
         "lng": -118.395732

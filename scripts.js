@@ -149,10 +149,10 @@ function createTeamMarker(team) {
     var title = team.team_number;
     var position;
 
-    if (title in updatedLocations) {
+    if (title in locations) {
         position = {
-            lat: updatedLocations[title].lat,
-            lng: updatedLocations[title].lng
+            lat: locations[title].lat,
+            lng: locations[title].lng
         };
     } else {
         position = {
