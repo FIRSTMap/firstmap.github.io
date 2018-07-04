@@ -30,6 +30,7 @@ h3 {
     font-size: 22px;
     font-weight: 400;
     text-align: center;
+    margin-top: 10px;
 }
 ul {
     margin-top: 10px;
@@ -95,35 +96,19 @@ a:hover { text-decoration: none; }
     padding: 6px;
     margin-top: 0;
 }
-#about dt {
-    float: left;
+tr td:first-child {
     text-align: right;
-    clear: both;
     font-weight: bold;
+    width: 20%;
+    padding-right: 5px;
 }
-#about dd {
-    float: right;
+tr td:last-child {
     text-align: left;
 }
-#about dl img {
+#about img {
     width: 15px;
     margin-left: 5px;
 }
-#about div dl {
-   width: 100%;
-}
-dl#controls dt {
-   width: 15%; 
-   clear: both;
-}
-dl#controls dd {
-   width: 83%;
-   text-align: left;
-}
-dl#tools dt {
-   width: 30%; 
-   clear: both;
-}
-dl#tools dd {
-   width: 68%;
+#tools td:first-child {
+    width: 40%;
 }
