@@ -118,24 +118,24 @@ function initMap() {
     addKeyboardListener();
 }
 
-function createEventMarker(eventEntry) {
+function createEventMarker(event) {
     var position = {
-        lat: eventEntry.lat,
-        lng: eventEntry.lng
+        lat: event.lat,
+        lng: event.lng
     };
 
     var image = {
-        url: 'resources/img/' + eventEntry.type + '.png',
+        url: 'resources/img/' + event.type + '.png',
         scaledSize: new google.maps.Size(30, 30)
     };
 
     var marker = new google.maps.Marker({
         position: position,
         map: map,
-        title: eventEntry.name,
+        title: event.name,
         icon: image,
-        key: eventEntry.key,
-        type: eventEntry.type
+        key: event.key,
+        type: event.type
     });
 
     google.maps.event.addListener(marker, 'click', function() {
