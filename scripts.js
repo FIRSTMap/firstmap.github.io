@@ -292,18 +292,7 @@ function addKeyboardListener() {
     })
 }
 
-function openAbout() {
-    document.getElementById('about').style.display = 'inline-block';
-}
-
-function closeAbout() {
-    document.getElementById('about').style.display = 'none';
-}
-
+var about = document.getElementById('about');
 function toggleAbout() {
-    if (document.getElementById('about').style.display == 'none') {
-        openAbout();
-    } else {
-        closeAbout();
-    }
+    about.style.display = (about.style.display === 'none') ? 'block' : 'none';
 }
