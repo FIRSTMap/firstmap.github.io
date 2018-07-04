@@ -19,6 +19,7 @@ function initMap() {
         streetViewControl: false,
         rotateControl: false,
         fullscreenControl: true,
+        backgroundColor: '#173340',
         styles: [
             {
                 featureType: 'water',
