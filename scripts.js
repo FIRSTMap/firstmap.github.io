@@ -119,81 +119,75 @@ function initMap() {
 }
 
 function createEventMarker(eventEntry) {
-    if (eventEntry) {
-        var position = {
-            lat: eventEntry.lat,
-            lng: eventEntry.lng
-        };
+    var position = {
+        lat: eventEntry.lat,
+        lng: eventEntry.lng
+    };
 
-        if (position.lat && position.lng) {
-            var image = {
-                url: 'resources/img/' + eventEntry.type + '.png',
-                scaledSize: new google.maps.Size(30, 30)
-            };
+    var image = {
+        url: 'resources/img/' + eventEntry.type + '.png',
+        scaledSize: new google.maps.Size(30, 30)
+    };
 
-            var marker = new google.maps.Marker({
-                position: position,
-                map: map,
-                title: eventEntry.name,
-                icon: image,
-                key: eventEntry.key,
-                type: eventEntry.type
-            });
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: eventEntry.name,
+        icon: image,
+        key: eventEntry.key,
+        type: eventEntry.type
+    });
 
-            google.maps.event.addListener(marker, 'click', function() {
-                openInfo(marker);
-            });
+    google.maps.event.addListener(marker, 'click', function() {
+        openInfo(marker);
+    });
 
-            markers.push(marker);
-        }
-    }
+    markers.push(marker);
 }
 
 function createTeamMarker(team) {
-    if (team) {
-        var title = team.team_number;
-        var position = {};
+    var title = team.team_number;
+    var position;
 
-        if (title in updatedLocations) {
-            position = {
-                lat: updatedLocations[title].lat,
-                lng: updatedLocations[title].lng
-            };
-        } else {
-            position = {
-                lat: team.lat + (Math.random() - .5) / 50,
-                lng: team.lng + (Math.random() - .5) / 50
-            };
-        }
-        var custom = icons.indexOf(title) !== -1;
-        var imageUrl = 'resources/img/marker.png';
-        if (custom) {
-            imageUrl = 'logos/' + title + '.png';
-        } else if (avatars[title]) {
-            custom = true;
-            imageUrl = 'data:image/png;base64,' + avatars[title]['img'];
-        }
-
-        var image = {
-            url: imageUrl,
-            scaledSize: custom ? new google.maps.Size(30, 30) : undefined
+    if (title in updatedLocations) {
+        position = {
+            lat: updatedLocations[title].lat,
+            lng: updatedLocations[title].lng
         };
-
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: title.toString(),
-            icon: image,
-            key: 'frc' + title.toString(),
-            type: 'team'
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-            openInfo(marker);
-        });
-
-        markers.push(marker);
+    } else {
+        position = {
+            lat: team.lat + (Math.random() - .5) / 50,
+            lng: team.lng + (Math.random() - .5) / 50
+        };
     }
+    var custom = icons.indexOf(title) !== -1;
+    var imageUrl = 'resources/img/marker.png';
+    if (custom) {
+        imageUrl = 'logos/' + title + '.png';
+    } else if (avatars[title]) {
+        custom = true;
+        imageUrl = 'data:image/png;base64,' + avatars[title]['img'];
+    }
+
+    var image = {
+        url: imageUrl,
+        scaledSize: custom ? new google.maps.Size(30, 30) : undefined
+    };
+
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        title: title.toString(),
+        icon: image,
+        key: 'frc' + title.toString(),
+        type: 'team'
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        openInfo(marker);
+    });
+
+    markers.push(marker);
 }
 
 function openInfo(marker) {
