@@ -1,18 +1,5 @@
-/*****************************************
- * Team Level Overrides - LOGO / POS
- *
- * LOGOS: Add your image to /logos with
- * the file name "{team_number}.png" and
- * then add your team number to the icons
- * array below.
- *
- * POSITION: Add your team's lattitude
- * and longitude to the updatedLocations
- * array below, following the documented
- * syntax.
- ****************************************/
-
-// icons array - Add your team number here to pull your team's marker from /logos instead of using the default FIRST marker
+// Add your team number to pull your its marker from /logos instead of
+// using the default FIRST marker or using your FIRST avatar
 var icons = [
     16,
     171,
@@ -69,7 +56,6 @@ var icons = [
     6630,
     7308,
 
-    // Scraped images
     4,
     25,
     33,
