@@ -183,9 +183,9 @@ function createTeamMarker(teamInfo) {
         var imageUrl = 'resources/img/marker.png';
         if (custom) {
             imageUrl = 'logos/' + title + '.png';
-        } else if (teamAvatars[title]) {
+        } else if (avatars[title]) {
             custom = true;
-            imageUrl = 'data:image/png;base64,' + teamAvatars[title]['img'];
+            imageUrl = 'data:image/png;base64,' + avatars[title]['img'];
         }
 
         var image = {
