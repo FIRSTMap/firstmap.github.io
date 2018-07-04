@@ -38,19 +38,6 @@ ul {
 }
 a       { color: inherit; }
 a:hover { text-decoration: none; }
-.github-banner {
-    position: absolute;
-    top: 40px;
-    left: -80px;
-    padding: 10px;
-    color: white;
-    background: #175f7e;
-    width: 300px;
-    text-align: center;
-    text-decoration: none;
-    transform: rotate(-40deg);
-    cursor: url(resources/img/fork.ico), pointer;
-}
 #toggles {
     position: fixed;
     top: 10px;
