@@ -12,11 +12,11 @@
         <div id="map"></div>
 
         <div id="toggles">
-            <div onclick="toggleMarkers('team')" title="[T] Toggle Team Markers">T</div>
-            <div onclick="toggleMarkers('regional')" title="[R] Toggle Regional Markers">R</div>
-            <div onclick="toggleMarkers('district')" title="[D] Toggle District Markers">D</div>
-            <div onclick="toggleMarkers('championship')" title="[C] Toggle Championship Markers">C</div>
             <div onclick="toggleAbout()" title="[Esc] View help and credits">?</div>
+            <div onclick="toggleMarkers('team')" title="[T] Toggle Team Markers">T</div>
+            <div onclick="toggleMarkers('district')" title="[D] Toggle District Markers">D</div>
+            <div onclick="toggleMarkers('regional')" title="[R] Toggle Regional Markers">R</div>
+            <div onclick="toggleMarkers('championship')" title="[C] Toggle Championship Markers">C</div>
         </div>
 
         <div id="about">
@@ -25,6 +25,11 @@
             <h3>Controls</h3>
             <table id="controls">
                 <tbody>
+
+                    <tr>
+                        <td>T</td>
+                        <td>Toggle Teams<img src="resources/img/team.png"></td>
+                    </tr>
                     <tr>
                         <td>D</td>
                         <td>Toggle District Events <img src="resources/img/district.png"></td>
@@ -36,10 +41,6 @@
                     <tr>
                         <td>C</td>
                         <td>Toggle Championship Events <img src="resources/img/championship.png"></td>
-                    </tr>
-                    <tr>
-                        <td>T</td>
-                        <td>Toggle Teams<img src="resources/img/team.png"></td>
                     </tr>
                     <tr>
                         <td>?</td>
@@ -57,7 +58,7 @@
             </table>
 
             <div>
-                <h3>Developed by using:</h3>
+                <h3>Developed using:</h3>
                 <table id="tools">
                     <tbody>
                         <tr>
