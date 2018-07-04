@@ -156,7 +156,7 @@ function createTeamMarker(team) {
         };
     }
     var custom = icons.indexOf(team.team_number) !== -1;
-    var image = 'resources/img/marker.png';
+    var image = 'resources/img/team.png';
     if (custom) {
         image = 'logos/' + team.team_number + '.png';
     } else if (avatars[team.team_number]) {
