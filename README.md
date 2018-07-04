@@ -26,4 +26,4 @@ To modify the position of your team's marker to more accurately represent your l
 5. Enjoy the updated location of your team's marker!
 --------------------------------------------------------------------------------
 
-This software is protected under the MIT License. See `LICENSE` for more information.
+This software is protected under the [MIT License](LICENSE).
