@@ -128,7 +128,7 @@ function createEventMarker(event) {
         map: map,
         title: event.name,
         icon: {
-            url: 'resources/img/' + event.type + '.png',
+            url: 'img/' + event.type + '.png',
             scaledSize: new google.maps.Size(30, 30)
         },
         key: event.key,
@@ -157,7 +157,7 @@ function createTeamMarker(team) {
         };
     }
     var custom = icons.indexOf(team.team_number) !== -1;
-    var image = 'resources/img/team.png';
+    var image = 'img/team.png';
     if (custom) {
         image = 'logos/' + team.team_number + '.png';
     } else if (avatars[team.team_number]) {
