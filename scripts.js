@@ -126,8 +126,8 @@ function initMap() {
     });
 
     // Create team and event markers
-    for (i = 0; i < teamInfo.length; i++) createTeamMarker(teamInfo[i]);
-    for (i = 0; i <   events.length; i++) createEventMarker(events[i]);
+    for (team  of teamInfo) createTeamMarker(team);
+    for (event of   events) createEventMarker(event);
 
     addKeyboardListener();
 }
@@ -271,10 +271,8 @@ function openInfo(marker) {
 
 function toggleMarkers(type) {
     state[type] = !state[type];
-    for (i = 0; i < markers.length; i++) {
-        if (markers[i].type == type)
-            markers[i].setMap(state[type] ? map : null);
-    }
+    for (marker of markers)
+        if (marker.type === type) marker.setMap(state[type] ? map : null);
 }
 
 function addKeyboardListener() {
