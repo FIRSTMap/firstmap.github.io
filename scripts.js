@@ -119,21 +119,17 @@ function initMap() {
 }
 
 function createEventMarker(event) {
-    var position = {
-        lat: event.lat,
-        lng: event.lng
-    };
-
-    var image = {
-        url: 'resources/img/' + event.type + '.png',
-        scaledSize: new google.maps.Size(30, 30)
-    };
-
     var marker = new google.maps.Marker({
-        position: position,
+        position: {
+            lat: event.lat,
+            lng: event.lng
+        },
         map: map,
         title: event.name,
-        icon: image,
+        icon: {
+            url: 'resources/img/' + event.type + '.png',
+            scaledSize: new google.maps.Size(30, 30)
+        },
         key: event.key,
         type: event.type
     });
@@ -146,13 +142,12 @@ function createEventMarker(event) {
 }
 
 function createTeamMarker(team) {
-    var title = team.team_number;
     var position;
 
-    if (title in locations) {
+    if (team.team_number in locations) {
         position = {
-            lat: locations[title].lat,
-            lng: locations[title].lng
+            lat: locations[team.team_number].lat,
+            lng: locations[team.team_number].lng
         };
     } else {
         position = {
@@ -160,26 +155,24 @@ function createTeamMarker(team) {
             lng: team.lng + (Math.random() - .5) / 50
         };
     }
-    var custom = icons.indexOf(title) !== -1;
-    var imageUrl = 'resources/img/marker.png';
+    var custom = icons.indexOf(team.team_number) !== -1;
+    var image = 'resources/img/marker.png';
     if (custom) {
-        imageUrl = 'logos/' + title + '.png';
-    } else if (avatars[title]) {
+        image = 'logos/' + team.team_number + '.png';
+    } else if (avatars[team.team_number]) {
         custom = true;
-        imageUrl = 'data:image/png;base64,' + avatars[title]['img'];
+        image = 'data:image/png;base64,' + avatars[team.team_number]['img'];
     }
-
-    var image = {
-        url: imageUrl,
-        scaledSize: custom ? new google.maps.Size(30, 30) : undefined
-    };
 
     var marker = new google.maps.Marker({
         position: position,
         map: map,
-        title: title,
-        icon: image,
-        key: 'frc' + title,
+        title: team.team_number.toString(),
+        icon: {
+            url: image,
+            scaledSize: custom ? new google.maps.Size(30, 30) : undefined
+        },
+        key: 'frc' + team.team_number,
         type: 'team'
     });
 
