@@ -209,15 +209,11 @@ function openInfo(marker) {
                 content += '<li><a href="http://thebluealliance.com/team/' + parsed.team_number + '">View on The Blue Alliance</a></li>';
                 content += '</ul>';
             } else {
-                if (parsed.event_type == 4) {
-                    content += '<h1>FIRST Championship ' + parsed.city + '</h1>';
-                } else {
-                    content += '<h1>' + parsed.short_name + '</h1>';
-                }
+                content += '<h1>' + parsed.short_name + '</h1>';
 
                 content += '<ul>';
-                if (parsed.event_type_string.startsWith('District')) {
-                    content += '<li><strong>District:</strong> ' + parsed.district.abbreviation + '</li>';
+                if (marker.type === 'district' && parsed.district) {
+                    content += '<li><strong>District:</strong> ' + parsed.district.abbreviation.toUpperCase() + '</li>';
                 }
                 if (parsed.week) {
                     content += '<li><strong>Week:</strong> ' + parsed.week + '</li>';
