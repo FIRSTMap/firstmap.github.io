@@ -1,7 +1,7 @@
 # FIRSTMap
 An interactive online map of FRC teams.
 
-![Screenshot of FIRSTmap](resources/screenshot.png)
+![Screenshot of FIRSTmap](resources/img/screenshot.png)
 
 # Team Icon Overrides
 To modify the image used for your team's marker:
