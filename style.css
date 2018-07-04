@@ -53,10 +53,10 @@ a:hover { text-decoration: none; }
 #about {
     position: fixed;
     top: 44px;
-    right: 15px;
+    right: 0;
     width: 500px;
+    max-width: 100vw;
     background: white;
-    margin-left: 10px;
     text-align: center;
     font-size: 14px;
     display: none;
