@@ -1,3 +1,18 @@
+// Load data
+function load_json(path) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', path, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        if (xhr.status === 200)
+            return JSON.parse(xhr.response);
+    };
+    xhr.send();
+};
+
+var customLocations = load_json('data/custom_locations.json'),
+    customIcons     = load_json('data/custom_icons.json'),
+    avatars         = load_json('data/avatars.json');
 // Google Map
 var map;
 var markers = [];
@@ -5,7 +20,6 @@ var markers = [];
 // Show all markers
 var state = {team: true, regional: true, district: true, championship: true};
 
-function initMap() {
     // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -126,32 +140,31 @@ function initMap() {
     });
 
     // Create team and event markers
-    for (team  of teamInfo) createTeamMarker(team);
-    for (event of   events) createEventMarker(event);
+    for (team  of load_json('data/team_info.json')) createTeamMarker(team);
+    for (event of load_json('data/events.json'))  createEventMarker(event);
 
     addKeyboardListener();
-}
 
-function createEventMarker(eventEntry) {
-    if (eventEntry) {
+function createEventMarker(event) {
+    if (event) {
         var position = {
-            lat: eventEntry.lat,
-            lng: eventEntry.lng
+            lat: event.lat,
+            lng: event.lng
         };
 
         if (position.lat && position.lng) {
             var image = {
-                url: 'resources/img/' + eventEntry.type + '.png',
+                url: 'resources/img/' + event.type + '.png',
                 scaledSize: new google.maps.Size(30, 30)
             };
 
             var marker = new google.maps.Marker({
                 position: position,
                 map: map,
-                title: eventEntry.name,
+                title: event.name,
                 icon: image,
-                key: eventEntry.key,
-                type: eventEntry.type
+                key: event.key,
+                type: event.type
             });
 
             google.maps.event.addListener(marker, 'click', function() {
@@ -163,29 +176,29 @@ function createEventMarker(eventEntry) {
     }
 }
 
-function createTeamMarker(teamInfo) {
-    if (teamInfo) {
-        var title = teamInfo.team_number;
+function createTeamMarker(team) {
+    if (team) {
+        var title = team.team_number;
         var position = {};
 
-        if (title in updatedLocations) {
+        if (title in customLocations) {
             position = {
-                lat: updatedLocations[title].lat,
-                lng: updatedLocations[title].lng
+                lat: customLocations[title].lat,
+                lng: customLocations[title].lng
             };
         } else {
             position = {
-                lat: teamInfo.lat + (Math.random() - .5) / 50,
-                lng: teamInfo.lng + (Math.random() - .5) / 50
+                lat: team.lat + (Math.random() - .5) / 50,
+                lng: team.lng + (Math.random() - .5) / 50
             };
         }
-        var custom = icons.indexOf(title) !== -1;
+        var custom = customIcons.indexOf(title) !== -1;
         var imageUrl = 'resources/img/marker.png';
         if (custom) {
             imageUrl = 'logos/' + title + '.png';
-        } else if (teamAvatars[title]) {
+        } else if (avatars[title]) {
             custom = true;
-            imageUrl = 'data:image/png;base64,' + teamAvatars[title]['img'];
+            imageUrl = 'data:image/png;base64,' + avatars[title]['img'];
         }
 
         var image = {
