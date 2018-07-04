@@ -1,7 +1,7 @@
 # FIRSTMap
-An interactive online map of FRC teams.
+An interactive online map of [FRC](https://www.firstinspires.org/robotics/frc) teams and events.
 
-![Screenshot of FIRSTmap](resources/img/screenshot.png)
+![Screenshot of FIRSTMap](meta/screenshot.png)
 
 # Customizing Team Icon
 To modify the image used for your team's marker:
