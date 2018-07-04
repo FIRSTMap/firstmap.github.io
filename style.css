@@ -19,10 +19,6 @@ body {
     background-color: #173340;
     color: #333;
 }
-/* Override styles for popups */
-.gm-style-iw {
-    /*border-radius: 2px 2px 0 0;*/
-}
 h3 {
     font-size: 22px;
     font-weight: 400;
