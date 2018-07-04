@@ -209,4 +209,4 @@ var events = [
     {"key": "2018wiwi", "lat": 41.6023, "lng": -72.9868, "type": "district", "name": "PNW District"},
     {"key": "2018wowcmp", "lat": 40.1301, "lng": -82.9371, "type": "district", "name": "PNW District"},
     {"key": "2018wvrox", "lat": 39.6361, "lng": -79.9559, "type": "district", "name": "PNW District"}
-]: ;
+];
