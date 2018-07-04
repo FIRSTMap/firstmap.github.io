@@ -1,8 +1,8 @@
 // Data extracted from thebluealliance.com at 2018-06-02T13:24:11+00:00
-// Built by scraper at https://github/GeeII/Firstmap-scraper/
+// Built by scraper at https://github.com/GeeII/Firstmap-scraper
 // using postal and gazeteer databases from GeoNames.org.
 
-var teamInfo=[
+var teams = [
    {team_number:   1,lat: 42.668,lng: -83.289},
    {team_number:   4,lat: 34.201,lng:-118.487},
    {team_number:   8,lat: 37.444,lng:-122.150},

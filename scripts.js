@@ -126,8 +126,8 @@ function initMap() {
     });
 
     // Create team and event markers
-    for (team  of teamInfo) createTeamMarker(team);
-    for (event of   events) createEventMarker(event);
+    for (team  of  teams)   createTeamMarker(team);
+    for (event of events) createEventMarker(event);
 
     addKeyboardListener();
 }
@@ -163,9 +163,9 @@ function createEventMarker(eventEntry) {
     }
 }
 
-function createTeamMarker(teamInfo) {
-    if (teamInfo) {
-        var title = teamInfo.team_number;
+function createTeamMarker(team) {
+    if (team) {
+        var title = team.team_number;
         var position = {};
 
         if (title in updatedLocations) {
@@ -175,8 +175,8 @@ function createTeamMarker(teamInfo) {
             };
         } else {
             position = {
-                lat: teamInfo.lat + (Math.random() - .5) / 50,
-                lng: teamInfo.lng + (Math.random() - .5) / 50
+                lat: team.lat + (Math.random() - .5) / 50,
+                lng: team.lng + (Math.random() - .5) / 50
             };
         }
         var custom = icons.indexOf(title) !== -1;
