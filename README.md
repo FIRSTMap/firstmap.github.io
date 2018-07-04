@@ -3,7 +3,7 @@ An interactive online map of FRC teams.
 
 ![Screenshot of FIRSTmap](resources/img/screenshot.png)
 
-# Team Icon Overrides
+# Customizing Team Icon
 To modify the image used for your team's marker:
 1. Fork the repository.
 2. Add an image, titled `{team_number}.png`, where `{team_number}` is your team number, to the `/logos` folder. The image should have a maximum width or height of 40 pixels.
@@ -12,7 +12,7 @@ To modify the image used for your team's marker:
 5. Open a pull-request with the main FIRSTMap repository to merge your fork back to the origin.
 6. Enjoy your custom marker image!
 
-To modify the position of your team's marker to more accurately represent your location:
+# Customizing Team Position
 1. Fork the repository.
 2. Open `data/custom_locations.js` and add your team's latitude and longitude to the array found in the file. This data entry should follow the syntax:
 ```json
