@@ -177,9 +177,9 @@ function createTeamMarker(team) {
     var marker = new google.maps.Marker({
         position: position,
         map: map,
-        title: title.toString(),
+        title: title,
         icon: image,
-        key: 'frc' + title.toString(),
+        key: 'frc' + title,
         type: 'team'
     });
 
