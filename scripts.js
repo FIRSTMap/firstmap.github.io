@@ -211,7 +211,7 @@ function openInfo(marker) {
             } else {
                 if (parsed.short_name) {
                     content += '<h1>' + parsed.short_name + '</h1>';
-                    content += '<h6>' + parsed.name + '</h6>';
+                    if (parsed.name != parsed.short_name) content += '<h6>' + parsed.name + '</h6>';
                 } else {
                     content += '<h1>' + parsed.name + '</h1>';
                 }
