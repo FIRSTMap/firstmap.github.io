@@ -210,7 +210,7 @@ function openInfo(marker) {
                 content += '</ul>';
             } else {
                 content += '<h1>' + parsed.short_name + '</h1>';
-
+                content += '<h6>' + parsed.name + '</h6>';
                 content += '<ul>';
                 if (marker.type === 'district' && parsed.district) {
                     content += '<li><strong>District:</strong> ' + parsed.district.abbreviation.toUpperCase() + '</li>';
