@@ -3,7 +3,7 @@ var map;
 var markers = [];
 
 // Show all markers
-var state = {team: true, regional: true, district: true, championship: true};
+var state = {team: true, regional: true, district: true, championship: true, offseasn: true};
 
 function initMap() {
     // Initialize Google Map
@@ -263,6 +263,10 @@ function addKeyboardListener() {
             // D
             case 68:
                 toggleMarkers('district');
+                break;
+            // O
+            case 76:
+                toggleMarkers('offseason');
                 break;
             // R
             case 82:
