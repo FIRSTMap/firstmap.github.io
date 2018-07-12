@@ -3,7 +3,7 @@ var map;
 var markers = [];
 
 // Show all markers
-var state = {team: true, regional: true, district: true, championship: true, offseasn: true};
+var state = {team: true, regional: true, district: true, championship: true, offseason: true};
 
 function initMap() {
     // Initialize Google Map
