@@ -58,7 +58,7 @@ function updateVisibility() {
     }
 
     if (now_visible.length == 0){
-        params.delete('visibility');
+        params.set('visibility', 'none');
     } else {
         params.set('visibility', now_visible.join("-"));
     }
