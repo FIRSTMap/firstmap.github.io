@@ -265,7 +265,7 @@ function addKeyboardListener() {
                 toggleMarkers('district');
                 break;
             // O
-            case 76:
+            case 79:
                 toggleMarkers('offseason');
                 break;
             // R
