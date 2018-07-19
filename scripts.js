@@ -222,13 +222,17 @@ function createTeamMarker(team) {
             lng: team.lng + (Math.random() - .5) / 50
         };
     }
-    var custom = icons.indexOf(team.team_number) !== -1;
+    
     var image = 'img/team.png';
-    if (custom) {
-        image = 'logos/' + team.team_number + '.png';
-    } else if (avatars[team.team_number]) {
-        custom = true;
-        image = 'data:image/png;base64,' + avatars[team.team_number]['img'];
+
+    if (!params.get('logos') == 'false') {
+        var custom = icons.indexOf(team.team_number) !== -1;
+        if (custom) {
+            image = 'logos/' + team.team_number + '.png';
+        } else if (avatars[team.team_number]) {
+            custom = true;
+            image = 'data:image/png;base64,' + avatars[team.team_number]['img'];
+        }
     }
 
     var marker = new google.maps.Marker({
