@@ -1,9 +1,73 @@
 // Google Map
 var map;
-var markers = [];
+var markers = {
+    all: [],
+    keys: {},
+}
 
-// Show all markers
-var state = {team: true, regional: true, district: true, championship: true, offseason: true};
+// URL Parsing Tools
+var url = new URL(window.location.href);
+var params = url.searchParams;
+
+// Parse Visibility from URL
+function parseVisibility() {
+    visibility = params.get('visibility');
+
+    if (visibility == null || visibility == 'all') {
+        return {team: true, regional: true, district: true, championship: true, offseason: true};
+    } else {
+        return {
+            team: visibility.includes('team'),
+            regional: visibility.includes('events') || visibility.includes('regional'),
+            district: visibility.includes('events') || visibility.includes('district'),
+            championship: visibility.includes('events') || visibility.includes('championship'),
+            offseason: visibility.includes('events') || visibility.includes('offseason'),
+        }
+    }
+}
+
+function updateVisibility() {
+    all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
+
+    if (all_visible) {
+        params.set('visibility', 'all');
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        return
+    }
+
+    now_visible = [];
+
+    if (state.regional && state.district && state.championship && state.offseason)
+        now_visible.push('events');
+
+    if (state.team)
+        now_visible.push('team');
+
+    if (!now_visible.includes('events')) {
+        if (state.regional)
+            now_visible.push('regional');
+
+        if (state.district)
+            now_visible.push('district');
+
+        if (state.championship)
+            now_visible.push('championship');
+        
+        if (state.offseason)
+            now_visible.push('offseason');
+    }
+
+    if (now_visible.length == 0){
+        params.delete('visibility');
+    } else {
+        params.set('visibility', now_visible.join("-"));
+    }
+    
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+}
+
+state = parseVisibility();
+
 
 function initMap() {
     // Initialize Google Map
@@ -112,9 +176,9 @@ function initMap() {
         ]
     });
 
-    // Create team and event markers
-    for (team  of  teams)   createTeamMarker(team);
+    // Create team and event markers, but don't reveal
     for (event of events) createEventMarker(event);
+    for (team  of  teams)   createTeamMarker(team);
 
     addKeyboardListener();
 }
@@ -132,14 +196,16 @@ function createEventMarker(event) {
             scaledSize: new google.maps.Size(30, 30)
         },
         key: event.key,
-        type: event.type
+        type: event.type,
+        visible: state[event.type]
     });
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
     });
 
-    markers.push(marker);
+    markers.all.push(marker);
+    markers.keys[event.key] = marker;
 }
 
 function createTeamMarker(team) {
@@ -174,14 +240,16 @@ function createTeamMarker(team) {
             scaledSize: custom ? new google.maps.Size(30, 30) : undefined
         },
         key: 'frc' + team.team_number,
-        type: 'team'
+        type: 'team',
+        visible: state['team']
     });
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
     });
 
-    markers.push(marker);
+    markers.all.push(marker);
+    markers.keys['frc' + team.team_number] = marker;
 }
 
 function openInfo(marker) {
@@ -245,8 +313,9 @@ function openInfo(marker) {
 
 function toggleMarkers(type) {
     state[type] = !state[type];
-    for (marker of markers)
-        if (marker.type === type) marker.setMap(state[type] ? map : null);
+    updateVisibility();
+    for (marker of markers.all)
+        if (marker.type === type) marker.setVisible(state[type]);
 }
 
 function addKeyboardListener() {
