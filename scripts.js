@@ -225,7 +225,8 @@ function createTeamMarker(team) {
     
     var image = 'img/team.png';
 
-    if (!params.get('logos') == 'false') {
+    allow_logos = !(params.get('logos') == 'false');
+    if (allow_logos) {
         var custom = icons.indexOf(team.team_number) !== -1;
         if (custom) {
             image = 'logos/' + team.team_number + '.png';
