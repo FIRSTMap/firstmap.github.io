@@ -181,6 +181,7 @@ function initMap() {
     for (team  of  teams)   createTeamMarker(team);
 
     addKeyboardListener();
+    addMouseUpListener();
 }
 
 function createEventMarker(event) {
@@ -355,7 +356,23 @@ function addKeyboardListener() {
                 document.getElementsByClassName('gm-fullscreen-control')[0].click();
                 break;
         }
-    })
+    });
+}
+
+function addMouseUpListener() {
+    document.addEventListener('mouseup', function (event) {
+        if (!map) return
+
+        lat = map.center.lat();
+        lng = map.center.lng();
+        zoom = map.zoom;
+
+        params.set('lat', lat);
+        params.set('lng', lng);
+        params.set('zoom', zoom);
+
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    });
 }
 
 var about = document.getElementById('about');
