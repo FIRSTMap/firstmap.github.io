@@ -73,10 +73,10 @@ function initMap() {
     // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: 30,
-            lng: 0
+            lat: parseInt(params.get('lat')) || 30,
+            lng: parseInt(params.get('lng')) || 0
         },
-        zoom: 2,
+        zoom: parseInt(params.get('zoom')) || 2,
         disableDefaultUI: true,
         zoomControl: true,
         mapTypeControl: false,
