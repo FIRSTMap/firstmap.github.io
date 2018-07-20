@@ -9,67 +9,10 @@ var markers = {
 var url = new URL(window.location.href);
 var params = url.searchParams;
 
-// Parse Visibility from URL
-function parseVisibility() {
-    visibility = params.get('visibility');
-
-    if (visibility == null || visibility == 'all') {
-        return {team: true, regional: true, district: true, championship: true, offseason: true};
-    } else {
-        return {
-            team: visibility.includes('team'),
-            regional: visibility.includes('events') || visibility.includes('regional'),
-            district: visibility.includes('events') || visibility.includes('district'),
-            championship: visibility.includes('events') || visibility.includes('championship'),
-            offseason: visibility.includes('events') || visibility.includes('offseason'),
-        }
-    }
-}
-
-function updateVisibility() {
-    all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
-
-    if (all_visible) {
-        params.set('visibility', 'all');
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
-        return
-    }
-
-    now_visible = [];
-
-    if (state.regional && state.district && state.championship && state.offseason)
-        now_visible.push('events');
-
-    if (state.team)
-        now_visible.push('team');
-
-    if (!now_visible.includes('events')) {
-        if (state.regional)
-            now_visible.push('regional');
-
-        if (state.district)
-            now_visible.push('district');
-
-        if (state.championship)
-            now_visible.push('championship');
-        
-        if (state.offseason)
-            now_visible.push('offseason');
-    }
-
-    if (now_visible.length == 0){
-        params.set('visibility', 'none');
-    } else {
-        params.set('visibility', now_visible.join("-"));
-    }
-    
-    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
-}
-
-state = parseVisibility();
-
 
 function initMap() {
+    state = parseVisibility(); // Update State before Map Generation
+
     // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -176,6 +119,11 @@ function initMap() {
         ]
     });
 
+    // Create team and event markers, but don't reveal
+    for (event of events) createEventMarker(event);
+    for (team  of  teams)   createTeamMarker(team);
+
+    // Add Map State Listeners (Center & Zoom)
     map.addListener('center_changed', function() {
         lat = map.center.lat();
         lng = map.center.lng();
@@ -207,28 +155,7 @@ function initMap() {
         window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     });
 
-    /*function addPositionListeners() {
-
-        document.getElementById('map').addEventListener('mouseup', function (event) {
-            if (!map) return
-    
-            lat = map.center.lat();
-            lng = map.center.lng();
-            zoom = map.zoom;
-    
-            if (lat != 30) params.set('lat', lat);
-            if (lng != 0) params.set('lng', lng);
-            if (lng != 2) params.set('zoom', zoom);
-    
-            window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
-        });
-    }*/
-
-    // Create team and event markers, but don't reveal
-    for (event of events) createEventMarker(event);
-    for (team  of  teams)   createTeamMarker(team);
-
-    addKeyboardListener();
+    addKeyboardListener(); // Marker Toggling via Keyboard
 }
 
 function createEventMarker(event) {
@@ -404,6 +331,64 @@ function addKeyboardListener() {
                 break;
         }
     });
+}
+
+// Parse Marker Visibility from URL
+function parseVisibility() {
+    visibility = params.get('visibility');
+
+    if (visibility == null || visibility == 'all') {
+        return {team: true, regional: true, district: true, championship: true, offseason: true};
+    } else {
+        return {
+            team: visibility.includes('team'),
+            regional: visibility.includes('events') || visibility.includes('regional'),
+            district: visibility.includes('events') || visibility.includes('district'),
+            championship: visibility.includes('events') || visibility.includes('championship'),
+            offseason: visibility.includes('events') || visibility.includes('offseason'),
+        }
+    }
+}
+
+// Update URL with current Marker Visibility State
+function updateVisibility() {
+    all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
+
+    if (all_visible) {
+        params.delete('visibility');
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        return
+    }
+
+    now_visible = [];
+
+    if (state.regional && state.district && state.championship && state.offseason)
+        now_visible.push('events');
+
+    if (state.team)
+        now_visible.push('team');
+
+    if (!now_visible.includes('events')) {
+        if (state.regional)
+            now_visible.push('regional');
+
+        if (state.district)
+            now_visible.push('district');
+
+        if (state.championship)
+            now_visible.push('championship');
+        
+        if (state.offseason)
+            now_visible.push('offseason');
+    }
+
+    if (now_visible.length == 0){
+        params.set('visibility', 'none');
+    } else {
+        params.set('visibility', now_visible.join("-"));
+    }
+    
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
 
 var about = document.getElementById('about');
