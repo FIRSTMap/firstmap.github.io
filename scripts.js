@@ -179,6 +179,8 @@ function createEventMarker(event) {
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
+        params.set('key', event.key);
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     });
 
     markers.all.push(marker);
@@ -228,6 +230,8 @@ function createTeamMarker(team) {
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
+        params.set('key', 'frc' + team.team_number);
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     });
 
     markers.all.push(marker);
@@ -289,6 +293,13 @@ function openInfo(marker) {
             });
 
             infoWindow.open(map, marker);
+
+            infoWindow.addListener('closeclick', function() {
+                if (params.get('key')) {
+                    params.delete('key');
+                    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+                }
+            });
         }
     }
 }
@@ -400,10 +411,28 @@ function openURLKey() {
     markerToOpen = markers.keys[keyToOpen];
     if (!markerToOpen) return;
 
-    if (!params.get('lat') && !params.get('lng')) map.panTo(markerToOpen.getPosition());
-    if (!params.get('zoom')) map.setZoom(12);
+    if (!params.get('lat') && !params.get('lng')) {
+        map.panTo(markerToOpen.getPosition());
+        setTimeout(deleteLatLng, 1500);
+    }
+
+    if (!params.get('zoom')) {
+        map.setZoom(12);
+        setTimeout(deleteZoom, 1500);
+    }
 
     openInfo(markerToOpen);
+}
+
+function deleteLatLng() {
+    params.delete('lat');
+    params.delete('lng');
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+}
+
+function deleteZoom() {
+    params.delete('zoom');
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
 
 var about = document.getElementById('about');
