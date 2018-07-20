@@ -341,11 +341,11 @@ function parseVisibility() {
         return {team: true, regional: true, district: true, championship: true, offseason: true};
     } else {
         return {
-            team: visibility.includes('team'),
-            regional: visibility.includes('events') || visibility.includes('regional'),
-            district: visibility.includes('events') || visibility.includes('district'),
-            championship: visibility.includes('events') || visibility.includes('championship'),
-            offseason: visibility.includes('events') || visibility.includes('offseason'),
+            team: visibility.includes('t'),
+            regional: visibility.includes('e') || visibility.includes('r'),
+            district: visibility.includes('e') || visibility.includes('d'),
+            championship: visibility.includes('e') || visibility.includes('c'),
+            offseason: visibility.includes('e') || visibility.includes('o'),
         }
     }
 }
@@ -363,23 +363,23 @@ function updateVisibility() {
     now_visible = [];
 
     if (state.regional && state.district && state.championship && state.offseason)
-        now_visible.push('events');
+        now_visible.push('e');
 
     if (state.team)
-        now_visible.push('team');
+        now_visible.push('t');
 
-    if (!now_visible.includes('events')) {
+    if (!now_visible.includes('e')) {
         if (state.regional)
-            now_visible.push('regional');
+            now_visible.push('r');
 
         if (state.district)
-            now_visible.push('district');
+            now_visible.push('d');
 
         if (state.championship)
-            now_visible.push('championship');
+            now_visible.push('c');
         
         if (state.offseason)
-            now_visible.push('offseason');
+            now_visible.push('o');
     }
 
     if (now_visible.length == 0){
