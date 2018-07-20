@@ -222,8 +222,8 @@ function openInfo(marker) {
                 if (parsed.week) {
                     content += '<li><strong>Week:</strong> ' + parsed.week + '</li>';
                 }
-                var start = new Date(parsed.start_date).toLocaleDateString();
-                var end = new Date(parsed.end_date).toLocaleDateString();
+                var start = /*new Date(*/parsed.start_date/*).toLocaleDateString()*/;
+                var end = /*new Date(*/parsed.end_date/*).toLocaleDateString()*/;
                 content += '<li><strong>Date:</strong> ' + start + ' - ' + end + '</li>';
                 content += '<li><a href="http://www.thebluealliance.com/event/' + marker.key + '">View on The Blue Alliance</a></li>';
                 content += '</ul>';
