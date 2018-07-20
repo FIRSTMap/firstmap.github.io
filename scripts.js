@@ -122,6 +122,8 @@ function initMap() {
     // Create team and event markers, but don't reveal
     for (event of events) createEventMarker(event);
     for (team  of  teams)   createTeamMarker(team);
+    
+    openURLKey(); // Open / Zoom to Marker Specified in URL
 
     // Add Map State Listeners (Center & Zoom)
     map.addListener('center_changed', function() {
@@ -389,6 +391,19 @@ function updateVisibility() {
     }
     
     window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+}
+
+// Handle Zoom / Reposition / Info Panel of URL specified marker key
+function openURLKey() {
+    keyToOpen = params.get('key');
+    if (!keyToOpen) return;
+    markerToOpen = markers.keys[keyToOpen];
+    if (!markerToOpen) return;
+
+    if (!params.get('lat') && !params.get('lng')) map.panTo(markerToOpen.getPosition());
+    if (!params.get('zoom')) map.setZoom(12);
+
+    openInfo(markerToOpen);
 }
 
 var about = document.getElementById('about');
