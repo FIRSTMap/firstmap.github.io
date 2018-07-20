@@ -1,18 +1,25 @@
 // Google Map
 var map;
-var markers = [];
+var markers = {
+    all: [],
+    keys: {},
+}
 
-// Show all markers
-var state = {team: true, regional: true, district: true, championship: true, offseason: true};
+// URL Parsing Tools
+var url = new URL(window.location.href);
+var params = url.searchParams;
+
 
 function initMap() {
+    state = parseVisibility(); // Update State before Map Generation
+
     // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: 30,
-            lng: 0
+            lat: parseFloat(params.get('lat')) || 30,
+            lng: parseFloat(params.get('lng')) || 0
         },
-        zoom: 2,
+        zoom: parseInt(params.get('zoom')) || 2,
         disableDefaultUI: true,
         zoomControl: true,
         mapTypeControl: false,
@@ -112,11 +119,45 @@ function initMap() {
         ]
     });
 
-    // Create team and event markers
-    for (team  of  teams)   createTeamMarker(team);
+    // Create team and event markers, but don't reveal
     for (event of events) createEventMarker(event);
+    for (team  of  teams)   createTeamMarker(team);
+    
+    openURLKey(); // Open / Zoom to Marker Specified in URL
 
-    addKeyboardListener();
+    // Add Map State Listeners (Center & Zoom)
+    map.addListener('center_changed', function() {
+        lat = map.center.lat();
+        lng = map.center.lng();
+
+        if (lat == 30) {
+            params.delete('lat');
+        } else {
+            params.set('lat', lat);
+        }
+
+        if (lng == 0) {
+            params.delete('lng');
+        } else {
+            params.set('lng', lng);
+        }
+        
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    });
+
+    map.addListener('zoom_changed', function() {
+        zoom = map.zoom;
+
+        if (zoom == 2) {
+            params.delete('zoom');
+        } else {
+            params.set('zoom', zoom);
+        }
+
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    });
+
+    addKeyboardListener(); // Marker Toggling via Keyboard
 }
 
 function createEventMarker(event) {
@@ -132,14 +173,18 @@ function createEventMarker(event) {
             scaledSize: new google.maps.Size(30, 30)
         },
         key: event.key,
-        type: event.type
+        type: event.type,
+        visible: state[event.type]
     });
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
+        params.set('key', event.key);
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     });
 
-    markers.push(marker);
+    markers.all.push(marker);
+    markers.keys[event.key] = marker;
 }
 
 function createTeamMarker(team) {
@@ -156,13 +201,18 @@ function createTeamMarker(team) {
             lng: team.lng + (Math.random() - .5) / 50
         };
     }
-    var custom = icons.indexOf(team.team_number) !== -1;
+    
     var image = 'img/team.png';
-    if (custom) {
-        image = 'logos/' + team.team_number + '.png';
-    } else if (avatars[team.team_number]) {
-        custom = true;
-        image = 'data:image/png;base64,' + avatars[team.team_number]['img'];
+
+    allow_logos = !(params.get('logos') == 'false');
+    if (allow_logos) {
+        var custom = icons.indexOf(team.team_number) !== -1;
+        if (custom) {
+            image = 'logos/' + team.team_number + '.png';
+        } else if (avatars[team.team_number]) {
+            custom = true;
+            image = 'data:image/png;base64,' + avatars[team.team_number]['img'];
+        }
     }
 
     var marker = new google.maps.Marker({
@@ -174,14 +224,18 @@ function createTeamMarker(team) {
             scaledSize: custom ? new google.maps.Size(30, 30) : undefined
         },
         key: 'frc' + team.team_number,
-        type: 'team'
+        type: 'team',
+        visible: state['team']
     });
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
+        params.set('key', 'frc' + team.team_number);
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     });
 
-    markers.push(marker);
+    markers.all.push(marker);
+    markers.keys['frc' + team.team_number] = marker;
 }
 
 function openInfo(marker) {
@@ -239,14 +293,22 @@ function openInfo(marker) {
             });
 
             infoWindow.open(map, marker);
+
+            infoWindow.addListener('closeclick', function() {
+                if (params.get('key')) {
+                    params.delete('key');
+                    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+                }
+            });
         }
     }
 }
 
 function toggleMarkers(type) {
     state[type] = !state[type];
-    for (marker of markers)
-        if (marker.type === type) marker.setMap(state[type] ? map : null);
+    updateVisibility();
+    for (marker of markers.all)
+        if (marker.type === type) marker.setVisible(state[type]);
 }
 
 function addKeyboardListener() {
@@ -281,7 +343,96 @@ function addKeyboardListener() {
                 document.getElementsByClassName('gm-fullscreen-control')[0].click();
                 break;
         }
-    })
+    });
+}
+
+// Parse Marker Visibility from URL
+function parseVisibility() {
+    visibility = params.get('visibility');
+
+    if (visibility == null || visibility == 'all') {
+        return {team: true, regional: true, district: true, championship: true, offseason: true};
+    } else {
+        return {
+            team: visibility.includes('t'),
+            regional: visibility.includes('e') || visibility.includes('r'),
+            district: visibility.includes('e') || visibility.includes('d'),
+            championship: visibility.includes('e') || visibility.includes('c'),
+            offseason: visibility.includes('e') || visibility.includes('o'),
+        }
+    }
+}
+
+// Update URL with current Marker Visibility State
+function updateVisibility() {
+    all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
+
+    if (all_visible) {
+        params.delete('visibility');
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        return
+    }
+
+    now_visible = [];
+
+    if (state.regional && state.district && state.championship && state.offseason)
+        now_visible.push('e');
+
+    if (state.team)
+        now_visible.push('t');
+
+    if (!now_visible.includes('e')) {
+        if (state.regional)
+            now_visible.push('r');
+
+        if (state.district)
+            now_visible.push('d');
+
+        if (state.championship)
+            now_visible.push('c');
+        
+        if (state.offseason)
+            now_visible.push('o');
+    }
+
+    if (now_visible.length == 0){
+        params.set('visibility', 'none');
+    } else {
+        params.set('visibility', now_visible.join("-"));
+    }
+    
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+}
+
+// Handle Zoom / Reposition / Info Panel of URL specified marker key
+function openURLKey() {
+    keyToOpen = params.get('key');
+    if (!keyToOpen) return;
+    markerToOpen = markers.keys[keyToOpen];
+    if (!markerToOpen) return;
+
+    if (!params.get('lat') && !params.get('lng')) {
+        map.panTo(markerToOpen.getPosition());
+        setTimeout(deleteLatLng, 1500);
+    }
+
+    if (!params.get('zoom')) {
+        map.setZoom(12);
+        setTimeout(deleteZoom, 1500);
+    }
+
+    openInfo(markerToOpen);
+}
+
+function deleteLatLng() {
+    params.delete('lat');
+    params.delete('lng');
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+}
+
+function deleteZoom() {
+    params.delete('zoom');
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
 
 var about = document.getElementById('about');
