@@ -73,8 +73,8 @@ function initMap() {
     // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: parseInt(params.get('lat')) || 30,
-            lng: parseInt(params.get('lng')) || 0
+            lat: parseFloat(params.get('lat')) || 30,
+            lng: parseFloat(params.get('lng')) || 0
         },
         zoom: parseInt(params.get('zoom')) || 2,
         disableDefaultUI: true,
@@ -176,12 +176,59 @@ function initMap() {
         ]
     });
 
+    map.addListener('center_changed', function() {
+        lat = map.center.lat();
+        lng = map.center.lng();
+
+        if (lat == 30) {
+            params.delete('lat');
+        } else {
+            params.set('lat', lat);
+        }
+
+        if (lng == 0) {
+            params.delete('lng');
+        } else {
+            params.set('lng', lng);
+        }
+        
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    });
+
+    map.addListener('zoom_changed', function() {
+        zoom = map.zoom;
+
+        if (zoom == 2) {
+            params.delete('zoom');
+        } else {
+            params.set('zoom', zoom);
+        }
+
+        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    });
+
+    /*function addPositionListeners() {
+
+        document.getElementById('map').addEventListener('mouseup', function (event) {
+            if (!map) return
+    
+            lat = map.center.lat();
+            lng = map.center.lng();
+            zoom = map.zoom;
+    
+            if (lat != 30) params.set('lat', lat);
+            if (lng != 0) params.set('lng', lng);
+            if (lng != 2) params.set('zoom', zoom);
+    
+            window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        });
+    }*/
+
     // Create team and event markers, but don't reveal
     for (event of events) createEventMarker(event);
     for (team  of  teams)   createTeamMarker(team);
 
     addKeyboardListener();
-    addMouseUpListener();
 }
 
 function createEventMarker(event) {
@@ -356,22 +403,6 @@ function addKeyboardListener() {
                 document.getElementsByClassName('gm-fullscreen-control')[0].click();
                 break;
         }
-    });
-}
-
-function addMouseUpListener() {
-    document.addEventListener('mouseup', function (event) {
-        if (!map) return
-
-        lat = map.center.lat();
-        lng = map.center.lng();
-        zoom = map.zoom;
-
-        params.set('lat', lat);
-        params.set('lng', lng);
-        params.set('zoom', zoom);
-
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     });
 }
 
