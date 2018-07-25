@@ -143,7 +143,7 @@ function initMap() {
             params.set('lng', lng);
         }
         
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        pushHistory();
     });
 
     map.addListener('zoom_changed', function() {
@@ -155,7 +155,7 @@ function initMap() {
             params.set('zoom', zoom);
         }
 
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        pushHistory();
     });
 
     addKeyboardListener(); // Marker Toggling via Keyboard
@@ -180,7 +180,7 @@ function createEventMarker(event) {
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
         params.set('key', event.key);
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        pushHistory();
     });
 
     markers.all.push(marker);
@@ -230,7 +230,7 @@ function createTeamMarker(team) {
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
         params.set('key', 'frc' + team.team_number);
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        pushHistory();
     });
 
     markers.all.push(marker);
@@ -296,7 +296,7 @@ function openInfo(marker) {
             infoWindow.addListener('closeclick', function() {
                 if (params.get('key')) {
                     params.delete('key');
-                    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+                    pushHistory();
                 }
             });
         }
@@ -368,7 +368,7 @@ function updateVisibility() {
 
     if (all_visible) {
         params.delete('visibility');
-        window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+        pushHistory();
         return
     }
 
@@ -400,7 +400,7 @@ function updateVisibility() {
         params.set('visibility', now_visible.join("-"));
     }
     
-    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    pushHistory();
 }
 
 // Handle Zoom / Reposition / Info Panel of URL specified marker key
@@ -426,11 +426,21 @@ function openURLKey() {
 function deleteLatLng() {  // Remove Lat/Lng POST arguments from URL
     params.delete('lat');
     params.delete('lng');
-    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    pushHistory();
 }
 
 function deleteZoom() { // Remove Zoom POST arguments from URL
     params.delete('zoom');
+    pushHistory();
+}
+
+lastUpdate = 0; // Last time map was updated
+updateDelay = 1000; // 1 Second Update Delay
+
+function pushHistory() { // Push History State to URL
+    if (lastUpdate >= (Date.now() - updateDelay)) return;
+    lastUpdate = Date.now();
+
     window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
 
