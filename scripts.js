@@ -173,6 +173,7 @@ function createEventMarker(event) {
             url: 'img/' + event.type + '.png',
             scaledSize: new google.maps.Size(30, 30)
         },
+        visible: state[event.type],
         key: event.key,
         type: event.type
     });
@@ -223,6 +224,7 @@ function createTeamMarker(team) {
             url: image,
             scaledSize: custom ? new google.maps.Size(30, 30) : undefined
         },
+        visible: state['team'],
         key: 'frc' + team.team_number,
         type: 'team'
     });
@@ -351,6 +353,8 @@ function parseVisibility() {
 
     if (visibility == null || visibility == 'all') {
         return {team: true, regional: true, district: true, championship: true, offseason: true};
+    } else if (visibility == 'none') { // Check for "none" before parsing state information since "none" includes both the "o" and "e" visibility triggers
+        return {team: false, regional: false, district: false, championship: false, offseason: false};
     } else {
         return {
             team: visibility.includes('t'),
