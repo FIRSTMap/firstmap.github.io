@@ -1,20 +1,26 @@
-// Google Map
-var map;
-var markers = {
-    all: [],
-    keys: {},
-}
+// Configuration
+paramUpdateDelay = 1000; // POST Argument Update Interval (ms)
+
 
 // URL Parsing / POST Argument Tools
 var url = new URL(window.location.href);
 var params = url.searchParams;
 
 
-function initMap() {
-    state = parseVisibility(); // Update State before Map Generation
+// Map State Information
+var map; // GMaps Container
+var markers = { // Map Markers
+    all: [],
+    keys: {},
+}
 
-    
-    // Initialize Google Map
+state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility + Fullscreen)
+
+lastParamUpdate = 0; // Last Time POST Arguemts were updated
+
+
+// Initialize Google Map
+function initMap() {   
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: parseFloat(params.get('lat')) || 30,
@@ -26,7 +32,7 @@ function initMap() {
         mapTypeControl: false,
         streetViewControl: false,
         rotateControl: false,
-        fullscreenControl: true,
+        fullscreenControl: false,
         backgroundColor: '#173340',
         styles: [
             {
@@ -125,6 +131,8 @@ function initMap() {
     for (team  of  teams)   createTeamMarker(team);
     
     openURLKey(); // Open / Zoom to Marker Specified in URL
+
+    toggleMapFullscreen(true);
 
     // Add Map State Listeners (Center & Zoom)
     map.addListener('center_changed', function() {
@@ -337,7 +345,7 @@ function openInfo(marker) {
 
 function toggleMarkers(type) {
     state[type] = !state[type];
-    updateVisibility();
+    updateMarkerVisibility();
     for (marker of markers.all)
         if (marker.type === type) marker.setVisible(state[type]);
 }
@@ -371,33 +379,48 @@ function addKeyboardListener() {
                 break;
             // F
             case 70:
-                document.getElementsByClassName('gm-fullscreen-control')[0].click();
+                toggleMapFullscreen();
                 break;
         }
     })
 }
 
-// Parse Marker Visibility from URL POST Arguments
-function parseVisibility() {
-    visibility = params.get('visibility');
+// Parse Map State from URL POST Arguments
+function parseState() {
+    mapState = {}
+
+    // Marker Visibility
+    visibility = params.get('visibility').toLowerCase();
 
     if (visibility == null || visibility == 'all') {
-        return {team: true, regional: true, district: true, championship: true, offseason: true};
+        mapState['team'] = true;
+        mapState['regional'] = true;
+        mapState['district'] = true;
+        mapState['championship'] = true;
+        mapState['offseason'] = true;
     } else if (visibility == 'none') { // Check for "none" before parsing state information since "none" includes both the "o" and "e" visibility triggers
-        return {team: false, regional: false, district: false, championship: false, offseason: false};
+        mapState['team'] = false;
+        mapState['regional'] = false;
+        mapState['district'] = false;
+        mapState['championship'] = false;
+        mapState['offseason'] = false;
     } else {
-        return {
-            team: visibility.includes('t'),
-            regional: visibility.includes('e') || visibility.includes('r'),
-            district: visibility.includes('e') || visibility.includes('d'),
-            championship: visibility.includes('e') || visibility.includes('c'),
-            offseason: visibility.includes('e') || visibility.includes('o'),
-        }
+        mapState['team'] = visibility.includes('t');
+        mapState['regional'] = visibility.includes('e') || visibility.includes('r');
+        mapState['district'] = visibility.includes('e') || visibility.includes('d');
+        mapState['championship'] = visibility.includes('e') || visibility.includes('c');
+        mapState['offseason'] = visibility.includes('e') || visibility.includes('o');
     }
+
+    // Fullscreen
+    mapState['fullscreen'] = false;
+    // Would include POST Argument, but browser requires user interaction for full screen initiation.
+
+    return mapState;
 }
 
 // Update URL with current Marker Visibility State
-function updateVisibility() {
+function updateMarkerVisibility() {
     all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
 
     if (all_visible) {
@@ -441,7 +464,7 @@ function updateVisibility() {
 function openURLKey() {
     keyToOpen = params.get('key');
     if (!keyToOpen) return;
-    markerToOpen = markers.keys[keyToOpen];
+    markerToOpen = markers.keys[keyToOpen.toLowerCase()];
     if (!markerToOpen) return;
 
     if (!params.get('lat') && !params.get('lng')) {
@@ -468,19 +491,40 @@ function deleteZoom() { // Remove Zoom POST arguments from URL
     pushHistory();
 }
 
-lastUpdate = 0; // Last time map was updated
-updateDelay = 1000; // 1 Second Update Delay
-
 function pushHistory() { // Push History State to URL
-    if (lastUpdate >= (Date.now() - updateDelay)) return;
-    lastUpdate = Date.now();
+    if (lastParamUpdate >= (Date.now() - paramUpdateDelay)) return;
+    lastParamUpdate = Date.now();
 
     window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
 
-/*function shareMarker(key) {
-    alert(window.location.href.split('?')[0] + '?key=' + key);
-}*/
+function toggleMapFullscreen(forceOpen=false) {
+    fullscreenElement = document.documentElement;
+
+    state.fullscreen = !state.fullscreen;
+
+    if (state.fullscreen || forceOpen) {
+        if (fullscreenElement.requestFullscreen) {
+            fullscreenElement.requestFullscreen();
+        } else if (fullscreenElement.mozRequestFullScreen) {
+            fullscreenElement.mozRequestFullScreen();
+        } else if (fullscreenElement.webkitRequestFullscreen) {
+            fullscreenElement.webkitRequestFullscreen();
+        } else if (fullscreenElement.msRequestFullscreen) {
+            fullscreenElement.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
 
 var about = document.getElementById('about');
 function toggleAbout() {

@@ -44,7 +44,7 @@ a:hover { text-decoration: none; }
 #toggles {
     position: fixed;
     top:    10px;
-    right:  53px;
+    right:  13px;
     height: 40px;
 }
 #toggles div {
