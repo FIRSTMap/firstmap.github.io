@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <title>FIRSTMap</title>
         <meta name="viewport" content="initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/primer-tooltips@1.5.7/build/build.css">
         <link rel="stylesheet" href="style.css">
     </head>
 
@@ -12,12 +13,12 @@
         <div id="map"></div>
 
         <div id="toggles">
-            <div onclick="toggleAbout()" title="[Esc] View help and credits">?</div>
-            <div onclick="toggleMarkers('team')" title="[T] Toggle Team Markers">T</div>
-            <div onclick="toggleMarkers('district')" title="[D] Toggle District Markers">D</div>
-            <div onclick="toggleMarkers('regional')" title="[R] Toggle Regional Markers">R</div>
-            <div onclick="toggleMarkers('offseason')" title="[O] Toggle Offseason & Preseason Markers">O</div>
-            <div onclick="toggleMarkers('championship')" title="[C] Toggle Championship Markers">C</div>
+            <div onclick="toggleAbout()" class="tooltipped tooltipped-sw" aria-label="[Esc] View help and credits">?</div>
+            <div onclick="toggleMarkers('team')" class="tooltipped tooltipped-sw" aria-label="[T] Toggle Team Markers">T</div>
+            <div onclick="toggleMarkers('district')" class="tooltipped tooltipped-sw" aria-label="[D] Toggle District Markers">D</div>
+            <div onclick="toggleMarkers('regional')" class="tooltipped tooltipped-sw" aria-label="[R] Toggle Regional Markers">R</div>
+            <div onclick="toggleMarkers('offseason')" class="tooltipped tooltipped-sw" aria-label="[O] Toggle Offseason & Preseason Markers">O</div>
+            <div onclick="toggleMarkers('championship')" class="tooltipped tooltipped-sw" aria-label="[C] Toggle Championship Markers">C</div>
         </div>
 
         <div id="about">
@@ -96,6 +97,7 @@
         <script src="data/custom_icons.js"></script>
         <script src="data/custom_locations.js"></script>
         <script src="scripts.js"></script>
+        <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABrEZwgm0BZrNJuYrAxcyozSQET4HILUU&callback=initMap" async defer></script>
     </body>
 
