@@ -132,8 +132,6 @@ function initMap() {
     
     openURLKey(); // Open / Zoom to Marker Specified in URL
 
-    toggleMapFullscreen(true);
-
     // Add Map State Listeners (Center & Zoom)
     map.addListener('center_changed', function() {
         lat = map.center.lat();
