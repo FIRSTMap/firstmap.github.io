@@ -253,7 +253,8 @@ function openInfo(marker) {
                 content += parsed.website ? '<a href="' + parsed.website + '">' : '';
                 content += 'Team ' + parsed.team_number;
                 content += parsed.nickname ? ' - ' + parsed.nickname : '';
-                content += parsed.website ? '</a></h1>' : '</h1>';
+                content += parsed.website ? '</a>' : '';
+                content += '<div class="tooltipped tooltipped-w share_icon" aria-label="Copy Share URL"></div></h1>';
 
                 content += parsed.motto ? '<p><em>"' + parsed.motto + '"</em></p>' : '';
                 content += '<ul>';
@@ -265,10 +266,10 @@ function openInfo(marker) {
                 content += '</ul>';
             } else {
                 if (parsed.short_name) {
-                    content += '<h1>' + parsed.short_name + '</h1>';
+                    content += '<h1>' + parsed.short_name + '<div class="tooltipped tooltipped-w share_icon" aria-label="Copy Share URL"></div></h1>';
                     if (parsed.name != parsed.short_name) content += '<h6>' + parsed.name + '</h6>';
                 } else {
-                    content += '<h1>' + parsed.name + '</h1>';
+                    content += '<h1>' + parsed.name + '<div class="tooltipped tooltipped-w share_icon" aria-label="Copy Share URL"></div></h1>';
                 }
                 content += '<ul>';
                 if (marker.type === 'district' && parsed.district) {
@@ -295,11 +296,40 @@ function openInfo(marker) {
 
             infoWindow.open(map, marker);
 
+            var clipboard = new ClipboardJS('.share_icon', { // Create Clipboard Object for Share URL copying
+                text: function(trigger) {
+                    return window.location.href.split('?')[0] + '?key=' + marker.key;
+                }
+            });
+
+            clipboard.on('success', function(e) {
+                e.trigger.setAttribute('aria-label', 'Success!');
+                e.trigger.addEventListener('mouseleave',function() {
+                    e.trigger.setAttribute('aria-label', 'Copy Share URL');
+                });
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function(e) {
+                actionMsg='';
+
+                if(/iPhone|iPad/i.test(navigator.userAgent)){actionMsg='Unsupported Copy :/';}
+                else if(/Mac/i.test(navigator.userAgent)){actionMsg='Press ⌘-c to copy';}
+                else{actionMsg='Press Ctrl-C to Copy';}
+
+                e.trigger.setAttribute('aria-label', actionMsg);
+                e.trigger.addEventListener('mouseleave',function() {
+                    e.clearSelection();
+                    e.trigger.setAttribute('aria-label', 'Copy Share URL');
+                });
+            });
+
             infoWindow.addListener('closeclick', function() {
                 if (params.get('key')) {
                     params.delete('key');
                     pushHistory();
                 }
+                clipboard.destroy(); // Remove old Clipboard Instance when closing Info Window to prevent DOM overload
             });
         }
     }
@@ -447,6 +477,10 @@ function pushHistory() { // Push History State to URL
 
     window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
+
+/*function shareMarker(key) {
+    alert(window.location.href.split('?')[0] + '?key=' + key);
+}*/
 
 var about = document.getElementById('about');
 function toggleAbout() {

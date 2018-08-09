@@ -30,6 +30,15 @@ ul {
     margin-top: 10px;
     list-style-type: none;
 }
+.share_icon {
+    display: inline-block;
+    height: 15px;
+    width: 17px;
+    background: url('img/share.svg') no-repeat center;
+    margin-left: 8px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
 a       { color: inherit; }
 a:hover { text-decoration: none; }
 #toggles {
