@@ -351,8 +351,8 @@ function toggleMarkers(type) {
 function addKeyboardListener() {
     document.addEventListener('keyup', function (event) {
         switch (event.keyCode) {
-            // Esc
-            case 27:
+            // Shift
+            case 16:
                 toggleAbout();
                 break;
             // C
@@ -388,7 +388,8 @@ function parseState() {
     mapState = {}
 
     // Marker Visibility
-    visibility = params.get('visibility').toLowerCase();
+    visibility = params.get('visibility')
+    if (visibility) visibility = visibility.toLowerCase();
 
     if (visibility == null || visibility == 'all') {
         mapState['team'] = true;
