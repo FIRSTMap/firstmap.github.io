@@ -60,11 +60,11 @@ a:hover { text-decoration: none; }
 }
 #fullscreen-controls {
     background: white url('img/fullscreen.svg') no-repeat center;
-    background-size: 85%;
+    background-size: 60%;
 }
 .fullscreen #fullscreen-controls {
     background: white url('img/exit-fullscreen.svg') no-repeat center;
-    background-size: 85%;
+    background-size: 70%;
 }
 #about {
     position: fixed;
