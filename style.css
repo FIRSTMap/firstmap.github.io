@@ -58,6 +58,14 @@ a:hover { text-decoration: none; }
     padding-top: 3px;
     cursor: default
 }
+#fullscreen-controls {
+    background: white url('img/fullscreen.svg') no-repeat center;
+    background-size: 85%;
+}
+.fullscreen #fullscreen-controls {
+    background: white url('img/exit-fullscreen.svg') no-repeat center;
+    background-size: 85%;
+}
 #about {
     position: fixed;
     top: 44px;
