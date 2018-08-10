@@ -512,6 +512,8 @@ function toggleMapFullscreen(forceOpen=false) {
         } else if (fullscreenElement.msRequestFullscreen) {
             fullscreenElement.msRequestFullscreen();
         }
+
+        document.getElementsByTagName('body')[0].setAttribute('class', 'fullscreen');
     } else {
         if (document.exitFullscreen) {
             document.exitFullscreen();
@@ -522,6 +524,8 @@ function toggleMapFullscreen(forceOpen=false) {
         } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         }
+
+        document.getElementsByTagName('body')[0].removeAttribute('class');
     }
 }
 
