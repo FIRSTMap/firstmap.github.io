@@ -478,6 +478,8 @@ function openURLKey() { // Handle Zoom / Reposition / Info Panel of URL specifie
     markerToOpen = markers.keys[keyToOpen.toLowerCase()];
     if (!markerToOpen) return;
 
+    markers.open = markerToOpen;
+
     if (!params.get('lat') && !params.get('lng')) {
         map.panTo(markerToOpen.getPosition());
     }
@@ -486,7 +488,6 @@ function openURLKey() { // Handle Zoom / Reposition / Info Panel of URL specifie
         map.setZoom(12);
     }
 
-    markers.open = markerToOpen;
     openInfo(markerToOpen);
 }
 
