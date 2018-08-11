@@ -137,11 +137,11 @@ function initMap() { // Initialize Google Map
         lng = map.center.lng();
 
         if (markers.open) {
-            if (markers.open.internalPosition.lat() == lat) {
+            if (markers.open.position.lat() == lat) {
                 params.delete('lat');
             }
 
-            if (markers.open.internalPosition.lng() == lng) {
+            if (markers.open.position.lng() == lng) {
                 params.delete('lng');
             }
         }
