@@ -12,6 +12,7 @@ var map; // GMaps Container
 var markers = { // Map Markers
     all: [],
     keys: {},
+    open: null
 }
 
 state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility + Fullscreen)
@@ -19,9 +20,8 @@ state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility
 lastParamUpdate = 0; // Last Time POST Arguemts were updated
 
 
-// Initialize Google Map
-function initMap() {   
-    map = new google.maps.Map(document.getElementById('map'), {
+function initMap() { // Initialize Google Map
+    map = new google.maps.Map(document.getElementById('map'), { // Define Map Settings
         center: {
             lat: parseFloat(params.get('lat')) || 30,
             lng: parseFloat(params.get('lng')) || 0
@@ -130,12 +130,21 @@ function initMap() {
     for (event of events) createEventMarker(event);
     for (team  of  teams)   createTeamMarker(team);
     
-    openURLKey(); // Open / Zoom to Marker Specified in URL
+    openURLKey(); // Show POST Argument Specified Marker
 
-    // Add Map State Listeners (Center & Zoom)
-    map.addListener('center_changed', function() {
+    map.addListener('center_changed', function() { // Bind POST Arguement Update to map position change
         lat = map.center.lat();
         lng = map.center.lng();
+
+        if (markers.open) {
+            if (markers.open.internalPosition.lat() == lat) {
+                params.delete('lat');
+            }
+
+            if (markers.open.internalPosition.lng() == lng) {
+                params.delete('lng');
+            }
+        }
 
         if (lat == 30) {
             params.delete('lat');
@@ -152,10 +161,12 @@ function initMap() {
         pushHistory();
     });
 
-    map.addListener('zoom_changed', function() {
+    map.addListener('zoom_changed', function() { // Bind POST Argument Update to map zoom
         zoom = map.zoom;
 
-        if (zoom == 2) {
+        if (markers.open && zoom == 12) {
+            params.delete('zoom');
+        } else if (zoom == 2) {
             params.delete('zoom');
         } else {
             params.set('zoom', zoom);
@@ -167,7 +178,7 @@ function initMap() {
     addKeyboardListener(); // Marker Toggling via Keyboard
 }
 
-function createEventMarker(event) {
+function createEventMarker(event) { // Create an Event Marker on map
     var marker = new google.maps.Marker({
         position: {
             lat: event.lat,
@@ -179,13 +190,14 @@ function createEventMarker(event) {
             url: 'img/' + event.type + '.png',
             scaledSize: new google.maps.Size(30, 30)
         },
-        visible: state[event.type],
+        visible: state[event.type], // Set starting visibility based on defined state
         key: event.key,
         type: event.type
     });
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
+        markers.open = marker;
         params.set('key', event.key);
         pushHistory();
     });
@@ -194,7 +206,7 @@ function createEventMarker(event) {
     markers.keys[event.key] = marker;
 }
 
-function createTeamMarker(team) {
+function createTeamMarker(team) { // Create a Team Marker on map
     var position;
 
     if (team.team_number in locations) {
@@ -209,16 +221,17 @@ function createTeamMarker(team) {
         };
     }
     
-    var image = 'img/team.png';
+    // Choose which logo to show:  Default, Defined, or FIRST Avatar
+    var image = 'img/team.png'; // Default
 
-    allow_logos = !(params.get('logos') == 'false');
+    allow_logos = !(params.get('logos') == 'false'); // POST Argument forces Default
     if (allow_logos) {
         var custom = icons.indexOf(team.team_number) !== -1;
         if (custom) {
-            image = 'logos/' + team.team_number + '.png';
+            image = 'logos/' + team.team_number + '.png'; // Defined
         } else if (avatars[team.team_number]) {
             custom = true;
-            image = 'data:image/png;base64,' + avatars[team.team_number]['img'];
+            image = 'data:image/png;base64,' + avatars[team.team_number]['img']; // FIRST Avatar
         }
     }
 
@@ -230,13 +243,14 @@ function createTeamMarker(team) {
             url: image,
             scaledSize: custom ? new google.maps.Size(30, 30) : undefined
         },
-        visible: state['team'],
+        visible: state['team'], // Set starting visibility based on defined state
         key: 'frc' + team.team_number,
         type: 'team'
     });
 
     google.maps.event.addListener(marker, 'click', function() {
         openInfo(marker);
+        markers.open = marker;
         params.set('key', 'frc' + team.team_number);
         pushHistory();
     });
@@ -245,7 +259,7 @@ function createTeamMarker(team) {
     markers.keys['frc' + team.team_number] = marker;
 }
 
-function openInfo(marker) {
+function openInfo(marker) { // Create and show a Marker's InfoWindow
     var req = new XMLHttpRequest();
     req.open('GET', 'https://www.thebluealliance.com/api/v3/' + (marker.type == 'team' ? 'team' : 'event') + '/' + marker.key + '?X-TBA-Auth-Key=VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq');
     req.send();
@@ -332,6 +346,7 @@ function openInfo(marker) {
 
             infoWindow.addListener('closeclick', function() {
                 if (params.get('key')) {
+                    markers.open = null;
                     params.delete('key');
                     pushHistory();
                 }
@@ -341,14 +356,14 @@ function openInfo(marker) {
     }
 }
 
-function toggleMarkers(type) {
+function toggleMarkers(type) { // Toggle visibility of a given marker type
     state[type] = !state[type];
     updateMarkerVisibility();
     for (marker of markers.all)
         if (marker.type === type) marker.setVisible(state[type]);
 }
 
-function addKeyboardListener() {
+function addKeyboardListener() { // Register toggle keybinds
     document.addEventListener('keyup', function (event) {
         switch (event.keyCode) {
             // Shift
@@ -383,8 +398,7 @@ function addKeyboardListener() {
     })
 }
 
-// Parse Map State from URL POST Arguments
-function parseState() {
+function parseState() { // Parse Map State from URL POST Arguments
     mapState = {}
 
     // Marker Visibility
@@ -397,7 +411,7 @@ function parseState() {
         mapState['district'] = true;
         mapState['championship'] = true;
         mapState['offseason'] = true;
-    } else if (visibility == 'none') { // Check for "none" before parsing state information since "none" includes both the "o" and "e" visibility triggers
+    } else if (visibility == 'none') { // "none" includes both "o" and "e" so must be checked before individual visibility
         mapState['team'] = false;
         mapState['regional'] = false;
         mapState['district'] = false;
@@ -418,8 +432,7 @@ function parseState() {
     return mapState;
 }
 
-// Update URL with current Marker Visibility State
-function updateMarkerVisibility() {
+function updateMarkerVisibility() { // Update URL with current Marker Visibility State
     all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
 
     if (all_visible) {
@@ -459,8 +472,7 @@ function updateMarkerVisibility() {
     pushHistory();
 }
 
-// Handle Zoom / Reposition / Info Panel of URL specified marker key
-function openURLKey() {
+function openURLKey() { // Handle Zoom / Reposition / Info Panel of URL specified marker key
     keyToOpen = params.get('key');
     if (!keyToOpen) return;
     markerToOpen = markers.keys[keyToOpen.toLowerCase()];
@@ -468,26 +480,14 @@ function openURLKey() {
 
     if (!params.get('lat') && !params.get('lng')) {
         map.panTo(markerToOpen.getPosition());
-        setTimeout(deleteLatLng, 1500);
     }
 
     if (!params.get('zoom')) {
         map.setZoom(12);
-        setTimeout(deleteZoom, 1500);
     }
 
+    markers.open = markerToOpen;
     openInfo(markerToOpen);
-}
-
-function deleteLatLng() {  // Remove Lat/Lng POST arguments from URL
-    params.delete('lat');
-    params.delete('lng');
-    pushHistory();
-}
-
-function deleteZoom() { // Remove Zoom POST arguments from URL
-    params.delete('zoom');
-    pushHistory();
 }
 
 function pushHistory() { // Push History State to URL
@@ -497,12 +497,12 @@ function pushHistory() { // Push History State to URL
     window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
 }
 
-function toggleMapFullscreen(forceOpen=false) {
-    fullscreenElement = document.documentElement;
+function toggleMapFullscreen(forceOpen=false) { // Toggle fullscreen state of page.  If forceOpen, page will be forced to fullscreen
+    fullscreenElement = document.documentElement; // Fullscreen entire page instead of just the map
 
     state.fullscreen = !state.fullscreen;
 
-    if (state.fullscreen || forceOpen) {
+    if (state.fullscreen || forceOpen) { // Prefixes used for browser support
         if (fullscreenElement.requestFullscreen) {
             fullscreenElement.requestFullscreen();
         } else if (fullscreenElement.mozRequestFullScreen) {
@@ -513,8 +513,8 @@ function toggleMapFullscreen(forceOpen=false) {
             fullscreenElement.msRequestFullscreen();
         }
 
-        document.getElementsByTagName('body')[0].setAttribute('class', 'fullscreen');
-    } else {
+        document.getElementsByTagName('body')[0].setAttribute('class', 'fullscreen'); // Set appropriate Fullscreen Toggle image 
+    } else { // Prefixes used for browser support
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.mozCancelFullScreen) {
@@ -525,20 +525,22 @@ function toggleMapFullscreen(forceOpen=false) {
             document.msExitFullscreen();
         }
 
-        document.getElementsByTagName('body')[0].removeAttribute('class');
+        document.getElementsByTagName('body')[0].removeAttribute('class'); // Set appropriate Fullscreen Toggle image 
     }
 }
 
 
 // Handle About Window
 var about = document.getElementById('about');
-function toggleAbout() {
+function toggleAbout() { // Toggles About Window display state
     about.style.display = (about.style.display === 'block') ? 'none' : 'block';
 }
 
-function toggleLogos() {
+function toggleLogos() { // Toggles Custom Team Logos through page reload
+    // Close About Window
     toggleAbout();
     
+    // Toggle POST Argument state
     if (params.get('logos') == 'false') {
         params.delete('logos');
     } else {
@@ -548,13 +550,10 @@ function toggleLogos() {
     window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
     updateDOMLogoToggleState();
 
-    map = null;
-    mapElement = document.getElementById('map');
-    mapElement.removeChild(mapElement.firstChild);
-    initMap();
+    location.reload();
 }
 
-function updateDOMLogoToggleState() {
+function updateDOMLogoToggleState() { // Updates Logo Toggle Button text
     if (params.get('logos') == 'false') {
         document.getElementById('toggle-logos').setAttribute('class', 'off');
     } else {
@@ -562,4 +561,4 @@ function updateDOMLogoToggleState() {
     }
 }
 
-updateDOMLogoToggleState();
+updateDOMLogoToggleState(); // Update button text on page load
