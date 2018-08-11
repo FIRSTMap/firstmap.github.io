@@ -529,7 +529,37 @@ function toggleMapFullscreen(forceOpen=false) {
     }
 }
 
+
+// Handle About Window
 var about = document.getElementById('about');
 function toggleAbout() {
     about.style.display = (about.style.display === 'block') ? 'none' : 'block';
 }
+
+function toggleLogos() {
+    toggleAbout();
+    
+    if (params.get('logos') == 'false') {
+        params.delete('logos');
+    } else {
+        params.set('logos', 'false');
+    }
+
+    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    updateDOMLogoToggleState();
+
+    map = null;
+    mapElement = document.getElementById('map');
+    mapElement.removeChild(mapElement.firstChild);
+    initMap();
+}
+
+function updateDOMLogoToggleState() {
+    if (params.get('logos') == 'false') {
+        document.getElementById('toggle-logos').setAttribute('class', 'off');
+    } else {
+        document.getElementById('toggle-logos').setAttribute('class', 'on');
+    }
+}
+
+updateDOMLogoToggleState();
