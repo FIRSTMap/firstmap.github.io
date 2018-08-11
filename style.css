@@ -56,7 +56,7 @@ a:hover { text-decoration: none; }
     margin-bottom: 10px;
     text-align: center;
     padding-top: 3px;
-    cursor: default
+    cursor: pointer;
 }
 #fullscreen-controls {
     background: white url('img/fullscreen.svg') no-repeat center;
@@ -76,7 +76,28 @@ a:hover { text-decoration: none; }
     text-align: center;
     display: none;
 }
-#about div {
+#about #toggle-logos {
+    width: max-content;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 6px;
+    color: #BBB;
+    font-weight: 400;
+    border: 1px solid #BBB;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#toggle-logos.off #logos-on, #toggle-logos.on #logos-off {
+    display:none;
+}
+#toggle-logos > .main {
+    font-size: 0.9em;
+}
+#toggle-logos > .sub {
+    font-size: 0.75em;
+}
+#about #development {
     margin: 20px 0;
 }
 .stripe {
