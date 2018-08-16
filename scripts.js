@@ -137,25 +137,29 @@ function initMap() { // Initialize Google Map
         lng = map.center.lng();
 
         if (markers.open) {
-            if (markers.open.position.lat() == lat) {
+            if (Math.abs(lat - markers.open.position.lat()) < 0.000001) {
                 params.delete('lat');
+            } else {
+                params.set('lat', lat);
             }
 
-            if (markers.open.position.lng() == lng) {
+            if (Math.abs(lng - markers.open.position.lng()) < 0.000001) {
                 params.delete('lng');
+            } else {
+                params.set('lng', lng);
             }
-        }
-
-        if (lat == 30) {
-            params.delete('lat');
         } else {
-            params.set('lat', lat);
-        }
-
-        if (lng == 0) {
-            params.delete('lng');
-        } else {
-            params.set('lng', lng);
+            if (lat == 30) {
+                params.delete('lat');
+            } else {
+                params.set('lat', lat);
+            }
+    
+            if (lng == 0) {
+                params.delete('lng');
+            } else {
+                params.set('lng', lng);
+            }
         }
         
         pushHistory();
