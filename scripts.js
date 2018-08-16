@@ -517,8 +517,6 @@ function toggleMapFullscreen(forceOpen=false) { // Toggle fullscreen state of pa
         } else if (fullscreenElement.msRequestFullscreen) {
             fullscreenElement.msRequestFullscreen();
         }
-
-        document.getElementsByTagName('body')[0].setAttribute('class', 'fullscreen'); // Set appropriate Fullscreen Toggle image 
     } else { // Prefixes used for browser support
         if (document.exitFullscreen) {
             document.exitFullscreen();
@@ -529,8 +527,21 @@ function toggleMapFullscreen(forceOpen=false) { // Toggle fullscreen state of pa
         } else if (document.msExitFullscreen) {
             document.msExitFullscreen();
         }
+    }
+}
 
-        document.getElementsByTagName('body')[0].removeAttribute('class'); // Set appropriate Fullscreen Toggle image 
+if (document.addEventListener) { // Bind body class update to appropriate browser event
+    document.addEventListener('webkitfullscreenchange', toggleFullscreenImage, false);
+    document.addEventListener('mozfullscreenchange', toggleFullscreenImage, false);
+    document.addEventListener('fullscreenchange', toggleFullscreenImage, false);
+    document.addEventListener('MSFullscreenChange', toggleFullscreenImage, false);
+}
+
+function toggleFullscreenImage() { // Set body class to show appropriate image on fullscreen button
+    if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
+        document.getElementsByTagName('body')[0].setAttribute('class', 'fullscreen');
+    } else {
+        document.getElementsByTagName('body')[0].removeAttribute('class');
     }
 }
 
