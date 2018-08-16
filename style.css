@@ -76,8 +76,8 @@ a:hover { text-decoration: none; }
     text-align: center;
     display: none;
 }
-#about #toggle-logos {
-    width: max-content;
+#about #toggle-logos > div {
+    display: inline-block;
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
@@ -91,10 +91,10 @@ a:hover { text-decoration: none; }
 #toggle-logos.off #logos-on, #toggle-logos.on #logos-off {
     display:none;
 }
-#toggle-logos > .main {
+#toggle-logos .main {
     font-size: 0.9em;
 }
-#toggle-logos > .sub {
+#toggle-logos .sub {
     font-size: 0.75em;
 }
 #about #development {
