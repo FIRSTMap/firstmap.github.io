@@ -155,7 +155,7 @@ var events = [
     {"key": "2018nyli", "lat": 40.7166, "lng": -73.5985, "type": "regional", "name": "SBPLI Long Island #1"},
     {"key": "2018nyli2", "lat": 40.7166, "lng": -73.5985, "type": "regional", "name": "SBPLI Long Island #2"},
     {"key": "2018nyny", "lat": 40.8421, "lng": -73.9413, "type": "regional", "name": "New York City"},
-    {"key": "2018nyrer", "lat": 40.8167, "lng": -73.5912, "type": "district", "name": "Regal Eagle Rampage"},
+    {"key": "2018nyrer", "lat": 40.8167, "lng": -73.5912, "type": "offseason", "name": "Regal Eagle Rampage"},
     {"key": "2018nyro", "lat": 43.0851, "lng": -77.6716, "type": "regional", "name": "Finger Lakes"},
     {"key": "2018nyrr", "lat": 43.1619, "lng": -77.5880, "type": "offseason", "name": "Rah Cha Cha Ruckus"},
     {"key": "2018nyrra", "lat": 43.1366, "lng": -77.4709, "type": "district", "name": "Rochester Rally"},
