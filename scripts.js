@@ -496,10 +496,20 @@ function openURLKey() { // Handle Zoom / Reposition / Info Panel of URL specifie
 }
 
 function pushHistory() { // Push History State to URL
-    if (lastParamUpdate >= (Date.now() - paramUpdateDelay)) return;
+    function updateHist() {
     lastParamUpdate = Date.now();
+        window.history.replaceState({"html":'',"pageTitle":document.title},"", url.href);
+    }
 
-    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    clearTimeout(updateHist);
+
+    var diff = Date.now() - lastParamUpdate;
+
+    if (diff < paramUpdateDelay) {
+        setTimeout(updateHist, paramUpdateDelay);
+    } else {
+        updateHist();
+    }
 }
 
 function toggleMapFullscreen(forceOpen=false) { // Toggle fullscreen state of page.  If forceOpen, page will be forced to fullscreen
