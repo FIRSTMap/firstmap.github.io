@@ -270,43 +270,124 @@ function openInfo(marker) { // Create and show a Marker's InfoWindow
     req.onreadystatechange = function() {
         if (req.readyState === 4 && req.status === 200) {
             var parsed = JSON.parse(req.responseText);
-            var content = '';
+            var content = document.createElement('div');
+            var heading = document.createElement('h1');
+            content.appendChild(heading);
+
+            var shareLink = document.createElement('div');
+            shareLink.classList.add('tooltipped', 'tooltipped-w', 'share_icon');
+            shareLink.setAttribute('aria-label', 'Copy Share URL');
 
             if (marker.type == 'team') {
-                content += '<h1>';
-                content += parsed.website ? '<a href="' + parsed.website + '">' : '';
-                content += 'Team ' + parsed.team_number;
-                content += parsed.nickname ? ' - ' + parsed.nickname : '';
-                content += parsed.website ? '</a>' : '';
-                content += '<div class="tooltipped tooltipped-w share_icon" aria-label="Copy Share URL"></div></h1>';
+                // Heading with team name and number (linked to website, if available)
+                var headingText = 'Team ' + parsed.team_number;
+                headingText += parsed.nickname ? ' - ' + parsed.nickname : '';
 
-                content += parsed.motto ? '<p><em>"' + parsed.motto + '"</em></p>' : '';
-                content += '<ul>';
-                content += '<li><strong>Location:</strong> ' + parsed.city + ', ';
-                content += parsed.state_prov + ' ' + parsed.postal_code + ', ';
-                content += parsed.country + '</li>';
-                content += parsed.rookie_year ? '<li><strong>Rookie year:</strong> ' + parsed.rookie_year + '</li>' : '';
-                content += '<li><a href="http://thebluealliance.com/team/' + parsed.team_number + '">View on The Blue Alliance</a></li>';
-                content += '</ul>';
-            } else {
-                if (parsed.short_name) {
-                    content += '<h1>' + parsed.short_name + '<div class="tooltipped tooltipped-w share_icon" aria-label="Copy Share URL"></div></h1>';
-                    if (parsed.name != parsed.short_name) content += '<h6>' + parsed.name + '</h6>';
+                if (parsed.website) {
+                    var siteLink = document.createElement('a');
+                    siteLink.href = parsed.website;
+                    siteLink.innerText = headingText;
+
+                    heading.appendChild(siteLink);
                 } else {
-                    content += '<h1>' + parsed.name + '<div class="tooltipped tooltipped-w share_icon" aria-label="Copy Share URL"></div></h1>';
+                    heading.innerText = headingText;
                 }
-                content += '<ul>';
+                
+                // Append share link to heading
+                heading.appendChild(shareLink);
+                
+                // Team motto
+                if (parsed.motto) {
+                    var p = document.createElement('p');
+                    var em = document.createElement('em');
+                    em.innerText = parsed.motto;
+                    p.appendChild(em);
+                    content.appendChild(p);
+                }
+                
+                // List
+                var list = document.createElement('ul');
+
+                // Location list item
+                var locItem = document.createElement('li');
+                locItem.innerHTML = '<strong>Location:</strong> ';
+                var locText = parsed.city + ', ' + parsed.state_prov + ' ' + parsed.postal_code + ', ' +
+                    parsed.country;
+                locItem.appendChild(document.createTextNode(locText));
+                list.appendChild(locItem);
+
+                // Rookie year list item
+                if (parsed.rookie_year) {
+                    var ryItem = document.createElement('li');
+                    ryItem.innerHTML = '<strong>Rookie year:</strong> ';
+                    ryItem.appendChild(document.createTextNode(parsed.rookie_year));
+                    list.appendChild(ryItem);
+                }
+
+                // TBA link list item
+                var tbaItem = document.createElement('li');
+                
+                var tbaLink = document.createElement('a');
+                tbaLink.href = 'http://thebluealliance.com/team/' + parsed.team_number;
+                tbaLink.innerText = 'View on The Blue Alliance';
+                tbaItem.appendChild(tbaLink);
+
+                list.appendChild(tbaItem);
+
+                content.appendChild(list);
+            } else {
+                // Event name and short name
+                if (parsed.short_name) {
+                    heading.innerText = parsed.short_name;
+
+                    if (parsed.name != parsed.short_name) {
+                        var fullName = document.createElement('h6');
+                        fullName.innerText = parsed.name;
+                        content.appendChild(fullName);
+                    }
+                } else {
+                    heading.innerText = parsed.name;
+                }
+                // Append share link to heading
+                heading.appendChild(shareLink);
+
+                // List
+                var list = document.createElement('ul');
+
+                // District name (if part of a district) list item
                 if (marker.type === 'district' && parsed.district) {
-                    content += '<li><strong>District:</strong> ' + parsed.district.abbreviation.toUpperCase() + '</li>';
+                    var districtItem = document.createElement('li');
+                    districtItem.innerHTML += '<strong>District:</strong> ';
+                    districtItem.appendChild(document.createTextNode(parsed.district.abbreviation.toUpperCase()));
+                    list.appendChild(districtItem);
                 }
+
+                // Competition week (if available) list item
                 if (parsed.week) {
-                    content += '<li><strong>Week:</strong> ' + parsed.week + '</li>';
+                    var weekItem = document.createElement('li');
+                    weekItem.innerHTML += '<strong>Week:</strong> ';
+                    weekItem.appendChild(document.createTextNode(parsed.week));
+                    list.appendChild(weekItem);
                 }
+                
+                // Dates of competition list item
                 var start = /*new Date(*/parsed.start_date/*).toLocaleDateString()*/;
                 var end = /*new Date(*/parsed.end_date/*).toLocaleDateString()*/;
-                content += '<li><strong>Date:</strong> ' + start + ' - ' + end + '</li>';
-                content += '<li><a href="http://www.thebluealliance.com/event/' + marker.key + '">View on The Blue Alliance</a></li>';
-                content += '</ul>';
+
+                var dateItem = document.createElement('li');
+                dateItem.innerHTML = '<strong>Date:</strong> ';
+                dateItem.appendChild(document.createTextNode(start + ' - ' + end));
+                list.appendChild(dateItem);
+
+                // TBA link list item
+                var tbaLinkItem = document.createElement('li');
+                var tbaLink = document.createElement('a');
+                tbaLinkItem.appendChild(tbaLink);
+                tbaLink.href = 'http://www.thebluealliance.com/event/' + marker.key;
+                tbaLink.innerText = 'View on The Blue Alliance';
+                list.appendChild(tbaLinkItem);
+
+                content.appendChild(list);
             }
 
             try {
