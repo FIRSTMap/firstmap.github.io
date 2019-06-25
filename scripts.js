@@ -20,6 +20,8 @@ state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility
 lastParamUpdate = 0; // Last Time POST Arguemts were updated
 
 
+var CURRENT_YEAR = 2019;
+
 function initMap() { // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), { // Define Map Settings
         center: {
@@ -127,7 +129,68 @@ function initMap() { // Initialize Google Map
     });
 
     // Create team and event markers
-    for (event of events) createEventMarker(event);
+    getTBAQuery('/events/' + CURRENT_YEAR, function(events,  err) {
+        if (err) {
+            if (!events) {
+                console.error("Failure to load events: " + err);
+                return;
+            } else {
+                console.warn("Warning: there was an error, but events were loaded from cache: " + err);
+            }
+        }
+
+        var coordList = {};
+
+        // Based on FIRSTMap-scraper
+        for (var event of events) {
+            // Skip event divisions
+            if (event.parent_event_key !== null) {
+                continue;
+            }
+
+            if (event.short_name) {
+                event.name = event.short_name;
+            }
+            
+            if (event.event_type == 0) {
+                event.type = "regional";
+            } else if (event.event_type == 3 || event.event_type == 4) {
+                event.type = "championship";
+            } else if (event.event_type > 98) {
+                event.type = "offseason";
+            } else {
+                event.type = "district";
+            }
+
+            // Correct duplicate locations
+            if (coordList[event.lat]) {
+                if (coordList[event.lat][event.lng]  !== undefined) {
+                    var count = coordList[event.lat][event.lng];
+                    coordList[event.lat][event.lng]++;
+
+                    var mod = count % 3;
+                    if (mod == 0) {
+                        event.lat += 0.0001 * (1 + Math.floor(count / 3));
+                        event.lng -= 0.0001 * (1 + Math.floor(count / 3));
+                    } else if (mod == 1) {
+                        event.lat -= 0.0001 * (1 + Math.floor(count / 3));
+                        event.lng -= 0.0001 * (1 + Math.floor(count / 3));
+                    } else if (mod == 2) {
+                        event.lat += 0.0001 * (1 + Math.floor(count / 3));
+                        event.lng += 0.0001 * (1 + Math.floor(count / 3));
+                    }
+                } else {
+                    coordList[event.lat][event.lng] = 0;
+                }
+            } else {
+                coordList[event.lat] = { };
+                coordList[event.lat][event.lng] = 0;
+            }
+
+            createEventMarker(event);
+        }
+    });
+
     for (team  of  teams)   createTeamMarker(team);
     
     openURLKey(); // Show POST Argument Specified Marker
@@ -264,12 +327,20 @@ function createTeamMarker(team) { // Create a Team Marker on map
 }
 
 function openInfo(marker) { // Create and show a Marker's InfoWindow
-    var req = new XMLHttpRequest();
-    req.open('GET', 'https://www.thebluealliance.com/api/v3/' + (marker.type == 'team' ? 'team' : 'event') + '/' + marker.key + '?X-TBA-Auth-Key=VCZM2oYCpR1s3OHxFbjdVQrtkk0LY1wcvyhH8hiNrzm1mSQnUn1t9ZDGyTqN4Ieq');
-    req.send();
-    req.onreadystatechange = function() {
-        if (req.readyState === 4 && req.status === 200) {
-            var parsed = JSON.parse(req.responseText);
+    var query;
+
+    if (marker.type === 'team') {
+        query = '/team/' + marker.key;
+    } else {
+        query = '/events/' + CURRENT_YEAR;
+    }
+    
+    getTBAQuery(query, function(parsed, err) {
+        if (parsed) {
+            if (marker.type !== 'team') {
+                parsed = parsed.find(e => e.key === marker.key);
+            }
+
             var content = document.createElement('div');
             var heading = document.createElement('h1');
             content.appendChild(heading);
@@ -437,8 +508,11 @@ function openInfo(marker) { // Create and show a Marker's InfoWindow
                 }
                 clipboard.destroy(); // Remove old Clipboard Instance when closing Info Window to prevent DOM overload
             });
+        } else {
+            console.error("There was an error loading the data: " + err);
+            return;
         }
-    }
+    });
 }
 
 function toggleMarkers(type) { // Toggle visibility of a given marker type
