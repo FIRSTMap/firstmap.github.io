@@ -132,10 +132,10 @@ function initMap() { // Initialize Google Map
     getTBAQuery('/events/' + CURRENT_YEAR, function(events,  err) {
         if (err) {
             if (!events) {
-                console.error("Failure to load events: " + err);
+                console.error('Failure to load events: ' + err);
                 return;
             } else {
-                console.warn("Warning: there was an error, but events were loaded from cache: " + err);
+                console.warn('Warning: there was an error, but events were loaded from cache: ' + err);
             }
         }
 
@@ -153,13 +153,13 @@ function initMap() { // Initialize Google Map
             }
             
             if (event.event_type == 0) {
-                event.type = "regional";
+                event.type = 'regional';
             } else if (event.event_type == 3 || event.event_type == 4) {
-                event.type = "championship";
+                event.type = 'championship';
             } else if (event.event_type > 98) {
-                event.type = "offseason";
+                event.type = 'offseason';
             } else {
-                event.type = "district";
+                event.type = 'district';
             }
 
             // Correct duplicate locations
@@ -509,7 +509,7 @@ function openInfo(marker) { // Create and show a Marker's InfoWindow
                 clipboard.destroy(); // Remove old Clipboard Instance when closing Info Window to prevent DOM overload
             });
         } else {
-            console.error("There was an error loading the data: " + err);
+            console.error('There was an error loading the data: ' + err);
             return;
         }
     });
@@ -625,7 +625,7 @@ function updateMarkerVisibility() { // Update URL with current Marker Visibility
     if (now_visible.length == 0){
         params.set('visibility', 'none');
     } else {
-        params.set('visibility', now_visible.join("-"));
+        params.set('visibility', now_visible.join('-'));
     }
     
     pushHistory();
@@ -653,7 +653,7 @@ function openURLKey() { // Handle Zoom / Reposition / Info Panel of URL specifie
 function pushHistory() { // Push History State to URL
     function updateHist() {
     lastParamUpdate = Date.now();
-        window.history.replaceState({"html":'',"pageTitle":document.title},"", url.href);
+        window.history.replaceState({'html':'','pageTitle':document.title},'', url.href);
     }
 
     clearTimeout(updateHist);
@@ -728,7 +728,7 @@ function toggleLogos() { // Toggles Custom Team Logos through page reload
         params.set('logos', 'false');
     }
 
-    window.history.pushState({"html":'',"pageTitle":document.title},"", url.href);
+    window.history.pushState({'html':'','pageTitle':document.title},'', url.href);
     updateDOMLogoToggleState();
 
     location.reload();
