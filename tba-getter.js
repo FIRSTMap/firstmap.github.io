@@ -80,7 +80,13 @@
                     }
 
                     if (callback) {
-                        callback(JSON.parse(JSON.stringify(cached.data)), error);
+                        var data;
+                        
+                        if (cached) {
+                            data = JSON.parse(JSON.stringify(cached.data));
+                        }
+
+                        callback(data, error);
                     }
                 }
             }
