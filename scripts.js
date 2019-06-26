@@ -19,7 +19,7 @@ state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility
 
 lastParamUpdate = 0; // Last Time POST Arguemts were updated
 
-
+    
 var CURRENT_YEAR = 2019;
 
 function initMap() { // Initialize Google Map
@@ -132,7 +132,9 @@ function initMap() { // Initialize Google Map
     getTBAQuery('/events/' + CURRENT_YEAR, function(events,  err) {
         if (err) {
             if (!events) {
-                console.error('Failure to load events: ' + err);
+                var msg = 'Failure to load events: ' + err;
+                console.error(msg);
+                alert(msg);
                 return;
             } else {
                 console.warn('Warning: there was an error, but events were loaded from cache: ' + err);
