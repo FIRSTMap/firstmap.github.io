@@ -19,8 +19,22 @@ state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility
 
 lastParamUpdate = 0; // Last Time POST Arguemts were updated
 
+// Loop around to the next competition year at the beginning of
+// December since there shouldn't be any offseason events past
+// November, and the next year's events should be available
+// from The Blue Alliance.
+function getCompetitionYear() {
+    var date = new Date();
     
-var CURRENT_YEAR = 2019;
+    // 0 is January, so 11 is December
+    if (date.getMonth() == 11) {
+        return date.getFullYear() + 1;
+    } else {
+        return date.getFullYear();
+    }
+}
+
+var CURRENT_YEAR = getCompetitionYear();
 
 function initMap() { // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), { // Define Map Settings
