@@ -180,16 +180,23 @@ function initMap() { // Initialize Google Map
                     var count = coordList[event.lat][event.lng];
                     coordList[event.lat][event.lng]++;
 
-                    var mod = count % 3;
-                    if (mod == 0) {
-                        event.lat += 0.0001 * (1 + Math.floor(count / 3));
-                        event.lng -= 0.0001 * (1 + Math.floor(count / 3));
-                    } else if (mod == 1) {
-                        event.lat -= 0.0001 * (1 + Math.floor(count / 3));
-                        event.lng -= 0.0001 * (1 + Math.floor(count / 3));
-                    } else if (mod == 2) {
-                        event.lat += 0.0001 * (1 + Math.floor(count / 3));
-                        event.lng += 0.0001 * (1 + Math.floor(count / 3));
+                    switch (count % 4) {
+                        case 0:
+                            event.lat += 0.0001 * (1 + Math.floor(count / 4));
+                            event.lng -= 0.0001 * (1 + Math.floor(count / 4));
+                            break;
+                        case 1:
+                            event.lat -= 0.0001 * (1 + Math.floor(count / 4));
+                            event.lng -= 0.0001 * (1 + Math.floor(count / 4));
+                            break;
+                        case 2:
+                            event.lat += 0.0001 * (1 + Math.floor(count / 4));
+                            event.lng += 0.0001 * (1 + Math.floor(count / 4));
+                            break;
+                        case 3:
+                            event.lat -= 0.0001 * (1 + Math.floor(count / 4));
+                            event.lng += 0.0001 * (1 + Math.floor(count / 4));
+                            break;
                     }
                 } else {
                     coordList[event.lat][event.lng] = 0;
