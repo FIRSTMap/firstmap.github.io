@@ -208,11 +208,11 @@ function initMap() { // Initialize Google Map
 
             createEventMarker(event);
         }
+    
+        openURLKey(); // Show POST Argument Specified Marker
     });
 
     for (team  of  teams)   createTeamMarker(team);
-    
-    openURLKey(); // Show POST Argument Specified Marker
 
     map.addListener('center_changed', function() { // Bind POST Arguement Update to map position change
         lat = map.center.lat();
