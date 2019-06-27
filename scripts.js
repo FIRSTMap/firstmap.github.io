@@ -27,11 +27,7 @@ function getCompetitionYear() {
     var date = new Date();
     
     // 0 is January, so 11 is December
-    if (date.getMonth() == 11) {
-        return date.getFullYear() + 1;
-    } else {
-        return date.getFullYear();
-    }
+    return date.getFullYear() + ((date.getMonth() == 11) ? 1 : 0);
 }
 
 var CURRENT_YEAR = getCompetitionYear();
