@@ -15,6 +15,9 @@ var markers = { // Map Markers
     open: null
 }
 
+var eventData;
+var districtList;
+
 state = parseState(); // Map State Parsed from POST Arguments (Marker Visibility + Fullscreen)
 
 lastParamUpdate = 0; // Last Time POST Arguemts were updated
@@ -153,17 +156,18 @@ function initMap() { // Initialize Google Map
 
         var coordList = {};
 
+        eventData = {};
+
         // Based on FIRSTMap-scraper
         for (var event of events) {
+            // Save all the events by key so they can be easily looked up later
+            eventData[event.key] = event;
+
             // Skip event divisions
             if (event.parent_event_key !== null) {
                 continue;
             }
 
-            if (event.short_name) {
-                event.name = event.short_name;
-            }
-            
             if (event.event_type == 0) {
                 event.type = 'regional';
             } else if (event.event_type == 3 || event.event_type == 4) {
@@ -210,6 +214,21 @@ function initMap() { // Initialize Google Map
         }
     
         openURLKey(); // Show POST Argument Specified Marker
+
+        // Get the list of all districts in case they are needed for filtering
+        getTBAQuery('/districts/' + CURRENT_YEAR, function(districts, err) {
+            if (err) {
+                if (!districts) {
+                    console.error('Unable to load districts: ' + err);
+                    console.error('Filtering to districts will not work!');
+                    return;
+                } else {
+                    console.warn('Warning: there was an error, but districts were loaded from cache: ' + err);
+                }
+            }
+            districtList = districts;
+
+        });
     });
 
     for (team  of  teams)   createTeamMarker(team);
@@ -271,7 +290,7 @@ function createEventMarker(event) { // Create an Event Marker on map
             lng: event.lng
         },
         map: map,
-        title: event.name,
+        title: event.short_name ? event.short_name : event.name,
         icon: {
             url: 'img/' + event.type + '.png',
             scaledSize: new google.maps.Size(30, 30)
@@ -345,21 +364,10 @@ function createTeamMarker(team) { // Create a Team Marker on map
     markers.keys['frc' + team.team_number] = marker;
 }
 
+
 function openInfo(marker) { // Create and show a Marker's InfoWindow
-    var query;
-
-    if (marker.type === 'team') {
-        query = '/team/' + marker.key;
-    } else {
-        query = '/events/' + CURRENT_YEAR;
-    }
-    
-    getTBAQuery(query, function(parsed, err) {
+    function openMarkerFromInfo(parsed, err) {
         if (parsed) {
-            if (marker.type !== 'team') {
-                parsed = parsed.find(e => e.key === marker.key);
-            }
-
             var content = document.createElement('div');
             var heading = document.createElement('h1');
             content.appendChild(heading);
@@ -531,7 +539,18 @@ function openInfo(marker) { // Create and show a Marker's InfoWindow
             console.error('There was an error loading the data: ' + err);
             return;
         }
-    });
+    }
+
+    if (marker.type === 'team') {
+        getTBAQuery('/team/' + marker.key, openMarkerFromInfo); 
+    } else {
+        // Get the event data from the cache because we don't really
+        // need to call getTBAQuery for it again and then loop through
+        // all the events for the correct one when we can just look it
+        // up by key.
+        openMarkerFromInfo(eventData[marker.key], null);
+    }
+    
 }
 
 function toggleMarkers(type) { // Toggle visibility of a given marker type
