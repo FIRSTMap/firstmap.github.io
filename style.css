@@ -88,6 +88,16 @@ a:hover { text-decoration: none; }
     border-radius: 10px;
     cursor: pointer;
 }
+#search {
+    position: fixed;
+    top: 44px;
+    right: 0;
+    width: 500px;
+    max-width: 100vw;
+    background: white;
+    text-align: center;
+    display: none;
+}
 #toggle-logos.off #logos-on, #toggle-logos.on #logos-off {
     display:none;
 }
@@ -98,6 +108,9 @@ a:hover { text-decoration: none; }
     font-size: 0.75em;
 }
 #about #development {
+    margin: 20px 0;
+}
+#search #filter {
     margin: 20px 0;
 }
 .stripe {

@@ -12,6 +12,7 @@ var map; // GMaps Container
 var markers = { // Map Markers
     all: [],
     keys: {},
+    filtered: null,
     open: null
 }
 
@@ -140,8 +141,10 @@ function initMap() { // Initialize Google Map
             }
         ]
     });
-
+    
     // Create team and event markers
+    for (team  of  teams)   createTeamMarker(team);
+
     getTBAQuery('/events/' + CURRENT_YEAR, function(events,  err) {
         if (err) {
             if (!events) {
@@ -167,7 +170,7 @@ function initMap() { // Initialize Google Map
             if (event.parent_event_key !== null) {
                 continue;
             }
-
+            
             if (event.event_type == 0) {
                 event.type = 'regional';
             } else if (event.event_type == 3 || event.event_type == 4) {
@@ -212,7 +215,7 @@ function initMap() { // Initialize Google Map
 
             createEventMarker(event);
         }
-    
+
         openURLKey(); // Show POST Argument Specified Marker
 
         // Get the list of all districts in case they are needed for filtering
@@ -228,10 +231,10 @@ function initMap() { // Initialize Google Map
             }
             districtList = districts;
 
+            // Filter to what is set in the filter URL parameter
+            filterToParam();
         });
     });
-
-    for (team  of  teams)   createTeamMarker(team);
 
     map.addListener('center_changed', function() { // Bind POST Arguement Update to map position change
         lat = map.center.lat();
@@ -301,10 +304,7 @@ function createEventMarker(event) { // Create an Event Marker on map
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-        openInfo(marker);
-        markers.open = marker;
-        params.set('key', event.key);
-        pushHistory();
+        openMarkerInfo(marker);
     });
 
     markers.all.push(marker);
@@ -354,16 +354,19 @@ function createTeamMarker(team) { // Create a Team Marker on map
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-        openInfo(marker);
-        markers.open = marker;
-        params.set('key', 'frc' + team.team_number);
-        pushHistory();
+        openMarkerInfo(marker);
     });
 
     markers.all.push(marker);
     markers.keys['frc' + team.team_number] = marker;
 }
 
+function openMarkerInfo(marker) {
+    openInfo(marker);
+    markers.open = marker;
+    params.set('key', marker.key);
+    pushHistory();
+}
 
 function openInfo(marker) { // Create and show a Marker's InfoWindow
     function openMarkerFromInfo(parsed, err) {
@@ -555,17 +558,49 @@ function openInfo(marker) { // Create and show a Marker's InfoWindow
 
 function toggleMarkers(type) { // Toggle visibility of a given marker type
     state[type] = !state[type];
-    updateMarkerVisibility();
-    for (marker of markers.all)
-        if (marker.type === type) marker.setVisible(state[type]);
+    updateMarkerVisibilityParam();
+    updateVisibleMarkers();
+}
+
+function updateVisibleMarkers() {
+    // Note: the check to marker.getVisible is done because without this,
+    // all of the team markers being made visible disappear and reappear,
+    // even if the marker was already visible.
+
+    if (markers.filtered) {
+        for (marker of markers.all) {
+            var visibility = state[marker.type] && markers.filtered[marker.key] !== undefined;
+            if (marker.getVisible() !== visibility) {
+                marker.setVisible(visibility);
+            }
+        }
+    } else {
+        for (marker of markers.all) {
+            var visibility = state[marker.type];
+            if (marker.getVisible() !== visibility) {
+                marker.setVisible(state[marker.type]);
+            }
+        }
+    }
 }
 
 function addKeyboardListener() { // Register toggle keybinds
     document.addEventListener('keyup', function (event) {
+        // When the search menu is opened, the toggle keys should
+        // not work because otherwise things are toggled when the
+        // user starts to type in the search or filter boxes
+        if (searchMenu.style.display !== 'none') {
+            return;
+        }
+
         switch (event.keyCode) {
             // Shift
             case 16:
                 toggleAbout();
+                break;
+            // S
+            case 83:
+                toggleSearch();
                 break;
             // C
             case 67:
@@ -629,7 +664,7 @@ function parseState() { // Parse Map State from URL POST Arguments
     return mapState;
 }
 
-function updateMarkerVisibility() { // Update URL with current Marker Visibility State
+function updateMarkerVisibilityParam() { // Update URL with current Marker Visibility State
     all_visible = true ? state.team && state.regional && state.district && state.championship && state.offseason : false;
 
     if (all_visible) {
@@ -749,10 +784,20 @@ function toggleFullscreenImage() { // Set body class to show appropriate image o
 }
 
 
-// Handle About Window
+// About & Search windows
 var about = document.getElementById('about');
+var searchMenu = document.getElementById('search');
+
+// Handle About Window
 function toggleAbout() { // Toggles About Window display state
     about.style.display = (about.style.display === 'block') ? 'none' : 'block';
+    searchMenu.style.display = 'none';
+}
+
+// Handle Search Window
+function toggleSearch() { // Toggles About Window display state
+    about.style.display = 'none';
+    searchMenu.style.display = (searchMenu.style.display === 'block') ? 'none' : 'block';
 }
 
 function toggleLogos() { // Toggles Custom Team Logos through page reload
