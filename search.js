@@ -193,6 +193,8 @@ function filter(query, type) {
         return;
     }
 
+    filterInfoText.innerText = 'Filtering...';
+
     query = query.toLowerCase();
 
     if (type === 'team') {
@@ -201,7 +203,9 @@ function filter(query, type) {
         let marker = markers.keys[teamKey];
 
         getTBAQuery('/team/' + teamKey + '/events/' + CURRENT_YEAR + '/keys', function(events, err) {
-            if (err && !events) {
+            // (!marker && events.length == 0) means the team is not on the map,
+            // and they are not registered for events this year.
+            if (!events || (!marker && events.length == 0)) {
                 failFilter('Error: team \'' + query + '\' not found.');
                 return;
             }
@@ -234,14 +238,20 @@ function filter(query, type) {
         });
     } else if (type === 'event') {
         // Show all the teams attending an event. This works for event divisions too.
-        // If called with a parent event, all teams from all divisions are shown.
+        // If called with a parent event (e.g., Michigan State Championship), all teams
+        // from all divisions are shown.
         let event = eventData[query];
         
         // If the event exists
         if (event) {
             function processTeams(teams) {
+                // Take the list of all the teams and make them
+                // (and the event marker) the only markers shown.
                 markers.filtered = {};
 
+                // If we are only showing teams from an event division,
+                // we still have to show the parent event marker, since
+                // divisions do not have their own markers.
                 let parent = event.parent_event_key;
 
                 if (parent) {
@@ -249,6 +259,7 @@ function filter(query, type) {
                 } else {
                     markers.filtered[query] = markers.keys[query];
                 }
+
 
                 teams.forEach(key => {
                     markers.filtered[key] = markers.keys[key];
@@ -271,6 +282,7 @@ function filter(query, type) {
 
                 teamList = teams;
 
+                // If there are event divisions, get the teams from each division
                 if (event.division_keys && event.division_keys.length > 0) {
                     let i = 0;
 
@@ -342,6 +354,7 @@ function clearFilter() {
     updateVisibleMarkers();
 }
 
+// Zooms the map to show only the current visible markers
 function zoomFitVisible() {
     var bounds = new google.maps.LatLngBounds();
 
@@ -351,6 +364,6 @@ function zoomFitVisible() {
         }
     }
 
-    // Add minimum 30 pixel border
+    // Add minimum 30 pixel border so markers are not cut off
     map.fitBounds(bounds, 30);
 }

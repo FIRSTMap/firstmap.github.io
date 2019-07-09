@@ -141,7 +141,7 @@ function initMap() { // Initialize Google Map
             }
         ]
     });
-    
+
     // Create team and event markers
     for (team  of  teams)   createTeamMarker(team);
 
@@ -215,7 +215,7 @@ function initMap() { // Initialize Google Map
 
             createEventMarker(event);
         }
-
+    
         openURLKey(); // Show POST Argument Specified Marker
 
         // Get the list of all districts in case they are needed for filtering
@@ -567,19 +567,14 @@ function updateVisibleMarkers() {
     // all of the team markers being made visible disappear and reappear,
     // even if the marker was already visible.
 
-    if (markers.filtered) {
-        for (marker of markers.all) {
-            var visibility = state[marker.type] && markers.filtered[marker.key] !== undefined;
-            if (marker.getVisible() !== visibility) {
-                marker.setVisible(visibility);
-            }
-        }
-    } else {
-        for (marker of markers.all) {
-            var visibility = state[marker.type];
-            if (marker.getVisible() !== visibility) {
-                marker.setVisible(state[marker.type]);
-            }
+    for (marker of markers.all) {
+        // If there is a filter applied, check if the marker is within the filter,
+        // otherwise only check if the marker's type is currently visible.
+        var visibility = state[marker.type] && 
+                            (!markers.filtered || markers.filtered[marker.key] !== undefined);
+        
+        if (marker.getVisible() !== visibility) {
+            marker.setVisible(visibility);
         }
     }
 }
