@@ -74,7 +74,7 @@ function clearFilterClick() {
 }
 
 function inputKeyUp(input) {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
         if (input === filterBarTeams) {
             filter();
         } else if (input === searchBar) {
