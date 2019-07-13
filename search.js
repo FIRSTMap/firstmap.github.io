@@ -357,12 +357,28 @@ function clearFilter() {
 // Zooms the map to show only the current visible markers
 function zoomFitVisible() {
     var bounds = new google.maps.LatLngBounds();
+    var areMarkers = false;
 
     for (var marker of markers.all) {
         if (marker.getVisible()) {
+            areMarkers = true;
             bounds.extend(marker.getPosition());
         }
     }
+
+    // If there are no visible markers, don't change the zoom
+    if (!areMarkers) {
+        return;
+    }
+
+    // Set a minimum zoom. Otherwise, if there is only one marker,
+    // it zooms in way too far. Must do in an event handler because
+    // map.fitBounds is asynchronous.
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function(e) {
+        if (this.getZoom() > 15) {
+            this.setZoom(15);
+        }
+    });
 
     // Add minimum 30 pixel border so markers are not cut off
     map.fitBounds(bounds, 30);
