@@ -22,6 +22,9 @@ var filterInfoText = document.getElementById('filterInfoText');
 var searchBarObj;
 var filterBarObj;
 
+// Called when the filter type is changed. Makes the correct filter
+// bar visible, and updates the information (fills in districts
+// or events in the dropdown, depending on the search type).
 function updateFilterType() {
     var type = filterType.value;
 
@@ -48,6 +51,8 @@ function updateFilterType() {
     }
 }
 
+// Called when the search type is changed. Makes the correct
+// search bar visible.
 function updateSearchType() {
     var type = searchType.value;
 
@@ -62,11 +67,14 @@ function updateSearchType() {
     }
 }
 
+// Called when the clear filter button is clicked.
 function clearFilterClick() {
     filterBar.value = '';
     clearFilter();
 }
 
+// Makes it so pressing enter in the team search
+// or filter inputs triggers a search or filter.
 function inputKeyUp(input) {
     if (event.key === 'Enter') {
         if (input === filterBarTeams) {
@@ -129,6 +137,8 @@ function addEventsToList(list) {
 
 // ===== Filtering and searching code =====
 
+// Initialize all the filtering and searching stuff. This
+// is called after all the team and event markers exist.
 function initSearchFilter() {
     // Better to leave these hidden until this function is called, so the user
     // cannot type in them or anything if they open the dialog really quickly.
@@ -162,6 +172,8 @@ function initSearchFilter() {
     filterToParam();
 }
 
+// Loads the filter URL parameter and updates the
+// filter to show it.
 function filterToParam() {
     var filterKey = params.get('filter');
 
@@ -189,6 +201,9 @@ function filterToParam() {
             filterBar.value = key;
             filter(key, type);
         } else {
+            // Doing this triggers the onSelect callback, so
+            // it automatically refilters. Therefore, we do not
+            // have to call filter after setting the selection.
             filterBarObj.setSelection(key);
         }
     }
@@ -241,6 +256,8 @@ function search(query, type) {
     var marker = markers.keys[key];
 
     if (marker) {
+        // Don't open the marker InfoWindow if the marker is
+        // not currently visible.
         if (!marker.getVisible()) {
             searchInfoText.innerText = 'Error: ' + type + ' \'' + query + '\' not found within filtered visibility.';
             return;
@@ -388,6 +405,7 @@ function filter(query, type) {
             return;
         }
     } else if (type === 'district') {
+        // Show all of the teams and events in the given district
         getTBAQuery('/district/' + query + '/teams/keys', function(teams, err) {
             if (err && !teams) {
                 failFilter('Error: district with key \'' + query + '\' not found.');
@@ -400,13 +418,16 @@ function filter(query, type) {
                     return;
                 }
 
+                // Combine the list of teams and events to get a list of all
+                // of the marker keys to show.
                 var keys = teams.concat(events);
 
                 markers.filtered = {};
     
                 keys.forEach(key => {
+                    // This prevents adding divisions to the filter list.
                     // Event divisions do not have markers, so
-                    // don't include them in the filter list
+                    // markers.keys[key] will be undefined for divisions.
                     if (markers.keys[key]) {
                         markers.filtered[key] = markers.keys[key];
                     }
@@ -421,6 +442,11 @@ function filter(query, type) {
     }
 }
 
+// Called every time a filter succeeds. Clears the filter info / error
+// message, sets the filter URL parameter, and re-enables the filter search
+// bar and filter type dropdown menu so that the filter can be changed (it
+// is disabled while filtering to ensure the user does not change the
+// filter while it is still processing)
 function succeedFilter(type, query) {
     setFilterParam(type, query);
     filterInfoText.innerText = '';
@@ -428,6 +454,9 @@ function succeedFilter(type, query) {
     filterType.disabled = false;
 }
 
+// Called to clear the filter. Clears the filter URL parameter, re-enables
+// the filter search bar and filter type dropdown menu, deletes the list of
+// filtered markers, and updates marker visibility to reflect this.
 function clearFilter() {
     filterBar.disabled = false;
     filterType.disabled = false;
