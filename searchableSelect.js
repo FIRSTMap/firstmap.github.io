@@ -1,0 +1,203 @@
+'use strict';
+
+var SearchableSelect = function(elem, onSelect) {
+    for (let child of elem.children) {
+        let type = child.nodeName.toLowerCase();
+
+        if (type == 'input') {
+            this.input = child;
+        } else if (type == 'ul') {
+            this.list = child;
+        }
+    }
+
+    if (!this.input || !this.list) {
+        throw new Error('Unable to find input/list in SearchableSelect element!');
+    }
+
+    this.onSelect = onSelect;
+    let obj = this;
+
+    elem.classList.add('searchable-select');
+    this.list.classList.add('hidden');
+
+    this.list.addEventListener('click', function(e) {
+        if (e.target && e.target.nodeName.toLowerCase() === 'li') {
+            let selected = obj.getSelectedObj();
+
+            if (selected) {
+                selected.classList.remove('selected');
+            }
+
+            e.target.classList.add('selected');
+            
+            if (obj.selectTimeout) {
+                clearTimeout(obj.selectTimeout);
+                obj.selectTimeout = null;
+            }
+            
+            obj.applySelection();
+        }
+    });
+    
+    this.input.addEventListener('blur', function() {
+        // If the user clicks something in the list, it will trigger this
+        // blur event, but the click event on the list will not trigger if
+        // the list is hidden immediately, so a setTimeout is required to
+        // make sure a click on the list goes through.
+        if (obj.selectTimeout) {
+            clearTimeout(obj.selectTimeout);
+            obj.selectTimeout = null;
+        }
+        
+        obj.selectTimeout = setTimeout(function() {
+            obj.applySelection(obj);
+        }, 300);
+    });
+
+    this.input.addEventListener('focus', function() {
+        obj.list.classList.remove('hidden');
+        obj.input.select();
+        
+        obj.search();
+    });
+
+    // Use a function to make sure the event doesn't pass any
+    // parameters to search 
+    this.input.addEventListener('input', function() { obj.search() });
+
+    this.input.addEventListener('keydown', function() {
+        let selected = obj.getSelectedObj();
+
+        if (event.key === 'Enter') {
+            // Unfocus the textbox on enter key. The blur
+            // event handler will take care of the rest.
+            obj.input.blur();
+
+            // Select can happen instantly when pressing enter.
+            if (obj.selectTimeout) {
+                clearTimeout(obj.selectTimeout);
+                obj.selectTimeout = null;
+                obj.applySelection();
+            }
+
+        } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            // Don't let the cursor be moved by the key press
+            event.preventDefault();
+
+            if (selected) {
+                let newSelect = selected;
+    
+                if (event.key === 'ArrowUp') {
+                    // Get the next list item up that isn't hidden (if there is one)
+                    do {
+                        newSelect = newSelect.previousSibling;
+                    } while (newSelect && newSelect.classList.contains('hidden'));
+                } else {
+                    // Get the next list item down that isn't hidden (if there is one)
+                    do {
+                        newSelect = newSelect.nextSibling;
+                    } while (newSelect && newSelect.classList.contains('hidden'));
+                }
+    
+                // If there is a next list item up/down, make it the new selected item
+                if (newSelect) {
+                    selected.classList.remove('selected');
+                    newSelect.classList.add('selected');
+                    newSelect.scrollIntoView({block: 'nearest'});
+                }
+            }
+        }
+    });
+}
+
+SearchableSelect.prototype.search = function(query) {
+    let search;
+
+    if (typeof(query) === 'string') {
+        this.input.value = query;
+        search = query.toLowerCase();
+    } else {
+        search = this.input.value.toLowerCase();
+    }
+
+    // Hide the list items that do not have the search query
+    for (let child of this.list.children) {
+        if (child.innerText.toLowerCase().includes(search)) {
+            child.classList.remove('hidden');
+        } else {
+            child.classList.add('hidden');
+        }
+    }
+
+    // Un-select the currently selected list item
+    for (let i = 0; i < this.list.children.length; i++) {
+        if (this.list.children[i].classList.contains('selected')) {
+            this.list.children[i].classList.remove('selected');
+            break;
+        }
+    }
+
+    // Select the first list item that is not hidden (or none if there are none)
+    for (let i = 0; i < this.list.children.length; i++) {
+        if (!this.list.children[i].classList.contains('hidden')) {
+            this.list.children[i].classList.add('selected');
+            this.list.children[i].scrollIntoView({ block: 'nearest' });
+            break;
+        }
+    }
+}
+
+SearchableSelect.prototype.getSelectedObj = function() {
+    let selected = null;
+
+    for (let i = 0; i < this.list.children.length; i++) {
+        if (this.list.children[i].classList.contains('selected')) {
+            selected = this.list.children[i];
+            break;
+        }
+    }
+
+    return selected;
+}
+
+SearchableSelect.prototype.setSelection = function(value) {
+    let selected = this.getSelectedObj();
+
+    if (selected) {
+        selected.classList.remove('selected');
+    }
+
+    let obj = null;
+
+    for (let i = 0; i < this.list.children.length; i++) {
+        if (this.list.children[i].dataset.value == value) {
+            obj = this.list.children[i];
+            break;
+        }
+    }
+
+    obj.classList.add('selected');
+
+    this.applySelection();
+}
+
+SearchableSelect.prototype.applySelection = function() {
+    let selected = this.getSelectedObj();
+
+    this.list.classList.add('hidden');
+
+    if (selected) {
+        this.input.value = selected.innerText;
+
+        if (this.onSelect) {
+            this.onSelect(selected.dataset.value);
+        }
+    } else {
+        this.input.value = '';
+
+        if (this.onSelect) {
+            this.onSelect('');
+        }
+    }
+}
