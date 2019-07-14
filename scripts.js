@@ -231,8 +231,9 @@ function initMap() { // Initialize Google Map
             }
             districtList = districts;
 
-            // Filter to what is set in the filter URL parameter
-            filterToParam();
+            // Initialize search and filter, and filter
+            // to what is set in the filter URL parameter
+            initSearchFilter();
         });
     });
 

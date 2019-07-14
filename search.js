@@ -1,70 +1,64 @@
 'use strict';
 
-// Filter / search user-interface stuff
-var searchBar = document.getElementById('searchInput');
-var filterBarTeams = document.getElementById('filterInputTeams');
-var filterBarOther = document.getElementById('filterInputOther');
+// ===== Filter / search user-interface stuff =====
+
+var searchBar;
+var searchBarTeams = document.getElementById('teamSearchInput');
+var searchBarEvents = document.getElementById('eventSearchInput');
+
 var filterBar;
+var filterBarTeams = document.getElementById('filterInputTeams');
+var filterBarEventDistrict = document.getElementById('filterInputOther');
+
+var searchBarList = document.getElementById('eventSearchList');
+var filterBarList = document.getElementById('filterInputList');
+
 var searchType = document.getElementById('searchType');
 var filterType = document.getElementById('filterType');
+
 var searchInfoText = document.getElementById('searchInfoText');
 var filterInfoText = document.getElementById('filterInfoText');
+
+var searchBarObj;
+var filterBarObj;
 
 function updateFilterType() {
     var type = filterType.value;
 
     if (type === 'team') {
         document.getElementById('teamFilter').hidden = false;
-        document.getElementById('otherFilter').hidden = true;
+        document.getElementById('eventDistrictFilter').hidden = true;
         filterBar = filterBarTeams;
     } else {
         document.getElementById('teamFilter').hidden = true;
-        document.getElementById('otherFilter').hidden = false;
-        filterBar = filterBarOther;
+        document.getElementById('eventDistrictFilter').hidden = false;
+        filterBar = filterBarEventDistrict;
 
-
-        while (filterBarOther.firstChild) {
-            filterBarOther.removeChild(filterBarOther.firstChild);
+        while (filterBarList.firstChild) {
+            filterBarList.removeChild(filterBarList.firstChild);
         }
-
-        let option = document.createElement('option');
-        option.value = '';
-        option.text = 'None';
-        filterBarOther.appendChild(option);
-
-        var options = [];
 
         if (type === 'event') {
             // Add all events to dropdown
-
-            for (let eventKey in eventData) {
-                if (eventData.hasOwnProperty(eventKey)) {
-                    let event = eventData[eventKey];
-
-                    option = document.createElement('option');
-                    option.value = event.key;
-                    option.text = event.name + ' [' + event.key + ']';
-
-                    options.push(option);
-                }
-            }
+            addEventsToList(filterBarList);
         } else {
             // Add all districts to dropdown
-            for (let district of districtList) {
-                option = document.createElement('option');
-                option.value = district.key;
-                option.text = district.display_name + ' [' + district.key + ']';
-
-                options.push(option);
-            }
+            addDistrictsToList(filterBarList);
         }
+    }
+}
 
-        // Sort all the options alphabetically
-        options.sort((a, b) => a.text.localeCompare(b.text));
+function updateSearchType() {
+    var type = searchType.value;
 
-        for (let option of options) {
-            filterBarOther.appendChild(option);
-        }
+    if (type === 'team') {
+        document.getElementById('teamSearch').hidden = false;
+        document.getElementById('eventSearch').hidden = true;
+        searchBar = searchBarTeams;
+    } else {
+        document.getElementById('teamSearch').hidden = true;
+        document.getElementById('eventSearch').hidden = false;
+        searchBar = searchBarEvents;
     }
 }
 
@@ -77,13 +71,96 @@ function inputKeyUp(input) {
     if (event.key === 'Enter') {
         if (input === filterBarTeams) {
             filter();
-        } else if (input === searchBar) {
+        } else if (input === searchBarTeams) {
             search();
         }
     }
 }
 
-// Filtering and searching code
+function addOptionsToList(options, list) {
+    let option = document.createElement('li');
+    option.dataset.value = '';
+    option.innerText = 'None';
+    list.appendChild(option);
+
+    // Sort all the options alphabetically
+    options.sort((a, b) => a.innerText.localeCompare(b.innerText));
+
+    for (let option of options) {
+        list.appendChild(option);
+    }
+}
+
+function addDistrictsToList(list) {
+    // Add all districts to dropdown
+    let option;
+    let options = [];
+
+    for (let district of districtList) {
+        option = document.createElement('li');
+        option.dataset.value = district.key;
+        option.innerText = district.display_name + ' [' + district.key + ']';
+
+        options.push(option);
+    }
+
+    addOptionsToList(options, list);
+}
+
+function addEventsToList(list) {
+    // Add all events to dropdown
+    let option;
+    let options = [];
+
+    for (let eventKey in eventData) {
+        if (eventData.hasOwnProperty(eventKey)) {
+            let event = eventData[eventKey];
+
+            option = document.createElement('li');
+            option.dataset.value = event.key;
+            option.innerText = event.name + ' [' + event.key + ']';
+
+            options.push(option);
+        }
+    }
+
+    addOptionsToList(options, list);
+}
+
+// ===== Filtering and searching code =====
+
+function initSearchFilter() {
+    // Better to leave these hidden until this function is called, so the user
+    // cannot type in them or anything if they open the dialog really quickly.
+    document.getElementById('searchSection').hidden = false;
+    document.getElementById('filterSection').hidden = false;
+
+    updateSearchType();
+    updateFilterType();
+
+    // Add all events to search dropdown
+    addEventsToList(searchBarList);
+
+    searchBarObj = new SearchableSelect(document.getElementById('eventSearch'), function(value) {
+        search(value, searchType.value);
+    });
+
+    filterBarObj = new SearchableSelect(document.getElementById('eventDistrictFilter'), function(value) {
+        // Disable the filter bar while filtering is processing
+        filterBar.disabled = true;
+        filterType.disabled = true;
+
+        if (value === '') {
+            clearFilter();
+            filterBar.value = '';
+        } else {
+            filter(value, filterType.value);
+        }
+    });
+
+    // Filter to what is set in the filter URL parameter
+    filterToParam();
+}
 
 function filterToParam() {
     var filterKey = params.get('filter');
@@ -107,13 +184,13 @@ function filterToParam() {
 
         filterType.value = type;
         updateFilterType();
-        filterBar.value = key;
-        
-        filter(key, type, function(success) {
-            if (!success) {
-                clearFilter();
-            }
-        });
+
+        if (type == 'team') {
+            filterBar.value = key;
+            filter(key, type);
+        } else {
+            filterBarObj.setSelection(key);
+        }
     }
 }
 
@@ -158,14 +235,14 @@ function search(query, type) {
     } else if (type === 'event') {
         key = query;
     } else {
-        return false;
+        return;
     }
     
     var marker = markers.keys[key];
 
     if (marker) {
-        if (markers.filtered && !markers.filtered[key]) {
-            searchInfoText.innerText = 'Error: ' + type + ' \'' + query + '\' not found within filtered area.';
+        if (!marker.getVisible()) {
+            searchInfoText.innerText = 'Error: ' + type + ' \'' + query + '\' not found within filtered visibility.';
             return;
         }
 
@@ -230,8 +307,7 @@ function filter(query, type) {
                 }
             });
 
-            setFilterParam('team', query);
-            filterInfoText.innerText = '';
+            succeedFilter('team', query);
 
             updateVisibleMarkers();
             zoomFitVisible();
@@ -265,8 +341,7 @@ function filter(query, type) {
                     markers.filtered[key] = markers.keys[key];
                 });
 
-                setFilterParam('event', query);
-                filterInfoText.innerText = '';
+                succeedFilter('event', query);
 
                 updateVisibleMarkers();
                 zoomFitVisible();
@@ -337,8 +412,7 @@ function filter(query, type) {
                     }
                 });
 
-                setFilterParam('district', query);
-                filterInfoText.innerText = '';
+                succeedFilter('district', query);
     
                 updateVisibleMarkers();
                 zoomFitVisible();
@@ -347,7 +421,16 @@ function filter(query, type) {
     }
 }
 
+function succeedFilter(type, query) {
+    setFilterParam(type, query);
+    filterInfoText.innerText = '';
+    filterBar.disabled = false;
+    filterType.disabled = false;
+}
+
 function clearFilter() {
+    filterBar.disabled = false;
+    filterType.disabled = false;
     markers.filtered = null;
     setFilterParam('none', '');
 

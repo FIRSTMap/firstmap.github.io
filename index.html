@@ -115,30 +115,40 @@
         <div id="search">
             <h2 class="stripe">Search</h2>
 
-            <div>
+            <div id="searchSection" hidden>
                 <h3>Search</h3>
-                <input type="text" id="searchInput" onkeyup="inputKeyUp(this)" />
+                <div id="teamSearch">
+                    <input type="search" id="teamSearchInput" onkeyup="inputKeyUp(this)" />
+                    <button onclick="search()">Search</button>
+                </div>
 
-                <select id="searchType">
+                <div id="eventSearch" hidden>
+                    <input type="search" id="eventSearchInput" />
+                    
+                    <ul id="eventSearchList">
+                    </ul>
+                </div>
+
+                <select id="searchType" onchange="(() => { updateSearchType(); })()">
                     <option value="team">Team</option>
                     <option value="event">Event</option>
                 </select>
                 <br />
-                <button onclick="search()">Search</button>
                 <h6 id="searchInfoText"></h6>
             </div>
 
-            <div id="filter">
+            <div id="filterSection" hidden>
                 <h3>Filter</h3>
                 <div id="teamFilter">
-                    <input type="text" id="filterInputTeams" onkeyup="inputKeyUp(this)" />
+                    <input type="search" id="filterInputTeams" onkeyup="inputKeyUp(this)" />
                     <button onclick="filter()">Filter</button>
                 </div>
 
-                <div id="otherFilter" hidden>
-                    <select id="filterInputOther" onchange="filter()">
-                        <option value="">None</option>
-                    </select>
+                <div id="eventDistrictFilter" hidden>
+                    <input type="search" id="filterInputOther" />
+                    
+                    <ul id="filterInputList">
+                    </ul>
                 </div>
                 
                 <select id="filterType" onchange="(() => { updateFilterType(); clearFilterClick(); })()">
@@ -164,6 +174,7 @@
         <script src="data/custom_locations.js"></script>
         <script src="tba-getter.js"></script>
         <script src="search.js"></script>
+        <script src="searchableSelect.js"></script>
         <script src="scripts.js"></script>
         <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1FQ56PS2iSZmeWE3mhUONtk9YqnAC9mg&callback=initMap" async defer></script>

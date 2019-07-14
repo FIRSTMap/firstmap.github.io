@@ -136,3 +136,48 @@ tr td:last-child {
 #tools td:first-child {
     width: 40%;
 }
+
+/* Searchable select stuff */
+input {
+    width: 75%;
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: darkslategray;
+    border: 1px solid #ced4da;
+}
+
+.searchable-select .hidden {
+    display: none;
+}
+
+.searchable-select ul {
+    width: 75%;
+    display: inline-block;
+    list-style-type: none;
+    border: 1px solid lightgray;
+    border-top: none;
+    max-height: 30vh;
+    min-height: 5vh;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.searchable-select ul li {
+    cursor: pointer;
+    font-weight: normal;
+    border: 1px solid lightgray;
+    border-top: none;
+    border-left: none;
+    color: darkslategray;
+}
+
+.searchable-select ul li.selected {
+    background-color: blue;
+    border: 1px solid lightgray;
+    color: white;
+}
+
+.searchable-select ul li:hover:not(.selected) {
+    background-color: lightgray;
+}
