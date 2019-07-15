@@ -143,7 +143,7 @@ function initMap() { // Initialize Google Map
     });
 
     // Create team and event markers
-    for (team  of  teams)   createTeamMarker(team);
+    for (team of teams) createTeamMarker(team);
 
     getTBAQuery('/events/' + CURRENT_YEAR, function(events,  err) {
         if (err) {
@@ -294,7 +294,7 @@ function createEventMarker(event) { // Create an Event Marker on map
             lng: event.lng
         },
         map: map,
-        title: event.short_name ? event.short_name : event.name,
+        title: event.short_name || event.name,
         icon: {
             url: 'img/' + event.type + '.png',
             scaledSize: new google.maps.Size(30, 30)
