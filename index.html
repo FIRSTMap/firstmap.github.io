@@ -115,51 +115,51 @@
         <div id="search">
             <h2 class="stripe">Search</h2>
 
-            <div id="searchSection" hidden>
+            <div id="search-section" hidden>
                 <h3>Search</h3>
-                <div id="teamSearch">
-                    <input type="search" id="teamSearchInput" onkeyup="inputKeyUp(this)" />
+                <div id="team-search">
+                    <input type="search" id="team-search-input" onkeyup="inputKeyUp(this)">
                     <button onclick="search()">Search</button>
                 </div>
 
-                <div id="eventSearch" hidden>
-                    <input type="search" id="eventSearchInput" />
+                <div id="event-search" hidden>
+                    <input type="search" id="event-search-input">
                     
-                    <ul id="eventSearchList">
+                    <ul id="event-search-list">
                     </ul>
                 </div>
 
-                <select id="searchType" onchange="(() => { updateSearchType(); })()">
+                <select id="search-type" onchange="(() => { updateSearchType(); })()">
                     <option value="team">Team</option>
                     <option value="event">Event</option>
                 </select>
-                <br />
-                <h6 id="searchInfoText"></h6>
+                <br>
+                <h6 id="search-info-text"></h6>
             </div>
 
-            <div id="filterSection" hidden>
+            <div id="filter-section" hidden>
                 <h3>Filter</h3>
-                <div id="teamFilter">
-                    <input type="search" id="filterInputTeams" onkeyup="inputKeyUp(this)" />
+                <div id="team-filter">
+                    <input type="search" id="filter-input-teams" onkeyup="inputKeyUp(this)">
                     <button onclick="filter()">Filter</button>
                 </div>
 
-                <div id="eventDistrictFilter" hidden>
-                    <input type="search" id="filterInputOther" />
+                <div id="event-district-filter" hidden>
+                    <input type="search" id="filter-input-other">
                     
-                    <ul id="filterInputList">
+                    <ul id="filter-input-list">
                     </ul>
                 </div>
                 
-                <select id="filterType" onchange="(() => { updateFilterType(); clearFilterClick(); })()">
+                <select id="filter-type" onchange="(() => { updateFilterType(); clearFilterClick(); })()">
                     <option value="team">Team</option>
                     <option value="event">Event</option>
                     <option value="district">District</option>
                 </select>
-                <br />
+                <br>
                 <button onclick="clearFilterClick()">Clear Filter</button>
-                <h6 id="filterInfoText"></h6>
-                <br />
+                <h6 id="filter-info-text"></h6>
+                <br>
                 <h6>
                     Note: toggle keys do not work in this menu (e.g., pressing 't' on the keyboard
                     will not toggle team marker visibility, but pressing the toggle button at the
@@ -172,9 +172,9 @@
         <script src="data/avatars.js"></script>
         <script src="data/custom_icons.js"></script>
         <script src="data/custom_locations.js"></script>
-        <script src="tba-getter.js"></script>
+        <script src="tba_getter.js"></script>
         <script src="search.js"></script>
-        <script src="searchableSelect.js"></script>
+        <script src="searchable_select.js"></script>
         <script src="scripts.js"></script>
         <script src="https://unpkg.com/clipboard@2.0.0/dist/clipboard.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1FQ56PS2iSZmeWE3mhUONtk9YqnAC9mg&callback=initMap" async defer></script>

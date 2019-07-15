@@ -3,21 +3,21 @@
 // ===== Filter / search user-interface stuff =====
 
 var searchBar;
-var searchBarTeams = document.getElementById('teamSearchInput');
-var searchBarEvents = document.getElementById('eventSearchInput');
+var searchBarTeams = document.getElementById('team-search-input');
+var searchBarEvents = document.getElementById('event-search-input');
 
 var filterBar;
-var filterBarTeams = document.getElementById('filterInputTeams');
-var filterBarEventDistrict = document.getElementById('filterInputOther');
+var filterBarTeams = document.getElementById('filter-input-teams');
+var filterBarEventDistrict = document.getElementById('filter-input-other');
 
-var searchBarList = document.getElementById('eventSearchList');
-var filterBarList = document.getElementById('filterInputList');
+var searchBarList = document.getElementById('event-search-list');
+var filterBarList = document.getElementById('filter-input-list');
 
-var searchType = document.getElementById('searchType');
-var filterType = document.getElementById('filterType');
+var searchType = document.getElementById('search-type');
+var filterType = document.getElementById('filter-type');
 
-var searchInfoText = document.getElementById('searchInfoText');
-var filterInfoText = document.getElementById('filterInfoText');
+var searchInfoText = document.getElementById('search-info-text');
+var filterInfoText = document.getElementById('filter-info-text');
 
 var searchBarObj;
 var filterBarObj;
@@ -29,12 +29,12 @@ function updateFilterType() {
     var type = filterType.value;
 
     if (type === 'team') {
-        document.getElementById('teamFilter').hidden = false;
-        document.getElementById('eventDistrictFilter').hidden = true;
+        document.getElementById('team-filter').hidden = false;
+        document.getElementById('event-district-filter').hidden = true;
         filterBar = filterBarTeams;
     } else {
-        document.getElementById('teamFilter').hidden = true;
-        document.getElementById('eventDistrictFilter').hidden = false;
+        document.getElementById('team-filter').hidden = true;
+        document.getElementById('event-district-filter').hidden = false;
         filterBar = filterBarEventDistrict;
 
         while (filterBarList.firstChild) {
@@ -57,12 +57,12 @@ function updateSearchType() {
     var type = searchType.value;
 
     if (type === 'team') {
-        document.getElementById('teamSearch').hidden = false;
-        document.getElementById('eventSearch').hidden = true;
+        document.getElementById('team-search').hidden = false;
+        document.getElementById('event-search').hidden = true;
         searchBar = searchBarTeams;
     } else {
-        document.getElementById('teamSearch').hidden = true;
-        document.getElementById('eventSearch').hidden = false;
+        document.getElementById('team-search').hidden = true;
+        document.getElementById('event-search').hidden = false;
         searchBar = searchBarEvents;
     }
 }
@@ -142,8 +142,8 @@ function addEventsToList(list) {
 function initSearchFilter() {
     // Better to leave these hidden until this function is called, so the user
     // cannot type in them or anything if they open the dialog really quickly.
-    document.getElementById('searchSection').hidden = false;
-    document.getElementById('filterSection').hidden = false;
+    document.getElementById('search-section').hidden = false;
+    document.getElementById('filter-section').hidden = false;
 
     updateSearchType();
     updateFilterType();
@@ -151,11 +151,11 @@ function initSearchFilter() {
     // Add all events to search dropdown
     addEventsToList(searchBarList);
 
-    searchBarObj = new SearchableSelect(document.getElementById('eventSearch'), function(value) {
+    searchBarObj = new SearchableSelect(document.getElementById('event-search'), function(value) {
         search(value, searchType.value);
     });
 
-    filterBarObj = new SearchableSelect(document.getElementById('eventDistrictFilter'), function(value) {
+    filterBarObj = new SearchableSelect(document.getElementById('event-district-filter'), function(value) {
         // Disable the filter bar while filtering is processing
         filterBar.disabled = true;
         filterType.disabled = true;
