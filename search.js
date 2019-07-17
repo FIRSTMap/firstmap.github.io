@@ -75,11 +75,11 @@ function clearFilterClick() {
 
 // Makes it so pressing enter in the team search
 // or filter inputs triggers a search or filter.
-function inputKeyUp(input) {
+function inputKeyUp() {
     if (event.key === 'Enter') {
-        if (input === filterBarTeams) {
+        if (this === filterBarTeams) {
             filter();
-        } else if (input === searchBarTeams) {
+        } else if (this === searchBarTeams) {
             search();
         }
     }
@@ -145,6 +145,24 @@ function initSearchFilter() {
     document.getElementById('search-section').hidden = false;
     document.getElementById('filter-section').hidden = false;
 
+    // Add event handlers to DOM elements
+    searchBarTeams.addEventListener('keyup', inputKeyUp);
+    filterBarTeams.addEventListener('keyup', inputKeyUp);
+
+    searchType.addEventListener('change', function() {
+        updateSearchType();
+        searchBar.value = '';
+    });
+    filterType.addEventListener('change', function() {
+        updateFilterType();
+        clearFilterClick();
+    });
+
+    document.getElementById('search-btn').addEventListener('click', search);
+    document.getElementById('filter-btn').addEventListener('click', filter);
+    document.getElementById('clear-filter-btn').addEventListener('click', clearFilterClick);
+
+    // Make sure the correct things are visible, etc.
     updateSearchType();
     updateFilterType();
 
@@ -231,7 +249,7 @@ function setFilterParam(type, query) {
 }
 
 function search(query, type) {
-    if (!query && !type) {
+    if (typeof(query) !== 'string' && typeof(type) !== 'string') {
         query = searchBar.value;
         type = searchType.value;
     }
@@ -277,7 +295,7 @@ function failFilter(error) {
 }
 
 function filter(query, type) {
-    if (!query && !type) {
+    if (typeof(query) !== 'string' && typeof(type) !== 'string') {
         query = filterBar.value;
         type = filterType.value;
     }
