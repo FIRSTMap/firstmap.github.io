@@ -118,8 +118,8 @@
             <div id="search-section" hidden>
                 <h3>Search</h3>
                 <div id="team-search">
-                    <input type="search" id="team-search-input" onkeyup="inputKeyUp(this)">
-                    <button onclick="search()">Search</button>
+                    <input type="search" id="team-search-input">
+                    <button id="search-btn">Search</button>
                 </div>
 
                 <div id="event-search" hidden>
@@ -129,7 +129,7 @@
                     </ul>
                 </div>
 
-                <select id="search-type" onchange="(() => { updateSearchType(); })()">
+                <select id="search-type">
                     <option value="team">Team</option>
                     <option value="event">Event</option>
                 </select>
@@ -140,8 +140,8 @@
             <div id="filter-section" hidden>
                 <h3>Filter</h3>
                 <div id="team-filter">
-                    <input type="search" id="filter-input-teams" onkeyup="inputKeyUp(this)">
-                    <button onclick="filter()">Filter</button>
+                    <input type="search" id="filter-input-teams">
+                    <button id="filter-btn">Filter</button>
                 </div>
 
                 <div id="event-district-filter" hidden>
@@ -151,13 +151,13 @@
                     </ul>
                 </div>
                 
-                <select id="filter-type" onchange="(() => { updateFilterType(); clearFilterClick(); })()">
+                <select id="filter-type">
                     <option value="team">Team</option>
                     <option value="event">Event</option>
                     <option value="district">District</option>
                 </select>
                 <br>
-                <button onclick="clearFilterClick()">Clear Filter</button>
+                <button id="clear-filter-btn">Clear Filter</button>
                 <h6 id="filter-info-text"></h6>
                 <br>
                 <h6>
