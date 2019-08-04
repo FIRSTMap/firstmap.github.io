@@ -249,7 +249,7 @@ function setFilterParam(type, query) {
 }
 
 function search(query, type) {
-    if (typeof(query) !== 'string' && typeof(type) !== 'string') {
+    if (typeof (query) !== 'string' && typeof (type) !== 'string') {
         query = searchBar.value;
         type = searchType.value;
     }
@@ -270,7 +270,7 @@ function search(query, type) {
     } else {
         return;
     }
-    
+
     var marker = markers.keys[key];
 
     if (marker) {
@@ -295,7 +295,7 @@ function failFilter(error) {
 }
 
 function filter(query, type) {
-    if (typeof(query) !== 'string' && typeof(type) !== 'string') {
+    if (typeof (query) !== 'string' && typeof (type) !== 'string') {
         query = filterBar.value;
         type = filterType.value;
     }
@@ -352,7 +352,7 @@ function filter(query, type) {
         // If called with a parent event (e.g., Michigan State Championship), all teams
         // from all divisions are shown.
         let event = eventData[query];
-        
+
         // If the event exists
         if (event) {
             function processTeams(teams) {
@@ -441,7 +441,7 @@ function filter(query, type) {
                 var keys = teams.concat(events);
 
                 markers.filtered = {};
-    
+
                 keys.forEach(key => {
                     // This prevents adding divisions to the filter list.
                     // Event divisions do not have markers, so
@@ -452,7 +452,7 @@ function filter(query, type) {
                 });
 
                 succeedFilter('district', query);
-    
+
                 updateVisibleMarkers();
                 zoomFitVisible();
             });
