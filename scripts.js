@@ -36,7 +36,18 @@ function getCompetitionYear() {
 
 var CURRENT_YEAR = getCompetitionYear();
 
-function initMap() { // Initialize Google Map
+var teams, avatars, locations, icons;
+
+async function getJsonData(file) {
+    var resp = await fetch (file);
+    if (resp.ok) {
+        return resp.json();
+    } else {
+        throw new Error(`Could not download ${file}! Server responded with ${resp.status}.`);
+    }
+}
+
+async function initMap() { // Initialize Google Map
     map = new google.maps.Map(document.getElementById('map'), { // Define Map Settings
         center: {
             lat: parseFloat(params.get('lat')) || 30,
@@ -141,6 +152,11 @@ function initMap() { // Initialize Google Map
             }
         ]
     });
+
+    teams = await getJsonData('data/teams.json');
+    avatars = await getJsonData('data/avatars.json');
+    locations = await getJsonData('data/custom_locations.json');
+    icons = await getJsonData('data/custom_icons.json');        
 
     // Create team and event markers
     for (team of teams) createTeamMarker(team);
