@@ -31,16 +31,16 @@ class SearchableSelect {
                 }
 
                 e.target.classList.add('selected');
-                
+
                 if (obj.selectTimeout) {
                     clearTimeout(obj.selectTimeout);
                     obj.selectTimeout = null;
                 }
-                
+
                 obj.applySelection();
             }
         });
-        
+
         this.input.addEventListener('blur', function() {
             // If the user clicks something in the list, it will trigger this
             // blur event, but the click event on the list will not trigger if
@@ -50,7 +50,7 @@ class SearchableSelect {
                 clearTimeout(obj.selectTimeout);
                 obj.selectTimeout = null;
             }
-            
+
             obj.selectTimeout = setTimeout(function() {
                 obj.applySelection(obj);
             }, 300);
@@ -59,13 +59,13 @@ class SearchableSelect {
         this.input.addEventListener('focus', function() {
             obj.list.classList.remove('hidden');
             obj.input.select();
-            
+
             obj.search();
         });
 
         // Use a function to make sure the event doesn't pass any
         // parameters to search 
-        this.input.addEventListener('input', function() { obj.search() });
+        this.input.addEventListener('input', function() { obj.search(); });
 
         this.input.addEventListener('keydown', function() {
             let selected = obj.getSelectedObj();
@@ -88,7 +88,7 @@ class SearchableSelect {
 
                 if (selected) {
                     let newSelect = selected;
-        
+
                     if (event.key === 'ArrowUp') {
                         // Get the next list item up that isn't hidden (if there is one)
                         do {
@@ -100,12 +100,12 @@ class SearchableSelect {
                             newSelect = newSelect.nextSibling;
                         } while (newSelect && newSelect.classList.contains('hidden'));
                     }
-        
+
                     // If there is a next list item up/down, make it the new selected item
                     if (newSelect) {
                         selected.classList.remove('selected');
                         newSelect.classList.add('selected');
-                        newSelect.scrollIntoView({block: 'nearest'});
+                        newSelect.scrollIntoView({ block: 'nearest' });
                     }
                 }
             }
@@ -115,7 +115,7 @@ class SearchableSelect {
     search(query) {
         let search;
 
-        if (typeof(query) === 'string') {
+        if (typeof (query) === 'string') {
             this.input.value = query;
             search = query.toLowerCase();
         } else {
