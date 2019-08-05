@@ -429,8 +429,9 @@ function openInfo(marker) { // Create and show a Marker's InfoWindow
                 // Location list item
                 var locItem = document.createElement('li');
                 locItem.innerHTML = '<strong>Location:</strong> ';
-                var locText = parsed.city + ', ' + parsed.state_prov + ' ' + parsed.postal_code + ', ' +
-                    parsed.country;
+                var locText = parsed.city + ', ' + parsed.state_prov
+                    + (parsed.postal_code ? (' ' + parsed.postal_code) : '')
+                    + ', ' + parsed.country;
                 locItem.appendChild(document.createTextNode(locText));
                 list.appendChild(locItem);
 
