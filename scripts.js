@@ -345,15 +345,38 @@ function createTeamMarker(team) { // Create a Team Marker on map
     
     // Choose which logo to show:  Default, Defined, or FIRST Avatar
     var image = 'img/team.png'; // Default
+    var scaledSize = undefined;
+    var size = undefined;
+    var origin = undefined;
 
-    allow_logos = !(params.get('logos') == 'false'); // POST Argument forces Default
+    var allow_logos = !(params.get('logos') == 'false'); // POST Argument forces Default
+
     if (allow_logos) {
-        var custom = icons.indexOf(team.team_number) !== -1;
-        if (custom) {
+        if (icons.indexOf(team.team_number) !== -1) {
             image = 'logos/' + team.team_number + '.png'; // Defined
-        } else if (avatars[team.team_number]) {
-            custom = true;
-            image = 'data:image/png;base64,' + avatars[team.team_number]['img']; // FIRST Avatar
+            scaledSize = new google.maps.Size(30, 30);
+            size = undefined;
+        } else if (avatars.locations[team.team_number]) {
+            // Scale factor of 0.75 resizes a 40x40 image to a 30x30 image
+            const SCALE_FACTOR = 0.75;
+            // The size of each FIRST avatar (before scaling) is 40x40
+            const AVATAR_SIZE = 40;
+            image = 'data/avatars.png'; // FIRST Avatar sprite sheet
+
+            // scaledSize resizes the entire image (in this case the entire sprite sheet)
+            // avatars.sheet_size is the width and height (in number of avatars)
+            // of the sprite sheet. Multiplying that by AVATAR_SIZE gets the pixel
+            // width/height, and multiplying by the SCALE_FACTOR gets the new
+            // size of the sprite sheet.
+            let newSheetSize = avatars.sheet_size * AVATAR_SIZE * SCALE_FACTOR;
+            scaledSize = new google.maps.Size(newSheetSize, newSheetSize);
+            // Size refers to the size of the actual avatar, not the whole sprite sheet
+            size = new google.maps.Size(30, 30);
+            // Origin is the location of the top left corner of the avatar in the
+            // sprite sheet, after scaling.
+            var originX = avatars.locations[team.team_number].x * SCALE_FACTOR;
+            var originY = avatars.locations[team.team_number].y * SCALE_FACTOR;
+            origin = new google.maps.Point(originX, originY);
         }
     }
 
@@ -363,7 +386,9 @@ function createTeamMarker(team) { // Create a Team Marker on map
         title: team.team_number.toString(),
         icon: {
             url: image,
-            scaledSize: custom ? new google.maps.Size(30, 30) : undefined
+            scaledSize: scaledSize,
+            size: size,
+            origin: origin
         },
         visible: state['team'], // Set starting visibility based on defined state
         key: 'frc' + team.team_number,
