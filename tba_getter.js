@@ -5,91 +5,71 @@
 
     // Call this with the API query (Ex. /team/frc1234)
     // Query must start with a /
-    window.getTBAQuery = function(query, callback) {
+    window.getTBAQuery = async function(query) {
         var cached = tbaCache[query];
-        
+
         if (cached && cached.expireTime > Date.now()) {
             // Copy the object before returning it so the cached version is not ever modified
-            if (callback) {
-                var copy = JSON.parse(JSON.stringify(cached.data));
-                setTimeout(callback, 0, copy);
-            }
-            return;
-        }
-        
-        var req = new XMLHttpRequest();
-        req.open('GET', 'https://www.thebluealliance.com/api/v3' + query, true);
-        req.setRequestHeader('X-TBA-Auth-Key', TBA_API_KEY);
-
-        if (cached && cached.lastModified) {
-            req.setRequestHeader('If-Modified-Since', cached.lastModified);
+            var copy = JSON.parse(JSON.stringify(cached.data));
+            return [copy, null];
         }
 
-        req.send();
-        
-        req.onreadystatechange = function() {
-            if (req.readyState === 4) {
-                var newData = {};
-
-                var cacheHeader = req.getResponseHeader('Cache-Control');
-                var maxAgeData = [];
-
-                if (cacheHeader) {
-                    maxAgeData = cacheHeader.split(',').filter(x => x.indexOf('max-age=') !== -1);
-                }
-                
-                if (maxAgeData.length === 1) {
-                    // Get max age (seconds), convert to milliseconds, add to current time to get expireTime
-                    // I don't think max-age can ever return a negative number, but just to be safe, use Math.max
-                    var maxAgeMilli = Math.max(0, parseInt(maxAgeData[0].split('=')[1])) * 1000;
-                    newData.expireTime = Date.now() + maxAgeMilli;
-                }
-
-                if (req.status === 200) {
-                    newData.lastModified = req.getResponseHeader('Last-Modified');
-                    newData.data = JSON.parse(req.responseText);
-                    tbaCache[query] = newData;
-                    saveCache();
-
-                    if (callback) {
-                        var toReturn = JSON.parse(JSON.stringify(newData.data));
-                        callback(toReturn);
-                    }
-
-                    return;
-                    
-                } else if (req.status === 304) {
-                    // 304 not modified
-                    cached.expireTime = newData.expireTime;
-                    saveCache();
-                    // Copy it
-                    var toReturn = JSON.parse(JSON.stringify(cached.data));
-
-                    if (callback) {
-                        callback(toReturn);
-                    }
-                    return;
-                } else {
-                    var error = 'Error: ' + req.status + ' received from TBA attempting to process query '
-                        + query + '. ';
-
-                    if (cached) {
-                        error += 'Using cached data.';
-                    } else {
-                        error += 'No cached data available to use.'
-                    }
-
-                    if (callback) {
-                        var data;
-                        
-                        if (cached) {
-                            data = JSON.parse(JSON.stringify(cached.data));
-                        }
-
-                        callback(data, error);
-                    }
-                }
+        var resp = await fetch('https://www.thebluealliance.com/api/v3' + query, {
+            headers: {
+                'X-TBA-Auth-Key': TBA_API_KEY,
+                'If-Modified-Since': cached && cached.lastModified ? cached.lastModified : undefined
             }
+        });
+
+        var newData = {};
+
+        var cacheHeader = resp.headers.get('Cache-Control');
+        var maxAgeData = [];
+
+        if (cacheHeader) {
+            maxAgeData = cacheHeader.split(',').filter(x => x.indexOf('max-age=') !== -1);
+        }
+
+        if (maxAgeData.length === 1) {
+            // Get max age (seconds), convert to milliseconds, add to current time to get expireTime
+            // I don't think max-age can ever return a negative number, but just to be safe, use Math.max
+            var maxAgeMilli = Math.max(0, parseInt(maxAgeData[0].split('=')[1])) * 1000;
+            newData.expireTime = Date.now() + maxAgeMilli;
+        }
+
+        if (resp.status === 200) {
+            newData.lastModified = resp.headers.get('Last-Modified');
+            newData.data = await resp.json();
+            tbaCache[query] = newData;
+            saveCache();
+
+            var toReturn = JSON.parse(JSON.stringify(newData.data));
+            return [toReturn, null];
+        } else if (resp.status === 304) {
+            // 304 not modified
+            cached.expireTime = newData.expireTime;
+            saveCache();
+            // Copy it
+            var toReturn = JSON.parse(JSON.stringify(cached.data));
+
+            return [toReturn, null];
+        } else {
+            var error = 'Error: ' + resp.status + ' received from TBA attempting to process query '
+                + query + '. ';
+
+            if (cached) {
+                error += 'Using cached data.';
+            } else {
+                error += 'No cached data available to use.'
+            }
+
+            var data;
+
+            if (cached) {
+                data = JSON.parse(JSON.stringify(cached.data));
+            }
+
+            return [data, error];
         }
     }
 
