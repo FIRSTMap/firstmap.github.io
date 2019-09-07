@@ -351,11 +351,8 @@ function createTeamMarker(team) { // Create a Team Marker on map
     var allow_logos = !(params.get('logos') == 'false'); // POST Argument forces Default
 
     if (allow_logos) {
-        if (icons.indexOf(team.team_number) !== -1) {
-            image = 'logos/' + team.team_number + '.png'; // Defined
-            scaledSize = new google.maps.Size(30, 30);
-            size = undefined;
-        } else if (avatars.locations[team.team_number]) {
+        // Prioritize FIRST avatars over manually submitted logos
+        if (avatars.locations[team.team_number]) {
             // Scale factor of 0.75 resizes a 40x40 image to a 30x30 image
             const SCALE_FACTOR = 0.75;
             // The size of each FIRST avatar (before scaling) is 40x40
@@ -376,6 +373,10 @@ function createTeamMarker(team) { // Create a Team Marker on map
             var originX = avatars.locations[team.team_number].x * SCALE_FACTOR;
             var originY = avatars.locations[team.team_number].y * SCALE_FACTOR;
             origin = new google.maps.Point(originX, originY);
+        } else if (icons.indexOf(team.team_number) !== -1) {
+            image = 'logos/' + team.team_number + '.png'; // Defined
+            scaledSize = new google.maps.Size(30, 30);
+            size = undefined;
         }
     }
 

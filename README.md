@@ -3,17 +3,8 @@
 
 ![Screenshot of FIRSTMap](meta/screenshot.png)
 
-# Customizing Team Icon
-To modify the image used for your team's marker:
-
-1. Fork the repository.
-2. Add an image, titled `{team_number}.png`, where `{team_number}` is your team number, to the `/logos` folder. The image should have a maximum width or height of 40 pixels.
-3. Open `data/custom_icons.json` and add your team number to the icons array within the file.
-4. Push these changes to your fork of FIRSTMap.
-5. Open a pull-request with the main FIRSTMap repository to merge your fork back to the origin.
-6. Enjoy your custom marker image!
-
-Note that you may wish to simply submit a team avatar to FIRST. As FIRST has rolled out the avatar system, it's now preferable to specify your team's logo that way. Manual input of icons to FIRSTMap is gradually being deprecated.
+# Custom Team Icons
+Custom team icons are updated periodically from the FIRST avatar system. The old system of manually submitting icons to FIRSTMap is being phased out in favor of this approach.
 
 # Customizing Team Position
 1. Fork the repository.
