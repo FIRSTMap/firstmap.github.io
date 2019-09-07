@@ -288,13 +288,7 @@ function search(query, type) {
     }
 }
 
-function failFilter(error) {
-    filterInfoText.innerText = error;
-    console.log(error);
-    clearFilter();
-}
-
-function filter(query, type) {
+async function filter(query, type) {
     if (typeof (query) !== 'string' && typeof (type) !== 'string') {
         query = filterBar.value;
         type = filterType.value;
@@ -307,6 +301,18 @@ function filter(query, type) {
 
     filterInfoText.innerText = 'Filtering...';
 
+    var err = await doFilter(query, type);
+
+    if (err) {
+        filterInfoText.innerText = error;
+        console.log(error);
+        clearFilter();
+    } else {
+        succeedFilter(query, type);
+    }
+}
+
+async function doFilter(query, type) {
     query = query.toLowerCase();
 
     if (type === 'team') {
@@ -314,39 +320,40 @@ function filter(query, type) {
         let teamKey = 'frc' + query;
         let marker = markers.keys[teamKey];
 
-        getTBAQuery('/team/' + teamKey + '/events/' + CURRENT_YEAR + '/keys', function(events, err) {
-            // (!marker && events.length == 0) means the team is not on the map,
-            // and they are not registered for events this year.
-            if (!events || (!marker && events.length == 0)) {
-                failFilter('Error: team \'' + query + '\' not found.');
-                return;
+        let [events, err] = await getTBAQuery('/team/' + teamKey + '/events/' + CURRENT_YEAR + '/keys');
+
+        if (events && err) {
+            console.warn("Could not connect to TBA, team events loaded from cache: " + err);
+        }
+
+        // (!marker && events.length == 0) means the team is not on the map,
+        // and they are not registered for events this year.
+        if (!events || (!marker && events.length == 0)) {
+            return 'Error: team \'' + query + '\' not found.';
+        }
+
+        markers.filtered = {};
+
+        // Team 9999 isn't on the map (since it's an offseason demo team)
+        // but someone might still want to see what events it "attended,"
+        // so I guess I'll just check if the marker exists here instead of
+        // earlier.
+        if (marker) {
+            markers.filtered[teamKey] = marker;
+        }
+
+        events.forEach(key => {
+            let parent = eventData[key].parent_event_key;
+
+            if (parent) {
+                markers.filtered[parent] = markers.keys[parent];
+            } else {
+                markers.filtered[key] = markers.keys[key];
             }
-
-            markers.filtered = {};
-
-            // Team 9999 isn't on the map (since it's an offseason demo team)
-            // but someone might still want to see what events it "attended,"
-            // so I guess I'll just check if the marker exists here instead of
-            // earlier.
-            if (marker) {
-                markers.filtered[teamKey] = marker;
-            }
-
-            events.forEach(key => {
-                let parent = eventData[key].parent_event_key;
-
-                if (parent) {
-                    markers.filtered[parent] = markers.keys[parent];
-                } else {
-                    markers.filtered[key] = markers.keys[key];
-                }
-            });
-
-            succeedFilter('team', query);
-
-            updateVisibleMarkers();
-            zoomFitVisible();
         });
+
+        updateVisibleMarkers();
+        zoomFitVisible();
     } else if (type === 'event') {
         // Show all the teams attending an event. This works for event divisions too.
         // If called with a parent event (e.g., Michigan State Championship), all teams
@@ -355,108 +362,98 @@ function filter(query, type) {
 
         // If the event exists
         if (event) {
-            function processTeams(teams) {
-                // Take the list of all the teams and make them
-                // (and the event marker) the only markers shown.
-                markers.filtered = {};
+            let [teams, err] = await getTBAQuery('/event/' + query + '/teams/keys');
 
-                // If we are only showing teams from an event division,
-                // we still have to show the parent event marker, since
-                // divisions do not have their own markers.
-                let parent = event.parent_event_key;
-
-                if (parent) {
-                    markers.filtered[parent] = markers.keys[parent];
-                } else {
-                    markers.filtered[query] = markers.keys[query];
-                }
-
-
-                teams.forEach(key => {
-                    markers.filtered[key] = markers.keys[key];
-                });
-
-                succeedFilter('event', query);
-
-                updateVisibleMarkers();
-                zoomFitVisible();
+            if (err && !teams) {
+                return 'Error filtering to event with key \'' + query + '\'';
             }
 
-            let teamList;
+            let teamList = teams;
 
-            getTBAQuery('/event/' + query + '/teams/keys', function(teams, err) {
-                if (err && !teams) {
-                    failFilter('Error filtering to event with key \'' + query + '\'');
-                    return;
-                }
+            // If there are event divisions, get the teams from each division
+            if (event.division_keys && event.division_keys.length > 0) {
+                for (let i = 0; i < event.division_keys.length; i++) {
+                    let [teams, err] = await getTBAQuery('/event/' + event.division_keys[i] + '/teams/keys');
 
-                teamList = teams;
-
-                // If there are event divisions, get the teams from each division
-                if (event.division_keys && event.division_keys.length > 0) {
-                    let i = 0;
-
-                    function getNextDiv() {
-                        getTBAQuery('/event/' + event.division_keys[i] + '/teams/keys', function(teams, err) {
-                            if (err && !teams) {
-                                failFilter('Error: failure to get teams for event division \'' + + event.division_keys[i] + '\'');
-                                return;
-                            }
-
-                            i++;
-                            teamList = teamList.concat(teams);
-
-                            if (i >= event.division_keys.length) {
-                                processTeams(teamList);
-                            } else {
-                                getNextDiv();
-                            }
-                        });
+                    if (err) {
+                        if (!teams) {
+                            return 'Error: failure to get teams for event division \'' + event.division_keys[i] + '\'';
+                        } else {
+                            console.warn('Warning: failure to get teams for event division \'' + event.division_keys[i] +
+                                '\'. Team list loaded from cache.');
+                        }
                     }
-                    getNextDiv();
-                } else {
-                    processTeams(teamList);
+
+                    teamList = teamList.concat(teams);
                 }
+            }
+
+            // Take the list of all the teams and make them
+            // (and the event marker) the only markers shown.
+
+            markers.filtered = {};
+
+            // If we are only showing teams from an event division,
+            // we still have to show the parent event marker, since
+            // divisions do not have their own markers.
+            let parent = event.parent_event_key;
+
+            if (parent) {
+                markers.filtered[parent] = markers.keys[parent];
+            } else {
+                markers.filtered[query] = markers.keys[query];
+            }
+
+            teamList.forEach(key => {
+                markers.filtered[key] = markers.keys[key];
             });
+
+            updateVisibleMarkers();
+            zoomFitVisible();
         } else {
-            failFilter('Error: event with key \'' + query + '\' not found.');
-            return;
+            return 'Error: event with key \'' + query + '\' not found.';
         }
     } else if (type === 'district') {
         // Show all of the teams and events in the given district
-        getTBAQuery('/district/' + query + '/teams/keys', function(teams, err) {
-            if (err && !teams) {
-                failFilter('Error: district with key \'' + query + '\' not found.');
-                return;
+        let [teams, err] = await getTBAQuery('/district/' + query + '/teams/keys');
+
+        if (err) {
+            if (!teams) {
+                return 'Error: district with key \'' + query + '\' not found.';
+            } else {
+                console.warn('Warning: teams for district with key \'' + query + '\' could not' +
+                    ' be downloaded. Using cached version.');
             }
+        }
 
-            getTBAQuery('/district/' + query + '/events/keys', function(events, err) {
-                if (err && !events) {
-                    failFilter('Error: failure to get events for district \'' + query + '\'');
-                    return;
-                }
+        let [events, err2] = await getTBAQuery('/district/' + query + '/events/keys');
 
-                // Combine the list of teams and events to get a list of all
-                // of the marker keys to show.
-                var keys = teams.concat(events);
+        if (err2) {
+            if (!events) {
+                return 'Error: failure to get events for district \'' + query + '\'';
+            } else {
+                console.warn('Warning: events for district with key \'' + query + '\' could not' +
+                    ' be downloaded. Using cached version.');
+            }
+        }
 
-                markers.filtered = {};
+        // Combine the list of teams and events to get a list of all
+        // of the marker keys to show.
+        var keys = teams.concat(events);
 
-                keys.forEach(key => {
-                    // This prevents adding divisions to the filter list.
-                    // Event divisions do not have markers, so
-                    // markers.keys[key] will be undefined for divisions.
-                    if (markers.keys[key]) {
-                        markers.filtered[key] = markers.keys[key];
-                    }
-                });
+        markers.filtered = {};
 
-                succeedFilter('district', query);
-
-                updateVisibleMarkers();
-                zoomFitVisible();
-            });
+        keys.forEach(key => {
+            // This prevents adding divisions to the filter list.
+            // Event divisions do not have markers, so
+            // markers.keys[key] will be undefined for divisions.
+            if (markers.keys[key]) {
+                markers.filtered[key] = markers.keys[key];
+            }
         });
+
+        updateVisibleMarkers();
+        zoomFitVisible();
     }
 }
 
@@ -465,7 +462,7 @@ function filter(query, type) {
 // bar and filter type dropdown menu so that the filter can be changed (it
 // is disabled while filtering to ensure the user does not change the
 // filter while it is still processing)
-function succeedFilter(type, query) {
+function succeedFilter(query, type) {
     setFilterParam(type, query);
     filterInfoText.innerText = '';
     filterBar.disabled = false;
