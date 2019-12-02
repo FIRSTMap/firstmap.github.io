@@ -357,6 +357,10 @@ function createTeamMarker(team) { // Create a Team Marker on map
             const SCALE_FACTOR = 0.75;
             // The size of each FIRST avatar (before scaling) is 40x40
             const AVATAR_SIZE = 40;
+            // Each sprite has a 2 pixel border between it and the next sprite
+            // so that when the whole sprite sheet is resized with scaledSize,
+            // the avatars do not bleed into each other around the edges
+            const AVATAR_BORDER = 2;
             image = 'data/avatars.png'; // FIRST Avatar sprite sheet
 
             // scaledSize resizes the entire image (in this case the entire sprite sheet)
@@ -364,7 +368,7 @@ function createTeamMarker(team) { // Create a Team Marker on map
             // of the sprite sheet. Multiplying that by AVATAR_SIZE gets the pixel
             // width/height, and multiplying by the SCALE_FACTOR gets the new
             // size of the sprite sheet.
-            let newSheetSize = avatars.sheet_size * AVATAR_SIZE * SCALE_FACTOR;
+            let newSheetSize = avatars.sheet_size * (AVATAR_SIZE + AVATAR_BORDER) * SCALE_FACTOR;
             scaledSize = new google.maps.Size(newSheetSize, newSheetSize);
             // Size refers to the size of the actual avatar, not the whole sprite sheet
             size = new google.maps.Size(30, 30);
