@@ -59,11 +59,11 @@ a:hover { text-decoration: none; }
     cursor: pointer;
 }
 #fullscreen-controls {
-    background: white url('img/fullscreen.svg') no-repeat center;
+    background: white url('../img/fullscreen.svg') no-repeat center;
     background-size: 60%;
 }
 .fullscreen #fullscreen-controls {
-    background: white url('img/exit-fullscreen.svg') no-repeat center;
+    background: white url('../img/exit-fullscreen.svg') no-repeat center;
     background-size: 70%;
 }
 #about {
