@@ -36,7 +36,7 @@ function getCompetitionYear() {
 
 var CURRENT_YEAR = getCompetitionYear();
 
-var teams, avatars, locations, icons;
+var teams, avatars, locations, icons, event_fallback_locs;
 
 async function getJsonData(file) {
     var resp = await fetch (file);
@@ -156,7 +156,8 @@ async function initMap() { // Initialize Google Map
     teams = await getJsonData('data/teams.json');
     avatars = await getJsonData('data/avatars.json');
     locations = await getJsonData('data/custom_locations.json');
-    icons = await getJsonData('data/custom_icons.json');        
+    icons = await getJsonData('data/custom_icons.json');
+    event_fallback_locs = await getJsonData('data/event_fallback_locs.json');
 
     // Create team and event markers
     for (team of teams) createTeamMarker(team);
@@ -194,6 +195,23 @@ async function initMap() { // Initialize Google Map
                 event.type = 'offseason';
             } else {
                 event.type = 'district';
+            }
+
+            // Use fallback locations if the event does not have lat/lng
+            // coordinates available from TBA API
+            if (event.lat == null || event.lng == null) {
+                var fallbackLoc = event_fallback_locs[event.key];
+
+                if (fallbackLoc) {
+                    event.lat = fallbackLoc.lat;
+                    event.lng = fallbackLoc.lng;
+                } else {
+                    console.error(`Error: event "${event.name}" (${event.key}) does not` +
+                        " have coordinates available from The Blue Alliance API or from" +
+                        " event_fallback_locs.json. The event marker will be placed at 0,0");
+                    event.lat = 0;
+                    event.lng = 0;
+                }
             }
 
             // Correct duplicate locations
