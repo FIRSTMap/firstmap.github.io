@@ -18,6 +18,7 @@ Team positions are downloaded from The Blue Alliance API using [FIRSTMap-scraper
     "lng": longitude
 }
 ```
+Be careful NOT to use single quotes or add a trailing comma after `longitude`, as these both break JSON parsing.  
 3. Push these changes to your fork of FIRSTMap.
 4. Open a pull-request with the main FIRSTMap repository to merge your fork back to the origin.
 5. Enjoy the updated location of your team's marker!
