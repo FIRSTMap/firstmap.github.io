@@ -1,4 +1,4 @@
-# FIRSTMap
+# [FIRSTMap](https://firstmap.github.io)
 > An interactive online map of [FRC](https://www.firstinspires.org/robotics/frc) teams and events.
 
 ![Screenshot of FIRSTMap](meta/screenshot.png)
