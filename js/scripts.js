@@ -167,7 +167,6 @@ async function initMap() { // Initialize Google Map
     if (err && !events) {
         var msg = 'Failure to load events: ' + err;
         console.error(msg);
-        alert(msg);
     } else {
         if (err) {
             console.warn('Warning: there was an error, but events were loaded from cache: ' + err);
