@@ -48,6 +48,30 @@ async function getJsonData(file) {
 }
 
 async function initMap() { // Initialize Google Map
+
+    // Since (most) team avatars are designed to look good when they are pixelated but end up
+    // looking bad when they are blurred on resize, setting `imageSmoothingEnabled` to false on
+    // the canvas drawing context makes them look significantly better (because it stops the
+    // avatars from being blurred on resize). This is especially an issue on higher resolution
+    // devices where the canvas images have to be scaled up enough that there is a noticeable
+    // decrease in sharpness. However, the canvas that the avatars are drawn on is handled by the
+    // Google Maps API, so the drawing context cannot be accessed directly. We get around this by
+    // modifying the CanvasRenderingContext2D prototype to set this property before each image is
+    // drawn. We cannot simply override getContext and set the imageSmoothingEnabled property to
+    // false with each retrieval of a drawing context because when a canvas's width or height
+    // properties are set, the imageSmoothingEnabled property is automatically reset to its
+    // default value of true. Since the Google Maps API changes these sizes after it calls
+    // getContext, setting imageSmoothingEnabled in getContext has no effect. Hypothetically,
+    // every resize of every canvas could be detected and imageSmoothingEnabled could be set
+    // there, but this method seems simpler. This function is overridden before initializing the
+    // map so that all canvas drawing contexts created inherit it.
+    let canvasDrawImageOld = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function() {
+        this.imageSmoothingEnabled = false;
+        return canvasDrawImageOld.apply(this, arguments);
+    };
+    
+    
     map = new google.maps.Map(document.getElementById('map'), { // Define Map Settings
         center: {
             lat: parseFloat(params.get('lat')) || 30,
@@ -361,7 +385,7 @@ function createTeamMarker(team) { // Create a Team Marker on map
     
     // Choose which logo to show:  Default, Defined, or FIRST Avatar
     var image = 'img/team.png'; // Default
-    var scaledSize = undefined;
+    var scaledSize = new google.maps.Size(38, 23);
     var size = undefined;
     var origin = undefined;
 

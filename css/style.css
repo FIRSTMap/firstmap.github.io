@@ -137,6 +137,15 @@ tr td:last-child {
     width: 40%;
 }
 
+/* When a canvas is scaled, stop it from blurring */
+canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
 /* Searchable select stuff */
 input {
     width: 75%;
