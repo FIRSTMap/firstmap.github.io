@@ -7,7 +7,7 @@
 Custom team icons are updated periodically from the FIRST avatar system. The old system of manually submitting icons to FIRSTMap is being phased out in favor of this approach.
 
 ## Customizing Team Position
-Team positions are downloaded from The Blue Alliance API using [FIRSTMap-scraper](https://github.com/FIRSTMap/FIRSTMap-scraper). While the scraper may find the location of the city where a team resides, it cannot necessarily find the exact location of the team's workspace. Customizing your team's position allows your team's marker to show up at the exact location of your workspace.
+Team positions are downloaded from The Blue Alliance API using our [scraper](https://github.com/FIRSTMap/scraper). While the scraper may find the location of the city where a team resides, it cannot necessarily find the exact location of the team's workspace. Customizing your team's position allows your team's marker to show up at the exact location of your workspace.
 
 ### Instructions for customizing team position:
 1. Fork the repository.
