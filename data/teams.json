@@ -3567,13 +3567,13 @@
 	{"team_number": 10390, "lat": 24.147, "lng": 120.684},
 	{"team_number": 10392, "lat": 32.979, "lng": -115.53},
 	{"team_number": 10393, "lat": 42.065, "lng": -71.248},
+	{"team_number": 10394, "lat": 3.538, "lng": -76.297},
 	{"team_number": 10395, "lat": 52.267, "lng": -113.802},
 	{"team_number": 10396, "lat": 41.014, "lng": 28.95},
 	{"team_number": 10399, "lat": -29.858, "lng": 31.029},
 	{"team_number": 10400, "lat": 40.071, "lng": -74.865},
 	{"team_number": 10402, "lat": 28.538, "lng": -81.379},
 	{"team_number": 10404, "lat": -33.926, "lng": 18.423},
-	{"team_number": 10410, "lat": 28.234, "lng": -82.181},
 	{"team_number": 10411, "lat": 41.131, "lng": -85.129},
 	{"team_number": 10412, "lat": 35.671, "lng": -80.474},
 	{"team_number": 10413, "lat": 40.91, "lng": -73.808},
@@ -3693,7 +3693,7 @@
 	{"team_number": 10606, "lat": 42.486, "lng": -83.105},
 	{"team_number": 10607, "lat": 42.331, "lng": -83.046},
 	{"team_number": 10608, "lat": 37.774, "lng": 29.087},
-	{"team_number": 10609, "lat": 47.683, "lng": 17.635},
+	{"team_number": 10609, "lat": 47.498, "lng": 19.04},
 	{"team_number": 10610, "lat": 28.661, "lng": -81.366},
 	{"team_number": 10611, "lat": 42.866, "lng": -80.733},
 	{"team_number": 10612, "lat": 42.688, "lng": -83.234},
@@ -3739,5 +3739,6 @@
 	{"team_number": 10686, "lat": 39.739, "lng": -104.985},
 	{"team_number": 10689, "lat": 41.014, "lng": 28.95},
 	{"team_number": 10690, "lat": 42.584, "lng": -83.245},
-	{"team_number": 10692, "lat": 41.014, "lng": 28.95}
+	{"team_number": 10692, "lat": 41.014, "lng": 28.95},
+	{"team_number": 10695, "lat": 33.046, "lng": 35.565}
 ]
