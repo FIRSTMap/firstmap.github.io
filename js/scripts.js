@@ -36,7 +36,7 @@ function getCompetitionYear() {
 
 var CURRENT_YEAR = getCompetitionYear();
 
-var teams, avatars, locations, icons, event_fallback_locs;
+var teams, avatars, locations, icons, address_cache, event_fallback_locs;
 
 async function getJsonData(file) {
     var resp = await fetch (file);
@@ -44,6 +44,60 @@ async function getJsonData(file) {
         return resp.json();
     } else {
         throw new Error(`Could not download ${file}! Server responded with ${resp.status}.`);
+    }
+}
+
+// Return a properly-formatted/normalized address from the event object for lookup
+// in the address cache.
+function formatEventAddress(tbaEventObj) {
+    addr = `${tbaEventObj.address}, ${tbaEventObj.city}, ${tbaEventObj.state_prov}`;
+    postalCode = tbaEventObj.postal_code;
+    if (postalCode) {
+        addr += ` ${postalCode}, `
+    } else {
+        addr += ", "
+    }
+    addr += tbaEventObj.country;
+
+    // Some addresses come through with newlines that should instead be commas or extra
+    // spaces where they shouldn't be. This normalizes all newlines to commas and double-
+    // commas / spaces to single commas.
+    return addr.replace(/[\r\n]+/g, ", ").replace(/\s?,+([,\s]+)?/g, ", ").toUpperCase();
+}
+
+// If not set, sets lat and lng properties on the provided event object
+// to reflect the event's location. If no location is known, a warning
+// is printed to indicate to indicate the error and the location is set
+// as 0, 0
+function updateEventLocation(tbaEventObj) {
+    if (tbaEventObj.lat != null || tbaEventObj.lng != null) {
+        // At time of writing, TBA API no longer has event lat/lng, so
+        // this should never happen.
+        return;
+    }
+
+    // Compute the location based on the address
+    let address = formatEventAddress(tbaEventObj);
+    let loc = address_cache[address];
+    if (loc) {
+        tbaEventObj.lat = loc.lat;
+        tbaEventObj.lng = loc.lng;
+        return;
+    }
+
+    // Use fallback locations if the event does not have a valid
+    // address available from TBA API that we have cached.
+    const fallbackLoc = event_fallback_locs[tbaEventObj.key];
+
+    if (fallbackLoc) {
+        tbaEventObj.lat = fallbackLoc.lat;
+        tbaEventObj.lng = fallbackLoc.lng;
+    } else {
+        console.error(`Error: event "${tbaEventObj.name}" (${tbaEventObj.key}) does not` +
+            " have coordinates available from The Blue Alliance API or from" +
+            " event_fallback_locs.json. The event marker will be placed at 0,0");
+        tbaEventObj.lat = 0;
+        tbaEventObj.lng = 0;
     }
 }
 
@@ -181,6 +235,7 @@ async function initMap() { // Initialize Google Map
     avatars = await getJsonData('data/avatars.json');
     locations = await getJsonData('data/custom_locations.json');
     icons = await getJsonData('data/custom_icons.json');
+    address_cache = await getJsonData('data/address_cache.json');
     event_fallback_locs = await getJsonData('data/event_fallback_locs.json');
 
     // Create team and event markers
@@ -220,22 +275,7 @@ async function initMap() { // Initialize Google Map
                 event.type = 'district';
             }
 
-            // Use fallback locations if the event does not have lat/lng
-            // coordinates available from TBA API
-            if (event.lat == null || event.lng == null) {
-                var fallbackLoc = event_fallback_locs[event.key];
-
-                if (fallbackLoc) {
-                    event.lat = fallbackLoc.lat;
-                    event.lng = fallbackLoc.lng;
-                } else {
-                    console.error(`Error: event "${event.name}" (${event.key}) does not` +
-                        " have coordinates available from The Blue Alliance API or from" +
-                        " event_fallback_locs.json. The event marker will be placed at 0,0");
-                    event.lat = 0;
-                    event.lng = 0;
-                }
-            }
+            updateEventLocation(event);
 
             // Correct duplicate locations
             if (coordList[event.lat]) {

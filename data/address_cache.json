@@ -1,0 +1,766 @@
+{
+    "700 MONROE STREET SW, HUNTSVILLE, AL 35801, USA": {
+        "lat": 34.7267938,
+        "lng": -86.5901107
+    },
+    "1001 AVENIDA DE LAS AMERICAS, HOUSTON, TX 77010, USA": {
+        "lat": 29.7517932,
+        "lng": -95.3581139
+    },
+    "BURKS DR, SEARCY, AR 72143, USA": {
+        "lat": 35.242929,
+        "lng": -91.7258965
+    },
+    "30 HERBERT ST, CAMBRIDGE PARK, NSW 2178, AUSTRALIA": {
+        "lat": -33.7543857,
+        "lng": 150.7350204
+    },
+    "1701 S SAN FRANCISCO ST, FLAGSTAFF, AZ 86011, USA": {
+        "lat": 35.1805983,
+        "lng": -111.652899
+    },
+    "100 N RENFREW ST, VANCOUVER, BC V5K 4W3, CANADA": {
+        "lat": 49.284596,
+        "lng": -123.042505
+    },
+    "3200 E AVE J8, LANCASTER, CA 93535, USA": {
+        "lat": 34.6825267,
+        "lng": -118.0641054
+    },
+    "1750 HARBOR STREET, PITTSBURG, CA 94565, USA": {
+        "lat": 38.0194787,
+        "lng": -121.8814362
+    },
+    "1560 N MINNEWAWA AVE, CLOVIS, CA 93619, USA": {
+        "lat": 36.8360545,
+        "lng": -119.7080215
+    },
+    "1980 ALLSTON WAY, BERKELEY, CA 94704, USA": {
+        "lat": 37.8670513,
+        "lng": -122.271379
+    },
+    "1440 E BROADWAY, GLENDALE, CA 91205, USA": {
+        "lat": 34.1460874,
+        "lng": -118.232862
+    },
+    "600 CHURCH STREET, HALF MOON BAY, CA 94019, USA": {
+        "lat": 37.462318,
+        "lng": -122.431598
+    },
+    "WISEBURN USD - WDV GYMNASIUM 201 N. DOUGLAS STREET, EL SEGUNDO, CA 90245, USA": {
+        "lat": 33.922246,
+        "lng": -118.383292
+    },
+    "2600 GENEVA AVE, DALY CITY, CA 94014, USA": {
+        "lat": 37.7067615,
+        "lng": -122.4186942
+    },
+    "26301 VIA ESCOLAR, MISSION VIEJO, CA 92692, USA": {
+        "lat": 33.5422569,
+        "lng": -117.6712553
+    },
+    "1220 MONTEREY STREET, HOLLISTER, CA 95023, USA": {
+        "lat": 36.8407692,
+        "lng": -121.4046654
+    },
+    "333 PONOMA STREET, PORT HUENEME, CA 93041, USA": {
+        "lat": 34.1507755,
+        "lng": -119.2001343
+    },
+    "9531 BOND ROAD, ELK GROVE, CA 95624, USA": {
+        "lat": 38.4235483,
+        "lng": -121.3436648
+    },
+    "800 W KATELLA AVE, ANAHEIM, CA 92802, USA": {
+        "lat": 33.8005839,
+        "lng": -117.9208047
+    },
+    "1151 SAN GABRIEL BLVD, ROSEMEAD, CA 91770, USA": {
+        "lat": 34.0410526,
+        "lng": -118.0872967
+    },
+    "6501 LINDA VISTA ROAD, SAN DIEGO, CA 92111, USA": {
+        "lat": 32.7723575,
+        "lng": -117.1774796
+    },
+    "2001 37TH AVE, SAN FRANCISCO, CA 94116, USA": {
+        "lat": 37.7480821,
+        "lng": -122.4959686
+    },
+    "199 CHURCHILL AVE, WOODSIDE, CA 94062, USA": {
+        "lat": 37.4458049,
+        "lng": -122.2310658
+    },
+    "4667 TELEGRAPH ROAD, VENTURA, CA 93003, USA": {
+        "lat": 34.2772814,
+        "lng": -119.2326722
+    },
+    "20809 2ND AVE, PETERSBURG, VA 23803, USA": {
+        "lat": 37.23891,
+        "lng": -77.42499
+    },
+    "NO. 500 DONGCHUAN ROAD, MINHANG DISTRICT, SH 201203, CHINA": {
+        "lat": 31.0202667,
+        "lng": 121.4152248
+    },
+    "UNIVERSITY OF DENVER 2240 BUCHTEL BOULEVARD, DENVER, CO 80210, USA": {
+        "lat": 39.684471,
+        "lng": -104.96459
+    },
+    "1590 W FILLMORE ST., COLORADO SPRINGS, CO 80904, USA": {
+        "lat": 38.8729722,
+        "lng": -104.8572942
+    },
+    "55 FOREST STREET, HARTFORD, CT 06105, USA": {
+        "lat": 41.7639962,
+        "lng": -72.7023136
+    },
+    "568 BUCKS HILL ROAD, WATERBURY, CT 06704, USA": {
+        "lat": 41.6042643,
+        "lng": -73.0263601
+    },
+    "12777 GEMINI BLVD N, ORLANDO, FL 32816, USA": {
+        "lat": 28.6073409,
+        "lng": -81.1972969
+    },
+    "1800 ALTHEA GIBSON WY, TALLAHASSEE, FL 32310, USA": {
+        "lat": 30.4245264,
+        "lng": -84.2897415
+    },
+    "1245 DAUER DR, CORAL GABLES, FL 33146, USA": {
+        "lat": 25.7153095,
+        "lng": -80.2793844
+    },
+    "100 W OGLETHORPE BLVD, ALBANY, GA 31701, USA": {
+        "lat": 31.5738321,
+        "lng": -84.1502504
+    },
+    "1400 COLEMAN AVE, MACON, GA 31201, USA": {
+        "lat": 32.8294267,
+        "lng": -83.6514183
+    },
+    "400 4TH STREET, COLUMBUS, GA 31901, USA": {
+        "lat": 32.45016,
+        "lng": -84.9877001
+    },
+    "2001 RIVERSIDE DRIVE, GAINESVILLE, GA 30501, USA": {
+        "lat": 34.3325833,
+        "lng": -83.8333041
+    },
+    "1335 OLD NORCROSS ROAD, LAWRENCEVILLE, GA 30046, USA": {
+        "lat": 33.954266,
+        "lng": -84.034438
+    },
+    "3142 WAIALAE AVE, HONOLULU, HI 96816, USA": {
+        "lat": 21.287794,
+        "lng": -157.808864
+    },
+    "2501 HUDSON ROAD, CEDAR FALLS, IA 50614, USA": {
+        "lat": 42.514966,
+        "lng": -92.4656195
+    },
+    "16200 IDAHO CENTER BLVD, NAMPA, ID 83687, USA": {
+        "lat": 43.6080574,
+        "lng": -116.5080492
+    },
+    "2121 S GOEBBERT ROAD, ARLINGTON HEIGHTS, IL 60005, USA": {
+        "lat": 42.0462337,
+        "lng": -87.9728787
+    },
+    "N MAPLEWOOD AVE, PEORIA, IL 61606, USA": {
+        "lat": 40.7016186,
+        "lng": -89.6185615
+    },
+    "230 S MARR ROAD, COLUMBUS, IN 47201, USA": {
+        "lat": 39.1951933,
+        "lng": -85.8849396
+    },
+    "1801 S 18TH STREET, LAFAYETTE, IN 47905, USA": {
+        "lat": 40.399713,
+        "lng": -86.87648
+    },
+    "56100 N BITTERSWET ROAD, MISHAWAKA, IN 46545, USA": {
+        "lat": 41.678924,
+        "lng": -86.10956
+    },
+    "608 E WALNUT STREET, WASHINGTON, IN 98815, USA": {
+        "lat": 38.65922,
+        "lng": -87.17279
+    },
+    "5900 MONTICELLO RD, SHAWNEE, KS 66226, USA": {
+        "lat": 39.0199505,
+        "lng": -94.8406023
+    },
+    "4545 WILLIAMS BLVD, KENNER, LA 70065, USA": {
+        "lat": 30.03936,
+        "lng": -90.2405762
+    },
+    "35 RIVER STREET, BILLERICA, MA 01890, USA": {
+        "lat": 42.5608443,
+        "lng": -71.2741943
+    },
+    "101 SCHOOL STREET, REVERE, MA 02151, USA": {
+        "lat": 42.4125825,
+        "lng": -71.0064568
+    },
+    "62 OAKLAND ROAD, READING, MA 01867, USA": {
+        "lat": 42.5353434,
+        "lng": -71.109401
+    },
+    "1215 WILBRAHAM ROAD, SPRINGFIELD, MA 01119, USA": {
+        "lat": 42.114441,
+        "lng": -72.5150285
+    },
+    "100 INSTITUTE ROAD, WORCESTER, MA 01609, USA": {
+        "lat": 42.274315,
+        "lng": -71.8084567
+    },
+    "7100 WHITTIER BLVD, BETHESDA, MD 20817, USA": {
+        "lat": 38.9819826,
+        "lng": -77.1273839
+    },
+    "4798 MOUNTAIN ROAD, PASADENA, MD 21122, USA": {
+        "lat": 39.107703,
+        "lng": -76.460867
+    },
+    "8065 NEW CUT ROAD, SEVERN, MD 21144, USA": {
+        "lat": 39.125986,
+        "lng": -76.642456
+    },
+    "74 WOODVILLE ROAD, FALMOUTH, ME 04105, USA": {
+        "lat": 43.7404799,
+        "lng": -70.2725091
+    },
+    "100 W VAN BUREN STREET, BATTLE CREEK, MI 49012, USA": {
+        "lat": 42.3263032,
+        "lng": -85.1848763
+    },
+    "501 W COLUMBIA AVE, BELLEVILLE, MI 48111, USA": {
+        "lat": 42.2003048,
+        "lng": -83.4932996
+    },
+    "201 SYLVESTER AVE, BERRIEN SPRINGS, MI 49103, USA": {
+        "lat": 41.9462232,
+        "lng": -86.3460785
+    },
+    "210 SPORTS DRIVE, BIG RAPIDS, MI 49307, USA": {
+        "lat": 43.6821172,
+        "lng": -85.4903667
+    },
+    "11775 HEWITT ROAD, BROOKLYN, MI 49230, USA": {
+        "lat": 42.092259,
+        "lng": -84.28506
+    },
+    "24787 VAN HORN ROAD, BROWNSTOWN CHARTER TWP, MI 48134, USA": {
+        "lat": 42.1222793,
+        "lng": -83.2719636
+    },
+    "740 N FREER ROAD, CHELSEA, MI 48118, USA": {
+        "lat": 42.3111507,
+        "lng": -84.0025051
+    },
+    "RYDER CENTER 7400 BAY ROAD, UNIVERSITY CENTER, MI 48710, USA": {
+        "lat": 43.520623,
+        "lng": -83.974205
+    },
+    "6565 OUTER DRIVE W, DETROIT, MI 48235, USA": {
+        "lat": 42.417807,
+        "lng": -83.194381
+    },
+    "MATTHAI CENTER 5101 JOHN C LODGE FREEWAY, DETROIT, MI 48202, USA": {
+        "lat": 42.354963,
+        "lng": -83.07382
+    },
+    "500 S LINCOLN ROAD, ESCANABA, MI 49829, USA": {
+        "lat": 45.740843,
+        "lng": -87.0836215
+    },
+    "3200 W SHIAWASSEE AVE, FENTON, MI 48430, USA": {
+        "lat": 42.7843095,
+        "lng": -83.7311612
+    },
+    "4302 UNDERHILL DRIVE, FLINT, MI 48506, USA": {
+        "lat": 43.0702875,
+        "lng": -83.6092891
+    },
+    "6230 KALAMAZOO AVE SE, KENTWOOD, MI 49508, USA": {
+        "lat": 42.8492909,
+        "lng": -85.6204535
+    },
+    "251 RUSSELL ROAD, LAKE CITY, MI 49651, USA": {
+        "lat": 44.3369476,
+        "lng": -85.2141978
+    },
+    "15060 HELMER ROAD, BATTLE CREEK, MI 49015, USA": {
+        "lat": 42.2921065,
+        "lng": -85.2381486
+    },
+    "8900 N NEWBURGH ROAD, LIVONIA, MI 48150, USA": {
+        "lat": 42.354177,
+        "lng": -83.410364
+    },
+    "650 W. EASTERDAY AVE, SAULT STE. MARIE, MI 49783, USA": {
+        "lat": 46.4917787,
+        "lng": -84.3652135
+    },
+    "555 E. HURON BLVD, MARYSVILLE, MI 48040, USA": {
+        "lat": 42.911336,
+        "lng": -82.4770004
+    },
+    "1001 S BARNES STREET, MASON, MI 48854, USA": {
+        "lat": 42.5699034,
+        "lng": -84.4350147
+    },
+    "3901 N SAGINAW ROAD, MIDLAND, MI 48640, USA": {
+        "lat": 43.6381522,
+        "lng": -84.2759426
+    },
+    "2380 S MILFORD ROAD, HIGHLAND, MI 49665, USA": {
+        "lat": 42.6168943,
+        "lng": -83.6237477
+    },
+    "1155 S ELIZABETH STREET, MT PLEASANT, MI 48858, USA": {
+        "lat": 43.5917541,
+        "lng": -84.7613066
+    },
+    "16 N QUARTERLINE ROAD, MUSKEGON, MI 49442, USA": {
+        "lat": 43.252527,
+        "lng": -86.193854
+    },
+    "1300 CAMPUS PKWY, SALINE, MI 48108, USA": {
+        "lat": 42.1886415,
+        "lng": -83.7494148
+    },
+    "4333 JOHN R ROAD, TROY, MI 48085, USA": {
+        "lat": 42.5818284,
+        "lng": -83.1115826
+    },
+    "5376 N LONG LAKE ROAD, TRAVERSE CITY, MI 49685, USA": {
+        "lat": 44.7491789,
+        "lng": -85.6882404
+    },
+    "FIELD HOUSE 10915 S CAMPUS DRIVE, ALLENDALE, MI 49401, USA": {
+        "lat": 42.963445,
+        "lng": -85.890583
+    },
+    "DULUTH ENTERTAINMENT CONVENTION CENTER 350 HARBOR DRIVE, DULUTH, MN 55802, USA": {
+        "lat": 46.781119,
+        "lng": -92.096606
+    },
+    "1901 4TH ST SE, MINNEAPOLIS, MN 55455, USA": {
+        "lat": 44.9778997,
+        "lng": -93.2290658
+    },
+    "10 4TH AVE S, ST. CLOUD, MN 56301, USA": {
+        "lat": 45.5614365,
+        "lng": -94.1566723
+    },
+    "700 TERRACE HEIGHTS, WINONA, MN 55987, USA": {
+        "lat": 44.046969,
+        "lng": -91.680659
+    },
+    "901 NE DOUGLAS ST, LEE'S SUMMIT, MO 64086, USA": {
+        "lat": 38.9287368,
+        "lng": -94.3749199
+    },
+    "4500 RIVER PK DR, RIVERSIDE, MO 64150, USA": {
+        "lat": 39.1770597,
+        "lng": -94.6251271
+    },
+    "1 S. COMPTON AVE, ST. LOUIS, MO 63103, USA": {
+        "lat": 38.6325255,
+        "lng": -90.2281769
+    },
+    "124 GOODMAN DRIVE, BETHLEHEM, PA 18015, USA": {
+        "lat": 40.5852911,
+        "lng": -75.3573984
+    },
+    "1457 ELLISVILLE BLVD, LAUREL, MS 39440, USA": {
+        "lat": 31.6665317,
+        "lng": -89.1505846
+    },
+    "227 CAMPUS DRIVE, ASHEVILLE, NC 28804, USA": {
+        "lat": 35.6180466,
+        "lng": -82.5688335
+    },
+    "1355 COX MILL ROAD, CONCORD, NC 28027, USA": {
+        "lat": 35.3955756,
+        "lng": -80.7276301
+    },
+    "1921 W. GATE CITY BLVD, GREENSBORO, NC 27403, USA": {
+        "lat": 36.0574142,
+        "lng": -79.8278651
+    },
+    "104 E HAGGARD AVE, ELON, NC 27244, USA": {
+        "lat": 36.1030894,
+        "lng": -79.5037001
+    },
+    "1150 FORESTVILLE ROAD, WAKE FOREST, NC 27587, USA": {
+        "lat": 35.9413562,
+        "lng": -78.5107133
+    },
+    "1200 S 42ND STREET, GRAND FORKS, ND 58201, USA": {
+        "lat": 47.911132,
+        "lng": -97.088289
+    },
+    "1305 MEMORIAL AVE, WEST SPRINGFIELD, MA 01089, USA": {
+        "lat": 42.09136,
+        "lng": -72.6186655
+    },
+    "47 NASHUA ROAD, BEDFORD, NH 03110, USA": {
+        "lat": 42.9374786,
+        "lng": -71.5190398
+    },
+    "128 MAIN STREET, DURHAM, NH 03827, USA": {
+        "lat": 43.1397063,
+        "lng": -70.9344473
+    },
+    "18 COREY ROAD, FLANDERS, NJ 07836, USA": {
+        "lat": 40.85647,
+        "lng": -74.712083
+    },
+    "155 ROBBINSVILLE EDINBURG ROAD, TRENTON, NJ 08691, USA": {
+        "lat": 40.238556,
+        "lng": -74.615357
+    },
+    "1016 ROUTE 601, SKILLMAN, NJ 08558, USA": {
+        "lat": 40.412036,
+        "lng": -74.702418
+    },
+    "110 CARRANZA ROAD, TABERNACLE, NJ 08088, USA": {
+        "lat": 39.8546223,
+        "lng": -74.7196713
+    },
+    "41 JACKSON VALLEY ROAD, WASHINGTON, NJ 07882, USA": {
+        "lat": 40.76999,
+        "lng": -74.986403
+    },
+    "4505 S. MARYLAND PARKWAY, LAS VEGAS, NV 89154, USA": {
+        "lat": 36.1079411,
+        "lng": -115.1439051
+    },
+    "216 FORT WASHINGTON AVENUE, NEW YORK, NY 10032, USA": {
+        "lat": 40.842668,
+        "lng": -73.941957
+    },
+    "145 COLLEGE ROAD, SUFFERN, NY 10901, USA": {
+        "lat": 41.1330926,
+        "lng": -74.0886395
+    },
+    "51 S PEARL ST, ALBANY, NY 12207, USA": {
+        "lat": 42.6486276,
+        "lng": -73.754719
+    },
+    "2000 PROSPECT STREET, CLEVELAND, OH 44115, USA": {
+        "lat": 41.5019126,
+        "lng": -81.6548582
+    },
+    "3800 VICTORY PARKWAY, CINCINNATI, OH 45207, USA": {
+        "lat": 39.149898,
+        "lng": -84.4746463
+    },
+    "111 WEST PURDUE AVE., ENID, OK 73701, USA": {
+        "lat": 36.4345401,
+        "lng": -97.8787042
+    },
+    "4145 EAST 21ST STREET, TULSA, OK 74114, USA": {
+        "lat": 36.1342261,
+        "lng": -95.930875
+    },
+    "1 GEORGIAN DRIVE, BARRIE, ON L4M 4H8, CANADA": {
+        "lat": 44.4122304,
+        "lng": -79.6682682
+    },
+    "6815 STANLEY AVE, NIAGARA FALLS, ON L2G 7B6, CANADA": {
+        "lat": 43.0760415,
+        "lng": -79.0850205
+    },
+    "1280 MAIN STREET WEST, HAMILTON, ON L8S 4L8, CANADA": {
+        "lat": 43.2639397,
+        "lng": -79.9178252
+    },
+    "ROBERT J. SURTEES ATHLETICS CENTRE 100 COLLEGE DRIVE, NORTH BAY, ON P1B 0G1, CANADA": {
+        "lat": 46.342493,
+        "lng": -79.486528
+    },
+    "2000 SIMCOE STREET NORTH, OSHAWA, ON L1G 0C8, CANADA": {
+        "lat": 43.9483414,
+        "lng": -78.8982025
+    },
+    "NORTH ATHLETIC CENTRE BUILDING A 205 HUMBER COLLEGE BLVD, ETOBICOKE, ON M9W 5L7, CANADA": {
+        "lat": 43.726973,
+        "lng": -79.609604
+    },
+    "PAC - PHYSICAL ACTIVITIES COMPLEX 200 UNIVERSITY AVE WEST, WATERLOO, ON N2L 3G3, CANADA": {
+        "lat": 43.469275,
+        "lng": -80.545816
+    },
+    "100 NIAGARA COLLEGE BLVD, WELLAND, ON L3C 7L3, CANADA": {
+        "lat": 43.0152687,
+        "lng": -79.2650898
+    },
+    "401 SUNSET AVE, WINDSOR, ON N9B 3P4, CANADA": {
+        "lat": 42.3052501,
+        "lng": -83.0645804
+    },
+    "1306 12TH STREET, OREGON CITY, OR 97045, USA": {
+        "lat": 45.3564318,
+        "lng": -122.5967398
+    },
+    "2330 - 17TH STREET NE, SALEM, OR 97301, USA": {
+        "lat": 44.9623398,
+        "lng": -123.0076648
+    },
+    "6800 SW WILSONVILLE ROAD, WILSONVILLE, OR 97070, USA": {
+        "lat": 45.3068013,
+        "lng": -122.7466614
+    },
+    "4319 HULMEVILLE ROAD, BENSALEM, PA 19020, USA": {
+        "lat": 40.113069,
+        "lng": -74.933841
+    },
+    "DAVID L. LAWRENCE CONVENTION CENTER 1000 FORT DEQUENSE BLVD, PITTSBURGH, PA 15222, USA": {
+        "lat": 40.446365,
+        "lng": -79.996706
+    },
+    "899 HORSHAM ROAD, HORSHAM, PA 19044, USA": {
+        "lat": 40.1970949,
+        "lng": -75.1639726
+    },
+    "3201 RYAN AVE, PHILADELPHIA, PA 19136, USA": {
+        "lat": 40.0440691,
+        "lng": -75.0402089
+    },
+    "333 CENTENNIAL ROAD, WARMINSTER, PA 18974, USA": {
+        "lat": 40.1824974,
+        "lng": -75.070769
+    },
+    "REESE COURT 1136 WASHINGTON STREET, CHENEY, WA 99004, USA": {
+        "lat": 47.492767,
+        "lng": -117.586471
+    },
+    "85 KEANEY ROAD, KINGSTON, RI 02881, USA": {
+        "lat": 41.4831266,
+        "lng": -71.5359679
+    },
+    "5794 CASPER PADGETT WAY, NORTH CHARLESTON, SC 29406, USA": {
+        "lat": 32.8980875,
+        "lng": -80.0233627
+    },
+    "3027 MARTIN LUTHER KING JR BLVD, ANDERSON, SC 29625, USA": {
+        "lat": 34.5413787,
+        "lng": -82.67327
+    },
+    "451 EAST CAROLINA AVE, HARTSVILLE, SC 29550, USA": {
+        "lat": 34.3752012,
+        "lng": -80.0661148
+    },
+    "2615 LOWER RICHLAND BLVD, HOPKINS, SC 29061, USA": {
+        "lat": 33.9516239,
+        "lng": -80.8734737
+    },
+    "202 GISTS CREEK RD, SEVIERVILLE, TN 37876, USA": {
+        "lat": 35.8921916,
+        "lng": -83.5877042
+    },
+    "1700 TX-36, ABILENE, TX 79602, USA": {
+        "lat": 32.4318253,
+        "lng": -99.6953187
+    },
+    "401 S BUCHANAN STREET, AMARILLO, TX 79101, USA": {
+        "lat": 35.2085633,
+        "lng": -101.830643
+    },
+    "301 WEST LOOP 121, BELTON, TX 76513, USA": {
+        "lat": 31.0297633,
+        "lng": -97.4807614
+    },
+    "1 NRG PKWY, HOUSTON, TX 77054, USA": {
+        "lat": 29.6848581,
+        "lng": -95.4108015
+    },
+    "499 SOUTH STATE HIGHWAY 78, FARMERSVILLE, TX 75442, USA": {
+        "lat": 33.15858,
+        "lng": -96.375408
+    },
+    "4501 BRIDGE STREET, FORT WORTH, TX 76103, USA": {
+        "lat": 32.759402,
+        "lng": -97.2557934
+    },
+    "1865 ALDINE BENDER, FM 525, HOUSTON, TX 77032, USA": {
+        "lat": 29.931552,
+        "lng": -95.358685
+    },
+    "700 CONVENTION CENTER BLVD, MCALLEN, TX 78501, USA": {
+        "lat": 26.2006841,
+        "lng": -98.2594316
+    },
+    "3201 EAST HOUSTON STREET, SAN ANTONIO, TX 78219, USA": {
+        "lat": 29.4269468,
+        "lng": -98.4393948
+    },
+    "4601 BOSQUE BLVD, WACO, TX 76710, USA": {
+        "lat": 31.5384435,
+        "lng": -97.1865633
+    },
+    "3200 SOUTH DECKER LAKE DRIVE, WEST VALLEY CITY, UT 84119, USA": {
+        "lat": 40.702787,
+        "lng": -111.9505424
+    },
+    "7630 TELEGRAPH ROAD, ALEXANDRIA, VA 22315, USA": {
+        "lat": 38.7512589,
+        "lng": -77.1432142
+    },
+    "3401 BRUIN LANE, BLACKSBURG, VA 24060, USA": {
+        "lat": 37.2115266,
+        "lng": -80.4606707
+    },
+    "1996 HAWK BLVD, CHESAPEAKE, VA 23322, USA": {
+        "lat": 36.6481359,
+        "lng": -76.2152639
+    },
+    "4801 TWIN HICKORY ROAD, GLEN ALLEN, VA 23059, USA": {
+        "lat": 37.6757665,
+        "lng": -77.5994653
+    },
+    "97 SPEAR STREET, BURLINGTON, VT 05405, USA": {
+        "lat": 44.471757,
+        "lng": -73.1934686
+    },
+    "711 E MAIN STREET, AUBURN, WA 98002, USA": {
+        "lat": 47.3085955,
+        "lng": -122.2197048
+    },
+    "10920 - 199TH AVE CT E, BONNEY LAKE, WA 98391, USA": {
+        "lat": 47.1590551,
+        "lng": -122.1697661
+    },
+    "7401 144TH PLACE SE, SNOHOMISH, WA 98296, USA": {
+        "lat": 47.866364,
+        "lng": -122.170471
+    },
+    "1301 S FAIR AVENUE, YAKIMA, WA 98901, USA": {
+        "lat": 46.588774,
+        "lng": -120.4841469
+    },
+    "194 LUND ROAD, NASHUA, NH, USA": {
+        "lat": 42.7387458,
+        "lng": -71.4739362
+    },
+    "2121 E EMMERS DRIVE, APPLETON, WI 54915, USA": {
+        "lat": 44.2463222,
+        "lng": -88.3725452
+    },
+    "3305 LILLY ROAD, BROOKFIELD, WI 53005, USA": {
+        "lat": 43.0787376,
+        "lng": -88.0896417
+    },
+    "300 HARBORVIEW PLAZA, LA CROSSE, WI 54601, USA": {
+        "lat": 43.812055,
+        "lng": -91.256607
+    },
+    "EAGAN HIGH SCHOOL, 4185 BRADDOCK TRAIL, EAGAN, MN, USA, EAGAN, MN 55123, USA": {
+        "lat": 44.8074923,
+        "lng": -93.1342563
+    },
+    "W3718 SOUTH DRVE, PLYMOUTH, WI 53073, USA": {
+        "lat": 43.8407699,
+        "lng": -87.8836602
+    },
+    "605 W VETERANS WAY, MUKWONAGO, WI 53149, USA": {
+        "lat": 42.8736688,
+        "lng": -88.3481707
+    },
+    "14832 FM973, BUILDING E, MANOR, TX 78653, USA": {
+        "lat": 30.3812775,
+        "lng": -97.5310108
+    },
+    "940 HIGHWAY 290 WEST, DRIPPING SPRINGS, TX 78620, USA": {
+        "lat": 30.1965682,
+        "lng": -98.1003734
+    },
+    "4607 FM2351, FRIENDSWOOD, TX 77546, USA": {
+        "lat": 29.5480676,
+        "lng": -95.1867849
+    },
+    "THE QUARTER MILE WALKWAY, ROCHESTER, NY 14623, USA": {
+        "lat": 43.0850551,
+        "lng": -77.6718185
+    },
+    "HOFSTRA UNIVERSITY, 245, HEMPSTEAD, NY 11549, USA": {
+        "lat": 40.7202613,
+        "lng": -73.5977634
+    },
+    "176 UNIVERSITY DRIVE, PEMBROKE, NC 28372, USA": {
+        "lat": 34.689056,
+        "lng": -79.201583
+    },
+    "AV. EUGENIO GARZA SADA 2501 SUR, TECNOL\u00f3GICO, MONTERREY, MEX 64700, MEXICO": {
+        "lat": 25.6505825,
+        "lng": -100.2874612
+    },
+    "2211 TONY INGLE PKWY, DALTON, GA 30720, USA": {
+        "lat": 34.7593471,
+        "lng": -85.0055251
+    },
+    "CRAMIM BINYAMINA HIGH-SCHOOL, CRAMIM BINYAMINA-GIV'AT ADA, BINYAMINA, HAZAFON, ISRAEL, BINYAMINA, HAZAFON, ISRAEL": {
+        "lat": 32.5500806,
+        "lng": 34.9548294
+    },
+    "MISHMAR HAGVUL 5, HADERA, M, ISRAEL": {
+        "lat": 32.4311467,
+        "lng": 34.9268537
+    },
+    "HALTZTADION ST 1, NATANYA, M, ISRAEL": {
+        "lat": 32.2935886,
+        "lng": 34.8651982
+    },
+    "AV. PEDRO \u00c1LVARES CABRAL S/N - IBIRAPUERA, S\u00c3O PAULO, SP 04094-000, BRAZIL": {
+        "lat": -21.76972,
+        "lng": -50.96194
+    },
+    "R. CARLOS WEBER, 835 - VILA LEOPOLDINA, S\u00c3O PAULO, SP 05303-000, BRAZIL": {
+        "lat": -23.5280082,
+        "lng": -46.7304035
+    },
+    "PASEO DEL TECNOL\u00d3GICO 751, TORRE\u00d3N, COA 27258, MEXICO": {
+        "lat": 22.1700376,
+        "lng": -101.0113522
+    },
+    "500 C\u00d4TE-VERTU OUEST, DORVAL, QC H4B 2K3, CANADA": {
+        "lat": 45.463201,
+        "lng": -73.632664
+    },
+    "TINAZTEPE CADDESI NO:6, BA\u015eAK\u015eEHIR / \u0130STANBUL, 34 61080, T\u00dcRKIYE": {
+        "lat": 41.1224152,
+        "lng": 28.7758293
+    },
+    "100 \u2013 140TH AVE SE, BELLEVUE, WA 98005, USA": {
+        "lat": 47.6080411,
+        "lng": -122.1508037
+    },
+    "AV. EUGENIO GARZA SADA 2501 SUR, TECNOL\u00d3GICO, MONTERREY, MEX 64700, MEXICO": {
+        "lat": 25.6505825,
+        "lng": -100.2874612
+    },
+    "BA\u011eLICA BLV., ETIMESGUT / ANKARA, 06 06790, T\u00dcRKIYE": {
+        "lat": 39.8954459,
+        "lng": 32.6348894
+    },
+    "DR. REMZI KAZANCIGIL CD. NO:32, BAKIRK\u00d6Y / \u0130STANBUL, 34 34147, T\u00dcRKIYE": {
+        "lat": 40.98936,
+        "lng": 28.87121
+    },
+    "4380 VILLAGE WAY, LEAGUE CITY, TX 77546, USA": {
+        "lat": 29.5094707,
+        "lng": -95.024079
+    },
+    "HAMILTON HIGH SCHOOL, W220N6151 TOWN LINE RD, SUSSEX, WI, USA, SUSSEX, WI, USA": {
+        "lat": 43.1339,
+        "lng": -88.22204
+    },
+    "BETHPAGE HIGH SCHOOL, 10 CHERRY AVE, BETHPAGE, NY, USA, BETHPAGE, NY, USA": {
+        "lat": 40.7546749,
+        "lng": -73.4831671
+    }
+}
